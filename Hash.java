@@ -1,3 +1,4 @@
+package TwitterAssignment;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
