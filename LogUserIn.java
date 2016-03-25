@@ -1,9 +1,12 @@
-// William Scheid
-// Login class ver. 1 (3/25/16)
-
 package TwitterAssignment;
+
 import java.util.ArrayList;
 
+/**
+ * @Author William
+ * @Date 3/25/16
+ * LogUserIn class contains a constructor, a checkLoginSuccess method, and a getUsername method.
+ */
 public class LogUserIn {
 
     public ArrayList uList;
@@ -18,6 +21,8 @@ public class LogUserIn {
         this.p = pswd;
     }
     
+    // Checks all username AList indexes for username match, 
+    // then checks password AList index for pswd match 
     public boolean checkLoginSuccess(ArrayList uList, ArrayList pList, String u, String p){
         int pswdIndex = 0;
         boolean check = false;
@@ -36,6 +41,7 @@ public class LogUserIn {
         return check;
     }
     
+    // Getter method
     public String getUsername(boolean pswdCheck) {
         if (pswdCheck){
             return u;
