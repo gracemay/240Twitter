@@ -1,4 +1,4 @@
-# 240 Twitter
+# 240Twitter
 
   With respect to the new movie, <i>Captain America: Civil War</i>, this project will use the social media platform, Twitter, as communication tool between Marvel superhero fans. 
   
