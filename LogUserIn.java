@@ -1,7 +1,7 @@
 // William Scheid
 // Login class ver. 1 (3/25/16)
 
-package loguserin;
+package TwitterAssignment;
 import java.util.ArrayList;
 
 public class LogUserIn {
