@@ -194,7 +194,7 @@ public class GUI extends javax.swing.JFrame
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[])
+    public void start()
     {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -235,7 +235,6 @@ public class GUI extends javax.swing.JFrame
             }
         });
     }
-    private boolean postTrimmed = false;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel characters;
     private javax.swing.JScrollPane jScrollPane1;
