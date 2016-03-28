@@ -11,7 +11,9 @@ import java.util.Scanner;
  * @Author William
  * @Date 3/28/16
  * ReadInputFile class contains a constructor method which returns either a user
- * or a message ArrayList from an input file, if the file exists.
+ * or a message ArrayList from an input file, if the file exists. Code is designed
+ * as generally as possible to allow for updates with agreed upon Message/User
+ * objects & their object elements (lines 2728/29/31/32/33's parameters are arbitrary).
  */
 public class ReadInputFile {
 
