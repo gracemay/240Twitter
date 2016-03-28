@@ -56,7 +56,16 @@ public class ReadInputFile {
             }
         }
         catch (FileNotFoundException e) {
-            File outFile = new File ("runcounter.txt");
+            // Establish blank files if none exist
+            // Broad idea, we can edit as needed
+            File outFile = new File ("usersFile.txt");
+            FileWriter fWriter = new FileWriter(outFile, true);
+            PrintWriter pWriter = new PrintWriter(fWriter);
+            pWriter.print("");
+            pWriter.close();
+            return uList;
+            
+            File outFile = new File ("messageFile.txt");
             FileWriter fWriter = new FileWriter(outFile, true);
             PrintWriter pWriter = new PrintWriter(fWriter);
             pWriter.print("");
