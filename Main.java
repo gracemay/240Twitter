@@ -6,8 +6,8 @@ public class Main {
     
     
     public static void main(String[] args) {
-        GUI graphical = new GUI();
-        graphical.start();
+        //GUI graphical = new GUI();
+        //graphical.start();
         
     }
     
