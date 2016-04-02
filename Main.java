@@ -7,7 +7,7 @@ public class Main {
     
     // (4/1/16) William: I added the updated input method and calls from the main method, with updated parameter read-ins.
     //
-    // TO BE DONE: Next, the User and Message classes must be updated to incorporate the new parameters as follows:
+    // TO BE DONE: Next, the User and Message classes must be updated to incorporate the new CONSTRUCTOR parameters as follows:
     // public Message(String user, int messageID, String message, int date, boolean privacy) {
     // User(String usname, String pswd, String email, String regdate, String description, int numbFollwers, int numbFollwing, String followers, String following){
     //
