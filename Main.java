@@ -1,6 +1,7 @@
 package TwitterAssignment;
 /**
  * @author Evan Shipman
+ * @author William Scheid
  */
 public class Main {
     // ReadInputFile method to be added after testing is completed tonight
