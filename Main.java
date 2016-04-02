@@ -17,7 +17,7 @@ public class Main {
     // public Message(String user, int messageID, String message, int date, boolean privacy) {
     // User(String usname, String pswd, String email, String regdate, String description, int numbFollwers, int numbFollwing, String followers, String following){
     //
-    // This is probably a task for two different people, seeing as it then involves manipulating the class constructor
+    // This is probably a task for two different people(?), seeing as it then involves manipulating the class constructor
     // and changing / adding methods.
     //
     public static ArrayList ReadInputFile(String inputName) throws FileNotFoundException {
