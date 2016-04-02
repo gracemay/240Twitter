@@ -5,7 +5,7 @@ package TwitterAssignment;
  */
 public class Main {
     
-    // (4/1/16) William: I added the input method and method call to the main method, with updated parameter read-ins.
+    // (4/1/16) William: I added the updated input method and calls from the main method, with updated parameter read-ins.
     //
     // TO BE DONE: Next, the User and Message classes must be updated to incorporate the new parameters as follows:
     // public Message(String user, int messageID, String message, int date, boolean privacy) {
