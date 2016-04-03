@@ -25,12 +25,14 @@ public class User{
     public String[] followings;
 
     //User constructor:edited
-    public User(String usname, String pswd, String email, String dateMade, String description,
+    //removed the date parameter to get the system time
+    //public User(String usname, String pswd, String email, String dateMade, String description,
+    public User(String usname, String pswd, String email, String description,
                 int uFollwers, int uFollwing, String followers, String following){
         username = usname;
         password = pswd;
         this.email = email;
-        date = dateMade;
+        date = Main.sdf.format(new Date(System.currentTimeMillis()));
         this.description = description;
         userFollowers = uFollwers;
         userFollowing = uFollwing;
@@ -130,7 +132,8 @@ public class User{
 
 class PraticeUser{
     public static void main(String[] args){
-        User use = new User("Jacqueline", "123456", "jcoates@gmai.com", "11/12/2016", "this is a test",
+        //User use = new User("Jacqueline", "123456", "jcoates@gmai.com", "11/12/2016", "this is a test",
+        User use = new User("Jacqueline", "123456", "jcoates@gmai.com", "this is a test",
         3, 3, "jec12;pj34;sam;", "grace12;pet;will.i.am");
 
         System.out.println(use.getUsername());

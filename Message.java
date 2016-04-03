@@ -11,7 +11,7 @@ public class Message {
     String user;
     int messageID;
     String message;
-    int date;
+    long date;
     boolean privacy;
 
     String[] messageList = new String[140];
@@ -19,11 +19,13 @@ public class Message {
     //add a time stamp
 
     //constructor
-    public Message(String user, int messageID, String message, int date, boolean privacy){
+    //removed the date parameter to get the system time instead
+    //public Message(String user, int messageID, String message, long date, boolean privacy){
+    public Message(String user, int messageID, String message, boolean privacy){
         this.user = user;
         this.messageID = messageID;
         this.message = message;
-        this.date = date;
+        this.date = System.currentTimeMillis();
         this.privacy = privacy;
         messageLength = this.message.length()-1;
 
@@ -42,13 +44,17 @@ public class Message {
     public int getMessageID(){
         return messageID;
     }
-    public int getDate(){
+    public long getDate(){
         return date;
     }
     public boolean getPrivacy(){
         return privacy;
     }
-
+    
+    public String getUser()
+    {
+        return user;
+    }
 
     //setter methods
     public void newPrivacy(boolean v){
@@ -60,7 +66,8 @@ public class Message {
 class TryMessage{
     public static void main(String[] args){
         //create class
-        Message pratice = new Message("jec123", 3, "Hello this is a pratice run", 111216, true);
+        //Message pratice = new Message("jec123", 3, "Hello this is a pratice run", 111216, true);
+        Message pratice = new Message("jec123", 3, "Hello this is a pratice run", true);
 
         //check all methods
         System.out.println(pratice.getMessage());

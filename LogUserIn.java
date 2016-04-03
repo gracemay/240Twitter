@@ -9,12 +9,12 @@ import java.util.ArrayList;
  */
 public class LogUserIn {
 
-    public ArrayList uList;
-    public ArrayList pList;
+    public ArrayList<String> uList;
+    public ArrayList<String> pList;
     public String u;
     public String p;
     
-    public LogUserIn(ArrayList uL, ArrayList pL, String user, String pswd) {
+    public LogUserIn(ArrayList<String> uL, ArrayList<String> pL, String user, String pswd) {
         this.uList = uL;
         this.pList = pL;
         this.u = user;
@@ -23,7 +23,7 @@ public class LogUserIn {
     
     // Checks all username AList indexes for username match, 
     // then checks password AList index for pswd match 
-    public boolean checkLoginSuccess(ArrayList uList, ArrayList pList, String u, String p){
+    public boolean checkLoginSuccess(ArrayList<String> uList, ArrayList<String> pList, String u, String p){
         int pswdIndex = 0;
         boolean check = false;
         
