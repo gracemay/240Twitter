@@ -4,23 +4,31 @@ package TwitterAssignment;
  * @Author Jacqueline
  * @Date 3/21/16
  * Message Class holds all data for the message
+ * @Date Edited: 4/2/2016
  */
 public class Message {
     //Data Types
-    String[] messageList = new String[140];
+    String user;
+    int messageID;
     String message;
+    int date;
+    boolean privacy;
+
+    String[] messageList = new String[140];
     int messageLength; // the end pt of the string
-    boolean view;
     //add a time stamp
 
     //constructor
-    public Message(String m, boolean v){
-        message = m;
-        messageLength = m.length()-1;
-        view = v;
+    public Message(String user, int messageID, String message, int date, boolean privacy){
+        this.user = user;
+        this.messageID = messageID;
+        this.message = message;
+        this.date = date;
+        this.privacy = privacy;
+        messageLength = this.message.length()-1;
 
-        for(int x = 0;x < m.length(); x++){
-            messageList[x] = m.substring(x,x+1);
+        for(int x = 0;x < this.message.length(); x++){
+            messageList[x] = this.message.substring(x,x+1);
         }
     }
 
@@ -31,13 +39,20 @@ public class Message {
     public int getMessageLength(){
         return messageLength;
     }
-    public boolean getView(){
-        return view;
+    public int getMessageID(){
+        return messageID;
+    }
+    public int getDate(){
+        return date;
+    }
+    public boolean getPrivacy(){
+        return privacy;
     }
 
+
     //setter methods
-    public void newView(boolean v){
-        view = v;
+    public void newPrivacy(boolean v){
+        privacy = v;
     }
 
 }
@@ -45,15 +60,12 @@ public class Message {
 class TryMessage{
     public static void main(String[] args){
         //create class
-        Message pratice = new Message("Hello this is a pratice run", true);
+        Message pratice = new Message("jec123", 3, "Hello this is a pratice run", 111216, true);
 
         //check all methods
         System.out.println(pratice.getMessage());
         System.out.println(pratice.getMessageLength());
-        System.out.println(pratice.getView());
-        //change 
-        pratice.newView(false);
-        System.out.println(pratice.getView());
+        System.out.println(pratice.getPrivacy());
 
     }
 }
