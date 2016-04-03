@@ -3,107 +3,144 @@ import java.util.*;
 import java.text.*;
 
 /**
-  * Author: Grace May
-  * Date: 3/25/2016
-  * User class.
-*/
-
-public class User{ 
+ * @Author: Grace May
+ * @Date: 3/25/2016
+ * User class.
+ *
+ * @Author: Jacqueline Coates
+ * @Date Edited: 4/2/2016
+ */
+public class User{
 //extends LogUserIn{
-   /** Data members for the User class. **/
-   public String username;
-   private String password;
-   public String email;
-   public String date;
-   public int userFollowers;
-   public int userFollowing;
-   public String userEmail;
-   public ArrayList<String> followAL;
-   public ArrayList<User> userAL;
-  
-   //User constructor
-   User(String usname, String pswd, String email, String regdate, int uFollwers, int uFollwing){
-      setUsername(usname);
-      setPassword(pswd);
-      setEmail(email);
-      setRegisterDate(regdate);
-      setUserFollowers(uFollwers);
-      setUserFollowing(uFollwing);
-   }
-   
-   /** These methods below are the setter methods for the User class. **/
-   void setUsername(String uname){
-      username = uname;
-   }
-   
-   void setPassword(String pword){
-      password = pword;
-   }
+    /** Data members for the User class. **/
+    protected String username;
+    private String password;
+    protected String email;
+    protected String date;
+    protected String description;
+    protected int userFollowers;
+    protected int userFollowing;
+    //changed to simple array for the addTo Followes and Following method
+    public String[] followers;
+    public String[] followings;
 
-   void setEmail(String em){
-      userEmail = em;
-   }   
-   
-   void setRegisterDate(String rdate){
-      date = rdate;
-   }
-   
-   void setUserFollowers(int ufwer){
-      int addingpeople =0;
-      if(addingpeople >= 1){
-         ufwer = addingpeople++;
-      }
-      else{
-         ufwer = 0;
-      }   
-      userFollowers = ufwer;
-   }
-   
-   void setUserFollowing(int ufwing){
-      int addedpeople =0;
-      if(addedpeople >= 1){
-         ufwing = addedpeople++;
-      }
-      else{
-         ufwing = 0;
-      }   
-      userFollowing = ufwing;
-   
-   }
-   
-   /** These methods below are the getter methods for the User class. **/
-   public String getUsername(){
-      return username;
-   }
-   
-   private String getPassword(){
-      return password;
-   }
-   
-   public String getEmail(){
-      return userEmail;
-   }
-   
-   public String getRegisterDate(){
-      Date date = new Date();
-      SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy h:mm:ss a");
-      String formatDate = sdf.format(date);
-      return formatDate;
-   }
-   
-   public int getFollowing(){
-      return userFollowing;
-   }
-   
-   public int getFollowers(){
-      return userFollowers;
-   }
-   
- 
- //createAccount(). Not entirely sure if this should go in this class or the Main method.
-   
- //  deleteAccount(). Not entirely sure if this should go in this class or the Main method.
+    //User constructor:edited
+    public User(String usname, String pswd, String email, String dateMade, String description,
+                int uFollwers, int uFollwing, String followers, String following){
+        username = usname;
+        password = pswd;
+        this.email = email;
+        date = dateMade;
+        this.description = description;
+        userFollowers = uFollwers;
+        userFollowing = uFollwing;
+        addToFollowers(followers);
+        addToFollowings(following);
+    }
+    //fill the followers array using the split() method
+    void addToFollowers(String followers){
+        this.followers = followers.split(";");
+    }
+    //fill the following array using the split() method
+    void addToFollowings(String followings){
+        this.followings = followings.split(";");
+    }
 
+    /** These methods below are the setter methods for the User class. **/
+    void setUsername(String uname){
+        username = uname;
+    }
 
+    void setPassword(String pword){
+        password = pword;
+    }
 
-} //end of User class
+    void setEmail(String em){
+        email = em;
+    }
+
+    void setRegisterDate(String rdate){
+        date = rdate;
+    }
+
+    void setUserFollowers(int ufwer){
+        int addingpeople =0;
+        if(addingpeople >= 1){
+            ufwer = addingpeople++;
+        }
+        else{
+            ufwer = 0;
+        }
+        userFollowers = ufwer;
+    }
+
+    void setUserFollowing(int ufwing){
+        int addedpeople =0;
+        if(addedpeople >= 1){
+            ufwing = addedpeople++;
+        }
+        else{
+            ufwing = 0;
+        }
+        userFollowing = ufwing;
+
+    }
+
+    /** These methods below are the getter methods for the User class. **/
+    public String getUsername(){
+        return username;
+    }
+
+    protected String getPassword(){
+        return password;
+    }
+
+    public String getEmail(){
+        return email;
+    }
+
+    public String getRegisterDate(){
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy h:mm:ss a");
+        String formatDate = sdf.format(date);
+        return formatDate;
+    }
+
+    public int getFollowing(){
+        return userFollowing;
+    }
+
+    public int getFollowers(){
+        return userFollowers;
+    }
+    
+    public void getFollowingList(){
+        for(int x = 0; x < followings.length; x++)
+            System.out.println("Following number "+x+": "+followings[x]);
+        System.out.println();
+    }
+
+    public void getFollowerList(){
+        for(int x = 0; x < followers.length; x++)
+            System.out.println("Follower number "+x+": "+followers[x]);
+        System.out.println();
+    }
+
+} //end of User clas
+
+class PraticeUser{
+    public static void main(String[] args){
+        User use = new User("Jacqueline", "123456", "jcoates@gmai.com", "11/12/2016", "this is a test",
+        3, 3, "jec12;pj34;sam;", "grace12;pet;will.i.am");
+
+        System.out.println(use.getUsername());
+        System.out.println(use.getEmail());
+        System.out.println(use.getFollowers());
+        System.out.println(use.getFollowing());
+        System.out.println(use.getRegisterDate());
+        System.out.println(use.getPassword());
+        use.getFollowerList();
+        use.getFollowingList();
+
+    }
+}
