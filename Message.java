@@ -33,6 +33,19 @@ public class Message {
             messageList[x] = this.message.substring(x,x+1);
         }
     }
+    
+    public Message(String user, int messageID, String message, long date, boolean privacy){
+        this.user = user;
+        this.messageID = messageID;
+        this.message = message;
+        this.date = date;
+        this.privacy = privacy;
+        messageLength = this.message.length()-1;
+
+        for(int x = 0;x < this.message.length(); x++){
+            messageList[x] = this.message.substring(x,x+1);
+        }
+    }
 
     //getter methods
     public String getMessage(){

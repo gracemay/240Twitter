@@ -49,7 +49,7 @@ public class Main {
             if (inputName.equals("usersFile.txt")) {
                 File inFile = new File(inputName);
                 try (Scanner inTxt = new Scanner(inFile)) {
-                    int firstLineIfNotApplicable = inTxt.nextInt();
+                    //int firstLineIfNotApplicable = inTxt.nextInt();
                     String username;
                     String password;
                     String email;
@@ -60,15 +60,15 @@ public class Main {
                     String followers;
                     String following;
                     while (inTxt.hasNext()) {
-                        username = inTxt.next();
-                        password = inTxt.next();
-                        email = inTxt.next();
-                        dateMade = inTxt.next();
-                        description = inTxt.next();
-                        followersCount = inTxt.nextInt();
-                        followingCount = inTxt.nextInt();
-                        followers = inTxt.next();
-                        following = inTxt.next();
+                        username = inTxt.nextLine();
+                        password = inTxt.nextLine();
+                        email = inTxt.nextLine();
+                        dateMade = inTxt.nextLine();
+                        description = inTxt.nextLine();
+                        followersCount = Integer.parseInt(inTxt.nextLine());
+                        followingCount = Integer.parseInt(inTxt.nextLine());
+                        followers = inTxt.nextLine();
+                        following = inTxt.nextLine();
                         User u = new User(username, password, email, description, followersCount, followingCount, followers, following);
                         uList.add(u);
                         pList.add((password));
@@ -79,20 +79,19 @@ public class Main {
             } else if (inputName.equals("messageFile.txt")) {
                 File inFile = new File(inputName);
                 try (Scanner inTxt = new Scanner(inFile)) {
-                    int firstLineIfNotApplicable = inTxt.nextInt();
                     String user;
                     int messageID;
                     String message;
-                    int date;
+                    long date;
                     boolean privacy;
                     while (inTxt.hasNext()) {
-                        user = inTxt.next();
-                        messageID = inTxt.nextInt();
-                        message = inTxt.next();
-                        date = inTxt.nextInt();
-                        privacy = inTxt.nextBoolean();
-                        //Message m = new Message(user, messageID, message, date, privacy);
-                        Message m = new Message(user, messageID, message, privacy);
+                        user = inTxt.nextLine();
+                        messageID = Integer.parseInt(inTxt.nextLine());
+                        message = inTxt.nextLine();
+                        date = Long.parseLong(inTxt.nextLine());
+                        privacy = Boolean.parseBoolean(inTxt.nextLine());
+                        Message m = new Message(user, messageID, message, date, privacy);
+                        //Message m = new Message(user, messageID, message, privacy);
                         mList.add(m);
                     }
                 }
@@ -111,11 +110,11 @@ public class Main {
         FileWriter fw = new FileWriter(new File("messageFile.txt"));
         for (Message msg : mList)
         {
-            fw.write(msg.getUser());
-            fw.write(msg.getMessageID());
-            fw.write(msg.getMessage());
-            fw.write(Long.toString(msg.getDate()));
-            fw.write(Boolean.toString(msg.getPrivacy()));
+            fw.write(msg.getUser() + "\n");
+            fw.write(msg.getMessageID() + "\n");
+            fw.write(msg.getMessage() + "\n");
+            fw.write(Long.toString(msg.getDate()) + "\n");
+            fw.write(Boolean.toString(msg.getPrivacy()) + "\n");
         }
         fw.close();
     }
@@ -127,13 +126,13 @@ public class Main {
         for (User user : uList)
         {
             String followers = "", following = "";
-            fw.write(user.getUsername());
-            fw.write(user.getPassword());
-            fw.write(user.getEmail());
-            fw.write(user.getRegisterDate());
-            fw.write(user.description);
-            fw.write(user.getFollowers());
-            fw.write(user.getFollowing());
+            fw.write(user.getUsername() + "\n");
+            fw.write(user.getPassword() + "\n");
+            fw.write(user.getEmail() + "\n");
+            fw.write(user.getRegisterDate() + "\n");
+            fw.write(user.description + "\n");
+            fw.write(user.getFollowers() + "\n");
+            fw.write(user.getFollowing() + "\n");
             for (int i = 0; i < user.followers.length; i++)
             {
                 followers += user.followers[i];
@@ -146,8 +145,8 @@ public class Main {
                 if (i != user.followings.length - 1)
                     following += ";";
             }
-            fw.write(followers);
-            fw.write(following);
+            fw.write(followers + "\n");
+            fw.write(following + "\n");
         }
         fw.close();
     }
@@ -165,9 +164,9 @@ public class Main {
         //graphical.start();
         ArrayList<User> userList = new ArrayList<>();
         ArrayList<Message> messageList = new ArrayList<>();
-        userList = ReadInputFile("UsersFile.txt");
-        messageList = ReadInputFile("MessageFile.txt");
-
+        userList = ReadInputFile("usersFile.txt");
+        messageList = ReadInputFile("messageFile.txt");
+        
         Scanner in = new Scanner(System.in);
         boolean done = false, success = false;
         String username = "", passwd = "";
@@ -177,14 +176,14 @@ public class Main {
             System.out.print("Username:");
             username = in.next();
             System.out.print("Password:");
-            passwd = Hash.md5(in.next());
+            passwd = (in.next());
             
             if (username.equals("") || passwd.equals(""))
                 done = true;
             
             LogUserIn lui = new LogUserIn(usernameList, pList, username, passwd);
             success = lui.checkLoginSuccess(usernameList, pList, username, passwd);
-            done = (success)? true : false;
+            done = (success);
             System.out.println("Error: Incorrect username or password.");
         }
         while (success)
@@ -201,7 +200,7 @@ public class Main {
             {
                 case 1:
                     System.out.print("Public message (Y/N)? ");
-                    boolean privateMessage = (in.next().equalsIgnoreCase("N")) ? true : false;
+                    boolean privateMessage = (in.next().equalsIgnoreCase("N"));
                     System.out.println("Please enter the message:");
                     String content = in.next();
                     Message msg = new Message(username, (int) (System.nanoTime() % Integer.MAX_VALUE), content, privateMessage); //simple message ID for now
@@ -222,13 +221,13 @@ public class Main {
                     String[] terms = in.next().split(" ");
                     for (Message m : messageList) 
                         if (hasTerms(m, terms))
-                            System.out.println("@" + m.getUser() + "  on " + sdfMessages.format(new Date(m.getDate())) + m.getMessage() + "\n");
+                            System.out.println(m.getUser() + "  on " + sdfMessages.format(new Date(m.getDate())) + m.getMessage() + "\n");
                     break;
                 case 4:
                     
                     break;
                 default:
-                    
+                    success = false;
                     break;
             }
         }
