@@ -17,8 +17,8 @@ public class Main {
     
     private static ArrayList<String> pList = new ArrayList<>();
     private static ArrayList<String> usernameList = new ArrayList<>();
-    protected static SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy");     //added to 
-    protected static SimpleDateFormat sdfMessages = new SimpleDateFormat("MM/dd/yyy hh:mm a");
+    protected static SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+    protected static SimpleDateFormat sdfMessages = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
     
     /*
         (4/3/16) Evan: Added the pList and usernameList for the LogUserIn, added methods to update the user and message files, some misc. formatting stuff
@@ -154,8 +154,9 @@ public class Main {
     public static boolean hasTerms(Message msg, String[] terms)
     {
         for (int i = 0; i < terms.length; i++)
-            if (msg.getMessage().contains(terms[i]));
+            if (msg.getMessage().contains(terms[i]))
                 return true;
+        return false;
     }
     
     
@@ -184,7 +185,8 @@ public class Main {
             LogUserIn lui = new LogUserIn(usernameList, pList, username, passwd);
             success = lui.checkLoginSuccess(usernameList, pList, username, passwd);
             done = (success);
-            System.out.println("Error: Incorrect username or password.");
+            if (!success)
+                System.out.println("Error: Incorrect username or password.");
         }
         while (success)
         {
@@ -200,10 +202,11 @@ public class Main {
             {
                 case 1:
                     System.out.print("Public message (Y/N)? ");
-                    boolean privateMessage = (in.next().equalsIgnoreCase("N"));
+                    char tempBool = in.next().charAt(0);
+                    boolean privateMessage = (tempBool == 'N' || tempBool == 'n');
                     System.out.println("Please enter the message:");
-                    String content = in.next();
-                    Message msg = new Message(username, (int) (System.nanoTime() % Integer.MAX_VALUE), content, privateMessage); //simple message ID for now
+                    String content = in.nextLine();
+                    Message msg = new Message(username, (int) (System.nanoTime() % Integer.MAX_VALUE), content, System.currentTimeMillis(), privateMessage); //simple message ID for now
                     addMessage(messageList, msg);                                                                                 //until we come up with something
                     break;                                                                                                        //better
                 case 2:
@@ -218,10 +221,10 @@ public class Main {
                     break;
                 case 3:     //can be optimized later to search by relevance
                     System.out.println("Enter search terms separated by spaces:");
-                    String[] terms = in.next().split(" ");
+                    String[] terms = in.nextLine().split(" ");
                     for (Message m : messageList) 
                         if (hasTerms(m, terms))
-                            System.out.println(m.getUser() + "  on " + sdfMessages.format(new Date(m.getDate())) + m.getMessage() + "\n");
+                            System.out.println(m.getUser() + "  on " + sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n");
                     break;
                 case 4:
                     
