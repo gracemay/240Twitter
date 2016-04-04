@@ -100,8 +100,15 @@ public class Main {
                     boolean work = false;
                     do{
                         try{
+                            //get public or private message
                             System.out.print("Public message (Y/N)? ");
-                            boolean privateMessage = (in.next().equalsIgnoreCase("N"));
+                            boolean privateMessage;
+                            String ans = in.next().toLowerCase();
+                            if(ans.equalsIgnoreCase("n"))
+                                privateMessage = false;
+                            else
+                                privateMessage = true;
+                            //ask for message
                             System.out.println("Please enter the message:");
                             String content = in.next();
                             Message msg = new Message(username, (int) (System.nanoTime() % Integer.MAX_VALUE), content, System.currentTimeMillis(), privateMessage);
