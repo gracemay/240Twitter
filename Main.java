@@ -11,8 +11,8 @@ import java.util.Scanner;
  */
 public class Main {
 
-    private static ArrayList<String> pList = new ArrayList<>();
-    private static ArrayList<String> usernameList = new ArrayList<>();
+    private static ArrayList<String> pList = new ArrayList<String>();
+    private static ArrayList<String> usernameList = new ArrayList<String>();
     protected static SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy");     //added to
     protected static SimpleDateFormat sdfMessages = new SimpleDateFormat("MM/dd/yyy hh:mm a");
     //added username and passwd to be data memebers.
@@ -42,8 +42,8 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
         //GUI graphical = new GUI();
         //graphical.start();
-        ArrayList<User> userList = new ArrayList<>();
-        ArrayList<Message> messageList = new ArrayList<>();
+        ArrayList<User> userList = new ArrayList<User>();
+        ArrayList<Message> messageList = new ArrayList<Message>();
         userList = ReadInputFile("usersFile.txt");
         messageList = ReadInputFile("messageFile.txt");
 
@@ -148,8 +148,8 @@ public class Main {
 
 
     public static ArrayList ReadInputFile(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
-        ArrayList<User> uList = new ArrayList<>();
-        ArrayList<Message> mList = new ArrayList<>();
+        ArrayList<User> uList = new ArrayList<User>();
+        ArrayList<Message> mList = new ArrayList<Message>();
 
         try {
             if (inputName.equals("usersFile.txt")) {
