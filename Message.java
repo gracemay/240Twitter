@@ -21,18 +21,18 @@ public class Message {
     //constructor
     //removed the date parameter to get the system time instead
     //public Message(String user, int messageID, String message, long date, boolean privacy){
-    public Message(String user, int messageID, String message, boolean privacy){
-        this.user = user;
-        this.messageID = messageID;
-        this.message = message;
-        this.date = System.currentTimeMillis();
-        this.privacy = privacy;
-        messageLength = this.message.length()-1;
-
-        for(int x = 0;x < this.message.length(); x++){
-            messageList[x] = this.message.substring(x,x+1);
-        }
-    }
+//    public Message(String user, int messageID, String message, boolean privacy){
+//        this.user = user;
+//        this.messageID = messageID;
+//        this.message = message;
+//        this.date = System.currentTimeMillis();
+//        this.privacy = privacy;
+//        messageLength = this.message.length()-1;
+//
+//        for(int x = 0;x < this.message.length(); x++){
+//            messageList[x] = this.message.substring(x,x+1);
+//        }
+//    }
     
     public Message(String user, int messageID, String message, long date, boolean privacy){
         this.user = user;
@@ -79,8 +79,8 @@ public class Message {
 class TryMessage{
     public static void main(String[] args){
         //create class
-        //Message pratice = new Message("jec123", 3, "Hello this is a pratice run", 111216, true);
-        Message pratice = new Message("jec123", 3, "Hello this is a pratice run", true);
+        Message pratice = new Message("jec123", 3, "Hello this is a pratice run", 111216, true);
+        //..-Message pratice = new Message("jec123", 3, "Hello this is a pratice run", true);..
 
         //check all methods
         System.out.println(pratice.getMessage());
