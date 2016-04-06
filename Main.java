@@ -26,8 +26,8 @@ public class Main {
         //graphical.start();
         ArrayList<User> userList = new ArrayList<User>();
         ArrayList<Message> messageList = new ArrayList<Message>();
-        userList = ReadInputFile("usersFile.txt");
-        messageList = ReadInputFile("messageFile.txt");
+        userList = readUserInput("UsersFile.txt");
+        messageList = readMessageInput("MessageFile.txt");
 
         Scanner in = new Scanner(System.in);
 
@@ -127,70 +127,64 @@ public class Main {
         }
     }
 
-
-
-    public static ArrayList ReadInputFile(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
-        ArrayList<User> uList = new ArrayList<User>();
+public static ArrayList readMessageInput(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
         ArrayList<Message> mList = new ArrayList<Message>();
-
-        try {
-            if (inputName.equals("usersFile.txt")) {
-                File inFile = new File(inputName);
-                try (Scanner inTxt = new Scanner(inFile)) {
-                    //int firstLineIfNotApplicable = inTxt.nextInt();
-                    String username;
-                    String password;
-                    String email;
-                    String dateMade;
-                    String description;
-                    int followersCount;
-                    int followingCount;
-                    String followers;
-                    String following;
-                    while (inTxt.hasNext()) {
-                        username = inTxt.nextLine();
-                        password = inTxt.nextLine();
-                        email = inTxt.nextLine();
-                        dateMade = inTxt.nextLine();
-                        description = inTxt.nextLine();
-                        followersCount = Integer.parseInt(inTxt.nextLine());
-                        followingCount = Integer.parseInt(inTxt.nextLine());
-                        followers = inTxt.nextLine();
-                        following = inTxt.nextLine();
-                        User u = new User(username, password, email, description, followersCount, followingCount, followers, following);
-                        uList.add(u);
-                        pList.add((password));
-                        usernameList.add(username);
-                    }
-                }
-                return uList;
-            } else if (inputName.equals("messageFile.txt")) {
-                File inFile = new File(inputName);
-                try (Scanner inTxt = new Scanner(inFile)) {
-                    String user;
-                    int messageID;
-                    String message;
-                    long date;
-                    boolean privacy;
-                    while (inTxt.hasNext()) {
-                        user = inTxt.nextLine();
-                        messageID = Integer.parseInt(inTxt.nextLine());
-                        message = inTxt.nextLine();
-                        date = Long.parseLong(inTxt.nextLine());
-                        privacy = Boolean.parseBoolean(inTxt.nextLine());
-                        Message m = new Message(user, messageID, message, date, privacy);
-                        //Message m = new Message(user, messageID, message, privacy);
-                        mList.add(m);
-                    }
-                }
-                return mList;
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("No 'UsersFile.txt' or 'MessageFile.txt' found.");
+        File inFile2 = new File(inputName);
+        Scanner inTxt2 = new Scanner(inFile2);
+        String user;
+        int messageID;
+        String message;
+        long date;
+        boolean privacy;
+        while (inTxt2.hasNext()) {
+            user = inTxt2.nextLine();
+            System.out.println(user);
+            messageID = Integer.parseInt(inTxt2.nextLine());
+            message = inTxt2.nextLine();
+            message = inTxt2.nextLine();
+            date = Long.parseLong(inTxt2.nextLine());
+            privacy = Boolean.parseBoolean(inTxt2.nextLine());
+            Message m = new Message(user, messageID, message, date, privacy);
+            mList.add(m);
         }
-
-        return null;
+        return mList;
     }
+        
+    public static ArrayList readUserInput(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
+        ArrayList<User> uList = new ArrayList<User>();
+        File inFile = new File(inputName);
+        Scanner inTxt = new Scanner(inFile);
+        String username;
+        String password;
+        String email;
+        String dateMade;
+        String description;
+        int followersCount;
+        int followingCount;
+        String followers;
+        String following;
+        while (inTxt.hasNext()) {
+            username = inTxt.nextLine();
+            System.out.println(username);
+            password = inTxt.nextLine();
+            email = inTxt.nextLine();
+            dateMade = inTxt.nextLine();
+            description = inTxt.nextLine();
+            description = inTxt.nextLine();
+            followersCount = Integer.parseInt(inTxt.nextLine());
+            followingCount = Integer.parseInt(inTxt.nextLine());
+            followers = inTxt.nextLine();
+            followers = inTxt.nextLine();
+            following = inTxt.nextLine();
+            following = inTxt.nextLine();
+            User u = new User(username, password, email, description, followersCount, followingCount, followers, following);
+            uList.add(u);
+            pList.add((password));
+            usernameList.add(username);
+        }
+        return uList;
+    }
+    
 
     public static void addMessage(ArrayList<Message> mList, Message m) throws IOException
     {
