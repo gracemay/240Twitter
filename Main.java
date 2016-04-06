@@ -11,6 +11,7 @@ import java.util.Scanner;
  * some misc. formatting stuff also put some Main functionality and a method for searching messages.
  * @author William Scheid
  * Date: (4/1/16) Added the updated input method and calls from the main method, with updated parameter read-ins.
+ * Date: (4/6/16) Solved issue, learned to pull LOL
  */
 public class Main {
 
