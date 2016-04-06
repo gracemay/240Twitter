@@ -11,7 +11,9 @@ import java.util.Scanner;
  * some misc. formatting stuff also put some Main functionality and a method for searching messages.
  * @author William Scheid
  * Date: (4/1/16) Added the updated input method and calls from the main method, with updated parameter read-ins.
- */
+ * Date: (4/6/16) Solved issue, learned to pull LOL
+ * this is a test!*/
+
 public class Main {
     //data members
     private static ArrayList<String> pList = new ArrayList<String>();
@@ -20,7 +22,6 @@ public class Main {
     protected static SimpleDateFormat sdfMessages = new SimpleDateFormat("MM/dd/yyy hh:mm a");
     //added username and passwd to be data memebers.
     protected static String username = "", passwd = "";
-
 
     public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
         //GUI graphical = new GUI();
@@ -120,6 +121,10 @@ public class Main {
                             System.out.println(m.getUser() + "  on " + sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n");
                     break;
                 case 4:
+                    System.out.println("Are you sure you want to delete your account? (Y/N)");
+                    if(in.nextLine().equalsIgnoreCase("y"))
+                        System.out.println("THis is the part where we delete");
+                    else
 
                     break;
                 default:
