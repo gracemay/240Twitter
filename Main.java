@@ -123,13 +123,15 @@ public class Main {
 
                     break;
                 default:
-                    success = false;
+                    success = true;
                     break;
             }
         }
     }
 
-public static ArrayList readMessageInput(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
+    //commented out some of the lines that were causing problems with reading the file
+    //also commented out the debugging lines to print the messages to the output
+    public static ArrayList readMessageInput(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
         ArrayList<Message> mList = new ArrayList<Message>();
         File inFile2 = new File(inputName);
         Scanner inTxt2 = new Scanner(inFile2);
@@ -140,7 +142,7 @@ public static ArrayList readMessageInput(String inputName) throws FileNotFoundEx
         boolean privacy;
         while (inTxt2.hasNext()) {
             user = inTxt2.nextLine();
-            System.out.println(user);
+            //System.out.println(user);
             messageID = Integer.parseInt(inTxt2.nextLine());
             //message = inTxt2.nextLine();
             message = inTxt2.nextLine();
@@ -152,6 +154,8 @@ public static ArrayList readMessageInput(String inputName) throws FileNotFoundEx
         return mList;
     }
         
+    //commented out some of the lines that were causing problems with reading the file
+    //also commented out the debugging lines to print the usernames to the output
     public static ArrayList readUserInput(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
         ArrayList<User> uList = new ArrayList<User>();
         File inFile = new File(inputName);
@@ -167,7 +171,7 @@ public static ArrayList readMessageInput(String inputName) throws FileNotFoundEx
         String following;
         while (inTxt.hasNext()) {
             username = inTxt.nextLine();
-            System.out.println(username);
+            //System.out.println(username);
             password = inTxt.nextLine();
             email = inTxt.nextLine();
             dateMade = inTxt.nextLine();
