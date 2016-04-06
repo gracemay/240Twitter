@@ -84,18 +84,18 @@ public class Main {
                     do {
                         try {
                             //get public or private message
-                            System.out.print("Private message (Y/N)? ");
-                            boolean privateMessage;
+                            System.out.print("Public message (Y/N)? ");
+                            boolean publicMessage;
                             in.nextLine();
                             String ans = in.nextLine().toLowerCase();
-                            if(ans.equalsIgnoreCase("n"))
-                                privateMessage = false;
+                            if(ans.equalsIgnoreCase("y"))
+                                publicMessage = true;
                             else
-                                privateMessage = true;
+                                publicMessage = false;
                             //ask for message
                             System.out.println("Please enter the message:");
                             String content = in.nextLine();
-                            Message msg = new Message(username, (int) (System.nanoTime() % Integer.MAX_VALUE), content, System.currentTimeMillis(), privateMessage);
+                            Message msg = new Message(username, (int) (System.nanoTime() % Integer.MAX_VALUE), content, System.currentTimeMillis(), publicMessage);
                             //simple message ID for now
                             addMessage(messageList, msg); //until we come up with something
                             work = true;
