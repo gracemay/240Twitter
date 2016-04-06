@@ -96,8 +96,8 @@ public class Main {
                 case 1:
                     //added a try catch statement for java.io.IOException
                     boolean work = false;
-                    do{
-                        try{
+                    do {
+                        try {
                             //get public or private message
                             System.out.print("Public message (Y/N)? ");
                             boolean privateMessage;
@@ -108,7 +108,7 @@ public class Main {
                                 privateMessage = true;
                             //ask for message
                             System.out.println("Please enter the message:");
-                            String content = in.next();
+                            String content = in.nextLine();
                             Message msg = new Message(username, (int) (System.nanoTime() % Integer.MAX_VALUE), content, System.currentTimeMillis(), privateMessage);
                             //simple message ID for now
                             addMessage(messageList, msg); //until we come up with something
@@ -116,7 +116,7 @@ public class Main {
                         }catch (java.io.IOException e){
                             System.out.println("Error With Message. Try again!");
                         }
-                    }while(!work);
+                    } while(!work);
                     break;                                                                                                        //better
                 case 2:
                     for (Message message : messageList) {
@@ -261,8 +261,5 @@ public class Main {
             if (msg.getMessage().contains(terms[i]));
         return true;
     }
-
-
-
 
 }
