@@ -104,14 +104,15 @@ public class Main {
                             System.out.print("Public message (Y/N)? ");
                             boolean privateMessage;
                             String ans = in.next().toLowerCase();
-                            if(ans.equalsIgnoreCase("n"))
-                                privateMessage = false;
+                            if(ans.equalsIgnoreCase("y"))
+                                privateMessage = true;
                             else
                                 privateMessage = true;
                             //ask for message
                             System.out.println("Please enter the message:");
                             String content = in.next();
                             Message msg = new Message(username, (int) (System.nanoTime() % Integer.MAX_VALUE), content, System.currentTimeMillis(), privateMessage);
+                            messageList.add(msg);
                             //simple message ID for now
                             addMessage(messageList, msg); //until we come up with something
                             work = true;
@@ -122,7 +123,7 @@ public class Main {
                     break;                                                                                                        //better
                 case 2:
                     for (Message message : messageList) {
-                        if (!message.privacy) {
+                        if (message.privacy) {
                             System.out.println("@" + message.getUser() + "  on " + sdfMessages.format(new Date(message.getDate())));
                             System.out.println(message.getMessage() + "\n");
                         }
