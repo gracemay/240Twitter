@@ -130,8 +130,6 @@ public class Main {
         }
     }
 
-    //commented out some of the lines that were causing problems with reading the file
-    //also commented out the debugging lines to print the messages to the output
     public static ArrayList readMessageInput(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
         ArrayList<Message> mList = new ArrayList<Message>();
         File inFile2 = new File(inputName);
@@ -143,9 +141,7 @@ public class Main {
         boolean privacy;
         while (inTxt2.hasNext()) {
             user = inTxt2.nextLine();
-            //System.out.println(user);
             messageID = Integer.parseInt(inTxt2.nextLine());
-            //message = inTxt2.nextLine();
             message = inTxt2.nextLine();
             date = Long.parseLong(inTxt2.nextLine());
             privacy = Boolean.parseBoolean(inTxt2.nextLine());
@@ -155,8 +151,6 @@ public class Main {
         return mList;
     }
         
-    //commented out some of the lines that were causing problems with reading the file
-    //also commented out the debugging lines to print the usernames to the output
     public static ArrayList readUserInput(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
         ArrayList<User> uList = new ArrayList<User>();
         File inFile = new File(inputName);
@@ -172,17 +166,13 @@ public class Main {
         String following;
         while (inTxt.hasNext()) {
             username = inTxt.nextLine();
-            //System.out.println(username);
             password = inTxt.nextLine();
             email = inTxt.nextLine();
             dateMade = inTxt.nextLine();
-            //description = inTxt.nextLine();
             description = inTxt.nextLine();
             followersCount = Integer.parseInt(inTxt.nextLine());
             followingCount = Integer.parseInt(inTxt.nextLine());
-            //followers = inTxt.nextLine();
             followers = inTxt.nextLine();
-            //following = inTxt.nextLine();
             following = inTxt.nextLine();
             
             User u = new User(username, password, email, description, followersCount, followingCount, followers, following);
