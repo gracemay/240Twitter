@@ -7,41 +7,26 @@ import java.util.Date;
 import java.util.Scanner;
 /**
  * @author Evan Shipman
+ * Date: (4/3/16) Added pList and usernameList for LogUserIn, added methods to update the user and message files,
+ * some misc. formatting stuff also put some Main functionality and a method for searching messages.
  * @author William Scheid
+ * Date: (4/1/16) Added the updated input method and calls from the main method, with updated parameter read-ins.
  */
 public class Main {
 
-    private static ArrayList<String> pList = new ArrayList<>();
-    private static ArrayList<String> usernameList = new ArrayList<>();
+    private static ArrayList<String> pList = new ArrayList<String>();
+    private static ArrayList<String> usernameList = new ArrayList<String>();
     protected static SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy");     //added to
     protected static SimpleDateFormat sdfMessages = new SimpleDateFormat("MM/dd/yyy hh:mm a");
     //added username and passwd to be data memebers.
     protected static String username = "", passwd = "";
 
-    /*
-        (4/3/16) Evan: Added the pList and usernameList for the LogUserIn, added methods to update the user and message files, some misc. formatting stuff
-                       also put some Main functionality and a method for searching messages. I wasn't able to finish the switch statements
-                       Currently there is one problem I'm noticing. When I run it, there is a NullPointerException that I think is somewhere around where
-                       it reads the input files. I can fix it but I won't be able to get to it again until tonight or early tomorrow morning
-                        The error could just be something I did and don't see yet.
-                       I sincerely apologize for any and all messy code pieces
-                        I have an idea to have display method in message class that takes user as input so it handles privacy and formatting
-    */
 
-    // (4/1/16) William: I added the updated input method and calls from the main method, with updated parameter read-ins.
-    //
-    // TO BE DONE: Next, the User and Message classes must be updated to incorporate the new CONSTRUCTOR parameters as follows:
-    // public Message(String user, int messageID, String message, int date, boolean privacy) {
-    // User(String usname, String pswd, String email, String regdate, String description, int numbFollwers, int numbFollwing, String followers, String following){
-    //
-    // This is probably a task for two different people(?), seeing as it then involves manipulating the class constructor
-    // and changing / adding methods.
-    //
     public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
         //GUI graphical = new GUI();
         //graphical.start();
-        ArrayList<User> userList = new ArrayList<>();
-        ArrayList<Message> messageList = new ArrayList<>();
+        ArrayList<User> userList = new ArrayList<User>();
+        ArrayList<Message> messageList = new ArrayList<Message>();
         userList = ReadInputFile("usersFile.txt");
         messageList = ReadInputFile("messageFile.txt");
 
@@ -146,8 +131,8 @@ public class Main {
 
 
     public static ArrayList ReadInputFile(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
-        ArrayList<User> uList = new ArrayList<>();
-        ArrayList<Message> mList = new ArrayList<>();
+        ArrayList<User> uList = new ArrayList<User>();
+        ArrayList<Message> mList = new ArrayList<Message>();
 
         try {
             if (inputName.equals("usersFile.txt")) {
