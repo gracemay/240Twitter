@@ -84,9 +84,10 @@ public class Main {
                     do {
                         try {
                             //get public or private message
-                            System.out.print("Public message (Y/N)? ");
+                            System.out.print("Private message (Y/N)? ");
                             boolean privateMessage;
-                            String ans = in.next().toLowerCase();
+                            in.nextLine();
+                            String ans = in.nextLine().toLowerCase();
                             if(ans.equalsIgnoreCase("n"))
                                 privateMessage = false;
                             else
@@ -116,7 +117,7 @@ public class Main {
                     String[] terms = in.next().split(" ");
                     for (Message m : messageList)
                         if (hasTerms(m, terms))
-                            System.out.println(m.getUser() + "  on " + sdfMessages.format(new Date(m.getDate())) + m.getMessage() + "\n");
+                            System.out.println(m.getUser() + "  on " + sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n");
                     break;
                 case 4:
 
@@ -141,7 +142,7 @@ public static ArrayList readMessageInput(String inputName) throws FileNotFoundEx
             user = inTxt2.nextLine();
             System.out.println(user);
             messageID = Integer.parseInt(inTxt2.nextLine());
-            message = inTxt2.nextLine();
+            //message = inTxt2.nextLine();
             message = inTxt2.nextLine();
             date = Long.parseLong(inTxt2.nextLine());
             privacy = Boolean.parseBoolean(inTxt2.nextLine());
@@ -170,14 +171,15 @@ public static ArrayList readMessageInput(String inputName) throws FileNotFoundEx
             password = inTxt.nextLine();
             email = inTxt.nextLine();
             dateMade = inTxt.nextLine();
-            description = inTxt.nextLine();
+            //description = inTxt.nextLine();
             description = inTxt.nextLine();
             followersCount = Integer.parseInt(inTxt.nextLine());
             followingCount = Integer.parseInt(inTxt.nextLine());
+            //followers = inTxt.nextLine();
             followers = inTxt.nextLine();
-            followers = inTxt.nextLine();
+            //following = inTxt.nextLine();
             following = inTxt.nextLine();
-            following = inTxt.nextLine();
+            
             User u = new User(username, password, email, description, followersCount, followingCount, followers, following);
             uList.add(u);
             pList.add((password));
@@ -190,7 +192,7 @@ public static ArrayList readMessageInput(String inputName) throws FileNotFoundEx
     public static void addMessage(ArrayList<Message> mList, Message m) throws IOException
     {
         mList.add(m);
-        FileWriter fw = new FileWriter(new File("messageFile.txt"));
+        FileWriter fw = new FileWriter(new File("MessageFile.txt"));
         for (Message msg : mList)
         {
             fw.write(msg.getUser() + "\n");
@@ -237,8 +239,9 @@ public static ArrayList readMessageInput(String inputName) throws FileNotFoundEx
     public static boolean hasTerms(Message msg, String[] terms)
     {
         for (int i = 0; i < terms.length; i++)
-            if (msg.getMessage().contains(terms[i]));
-        return true;
+            if (msg.getMessage().contains(terms[i]))
+                return true;
+        return false;
     }
 
 }
