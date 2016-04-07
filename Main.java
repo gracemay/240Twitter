@@ -12,6 +12,8 @@ import java.util.Scanner;
  * @author William Scheid
  * Date: (4/1/16) Added the updated input method and calls from the main method, with updated parameter read-ins.
  * Date: (4/6/16) Solved issue, learned to pull LOL
+ * Date: (4/6/16) Grace is trying to test her GitHub syncing lots of stuff.
+ * BLAHHHH!!!!
  */
 public class Main {
 
@@ -21,7 +23,6 @@ public class Main {
     protected static SimpleDateFormat sdfMessages = new SimpleDateFormat("MM/dd/yyy hh:mm a");
     //added username and passwd to be data memebers.
     protected static String username = "", passwd = "";
-
 
     public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
         //GUI graphical = new GUI();
@@ -182,7 +183,6 @@ public class Main {
         return uList;
     }
     
-
     public static void addMessage(ArrayList<Message> mList, Message m) throws IOException
     {
         mList.add(m);
@@ -197,7 +197,7 @@ public class Main {
         }
         fw.close();
     }
-
+    
     public static void addUser(ArrayList<User> uList, User u) throws IOException
     {
         uList.add(u);
@@ -229,7 +229,7 @@ public class Main {
         }
         fw.close();
     }
-
+    
     public static boolean hasTerms(Message msg, String[] terms)
     {
         for (int i = 0; i < terms.length; i++)
@@ -237,5 +237,4 @@ public class Main {
                 return true;
         return false;
     }
-
 }
