@@ -6,6 +6,18 @@
 package TwitterAssignment;
 
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextArea;
 
 /**
@@ -46,6 +58,7 @@ public class GUI extends javax.swing.JFrame
         postButton = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         msgs = new javax.swing.JTextArea();
+        refresh = new javax.swing.JButton();
 
         jLabel1.setText("Username/Email");
 
@@ -136,7 +149,17 @@ public class GUI extends javax.swing.JFrame
         msgs.setLineWrap(true);
         msgs.setRows(5);
         msgs.setWrapStyleWord(true);
+        msgs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane3.setViewportView(msgs);
+
+        refresh.setText("Refresh");
+        refresh.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                refreshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -150,11 +173,12 @@ public class GUI extends javax.swing.JFrame
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(postButton)
-                            .addComponent(characters, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(postButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(characters, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(refresh)))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(247, Short.MAX_VALUE))
+                .addContainerGap(224, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,7 +191,9 @@ public class GUI extends javax.swing.JFrame
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(characters)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(postButton))
+                                .addComponent(postButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(refresh))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)))
@@ -210,13 +236,54 @@ public class GUI extends javax.swing.JFrame
 
     private void postButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_postButtonActionPerformed
     {//GEN-HEADEREND:event_postButtonActionPerformed
-//        msgs.append("--------------------\n" + post.getText());
-        String user = "RandomUser";
-        if (!msgs.getText().equals(""))
-            msgs.setText(user + "\n" + post.getText() + "\n--------------------\n" + msgs.getText());
-        else
-            msgs.setText(user + "\n" + post.getText());
-        post.setText("");
+        
+        
+            
+        //INSERT SERVER IP ADDRESS HERE
+        String hostName = "";
+        int portNumber = 4444;
+        try (
+            Socket twitterSocket = new Socket(hostName, portNumber);
+            ServerSocket server = new ServerSocket(portNumber + 1);
+            Socket incoming = server.accept();
+            BufferedReader fromServer = new BufferedReader(new InputStreamReader(incoming.getInputStream()));
+            PrintWriter out = new PrintWriter(twitterSocket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(twitterSocket.getInputStream()));
+        ) {
+            
+            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+            String tempFromServer, reply = "", fromUser;
+            char[] cbuf = new char[2048];
+            
+            fromUser = "@Evan " + post.getText();
+            if (fromUser != null)
+                out.println(fromUser);
+            //out.close();
+            fromServer.read(cbuf);
+            
+            String[] msgText = new String(cbuf).split("\n");
+            for (int i = 0; i < msgText.length; i++)
+                if (i % 3 == 1)
+                    msgText[i] = Main.sdfMessages.format(Long.parseLong(msgText[i]));
+                    
+            msgs.setText(new String(cbuf));
+           
+            
+            post.setText("");
+        } catch (UnknownHostException e) {
+            System.err.println("Don't know about host " + hostName);
+        } catch (IOException e) {
+            System.err.println("Couldn't get I/O for the connection to " + hostName);
+        }
+
+
+//        String user = "RandomUser";
+//        if (!msgs.getText().equals(""))
+//            msgs.setText(user + "\n" + post.getText() + "\n--------------------\n" + msgs.getText());
+//        else
+//            msgs.setText(user + "\n" + post.getText());
+//        post.setText("");
+        
     }//GEN-LAST:event_postButtonActionPerformed
 
     private void postKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_postKeyReleased
@@ -233,6 +300,15 @@ public class GUI extends javax.swing.JFrame
             postButton.setVisible(true);
         }
     }//GEN-LAST:event_postKeyReleased
+
+    private void refreshActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_refreshActionPerformed
+    {//GEN-HEADEREND:event_refreshActionPerformed
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_refreshActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,5 +368,6 @@ public class GUI extends javax.swing.JFrame
     private javax.swing.JTextArea msgs;
     private javax.swing.JTextArea post;
     private javax.swing.JButton postButton;
+    private javax.swing.JButton refresh;
     // End of variables declaration//GEN-END:variables
 }
