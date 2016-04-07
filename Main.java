@@ -1,4 +1,4 @@
-package TwitterAssignment;
+//package TwitterAssignment;
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -30,7 +30,6 @@ public class Main {
         ArrayList<Message> messageList = new ArrayList<Message>();
         userList = readUserInput("UsersFile.txt");
         messageList = readMessageInput("MessageFile.txt");
-
         Scanner in = new Scanner(System.in);
 
         boolean done = LogIn(in);
