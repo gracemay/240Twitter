@@ -1,4 +1,5 @@
 package TwitterAssignment;
+
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -12,7 +13,8 @@ import java.util.Scanner;
  * @author William Scheid
  * Date: (4/1/16) Added the updated input method and calls from the main method, with updated parameter read-ins.
  * Date: (4/6/16) Solved issue, learned to pull LOL
- * Date: (4/6/16) Fixed file saving error
+ * Date: (4/6/16) Grace is trying to test her GitHub syncing lots of stuff.
+ * BLAHHHH!!!!
  */
 public class Main {
 
@@ -101,7 +103,7 @@ public class Main {
                             //simple message ID for now
                             addMessage(messageList, msg); //until we come up with something
                             work = true;
-                        }catch (java.io.IOException e){
+                        }catch (Exception e){
                             System.out.println("Error With Message. Try again!");
                         }
                     } while(!work);
@@ -239,5 +241,4 @@ public class Main {
                 return true;
         return false;
     }
-
 }
