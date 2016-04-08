@@ -18,10 +18,12 @@ import java.util.Scanner;
  */
 public class Main {
 
-    private static ArrayList<String> pList = new ArrayList<String>();
-    private static ArrayList<String> usernameList = new ArrayList<String>();
-    protected static SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy");     //added to
-    protected static SimpleDateFormat sdfMessages = new SimpleDateFormat("MM/dd/yyy hh:mm a");
+//    private static ArrayList<String> pList = new ArrayList<String>();
+//    private static ArrayList<String> usernameList = new ArrayList<String>();
+    protected static ArrayList<User> userList;
+    protected static ArrayList<Message> messageList;
+    public static SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy");     //added to
+    public static SimpleDateFormat sdfMessages = new SimpleDateFormat("MM/dd/yyy hh:mm a");
     //added username and passwd to be data memebers.
     protected static String username = "", passwd = "";
 
@@ -29,8 +31,8 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
         //GUI graphical = new GUI();
         //graphical.start();
-        ArrayList<User> userList = new ArrayList<User>();
-        ArrayList<Message> messageList = new ArrayList<Message>();
+        userList = new ArrayList<User>();
+        messageList = new ArrayList<Message>();
         userList = readUserInput("UsersFile.txt");
         messageList = readMessageInput("MessageFile.txt");
 
@@ -38,7 +40,7 @@ public class Main {
 
         boolean done = LogIn(in);
         if(done)
-            WhileLoggedIn(messageList, in);
+            WhileLoggedIn(in);
         else
             System.out.println("User is not logged in.");
 
@@ -47,8 +49,9 @@ public class Main {
     //this method logs the user in
     public static boolean LogIn(Scanner in){
         boolean done = false, success = false;
+        int attempts = 0;
         System.out.println("Please enter log-in information (leave blank to quit)");
-        while (!done)
+        while (!done && attempts <= 2)
         {
             System.out.print("Username:");
             username = in.next();
@@ -58,19 +61,20 @@ public class Main {
             if (username.equals("") || passwd.equals(""))
                 done = true;
 
-            LogUserIn lui = new LogUserIn(usernameList, pList, username, passwd);
-            success = lui.checkLoginSuccess(usernameList, pList, username, passwd);
+//            LogUserIn lui = new LogUserIn(username, passwd);
+            success = LogUserIn.checkLoginSuccess(userList, username, passwd);
             done = (success);
-
-            if(!done){
+            attempts++;
+            if(!done || attempts > 2){
                 System.out.println("Error: Incorrect username or password.");
+                break;
             }
         }
         return done;
     }
 
     //this method will run until the user is loged out.
-    public static void WhileLoggedIn(ArrayList<Message> messageList, Scanner in){
+    public static void WhileLoggedIn(Scanner in){
         boolean done = false, success = false;
         Scanner command = new Scanner(System.in);
         while(!success){
@@ -89,18 +93,19 @@ public class Main {
                         try {
                             //get public or private message
                             System.out.print("Public message (Y/N)? ");
-                            boolean publicMessage;
+                            boolean privateMessage;
                             in.nextLine();
                             String ans = in.nextLine().toLowerCase();
                             if(ans.equalsIgnoreCase("y"))
-                                publicMessage = true;
+                                privateMessage = false;
                             else
-                                publicMessage = false;
+                                privateMessage = true;
                             //ask for message
                             System.out.println("Please enter the message:");
                             String content = in.nextLine();
-                            Message msg = new Message(username, (int) (System.nanoTime() % Integer.MAX_VALUE), content, System.currentTimeMillis(), publicMessage);
+                            Message msg = new Message(username, (int) (System.nanoTime() % Integer.MAX_VALUE), content, System.currentTimeMillis(), privateMessage);
                             //simple message ID for now
+                            messageList.add(msg);
                             addMessage(messageList, msg); //until we come up with something
                             work = true;
                         }catch (Exception e){
@@ -180,8 +185,8 @@ public class Main {
             
             User u = new User(username, password, email, description, followersCount, followingCount, followers, following);
             uList.add(u);
-            pList.add((password));
-            usernameList.add(username);
+//            pList.add((password));
+//            usernameList.add(username);
         }
         return uList;
     }
@@ -189,10 +194,10 @@ public class Main {
 
     public static void addMessage(ArrayList<Message> mList, Message m) throws IOException
     {
-        mList.add(m);
         FileWriter fw = new FileWriter(new File("MessageFile.txt"));
         for (Message msg : mList)
         {
+            System.out.println(msg.getMessage());
             fw.write(msg.getUser() + "\n");
             fw.write(msg.getMessageID() + "\n");
             fw.write(msg.getMessage() + "\n");
