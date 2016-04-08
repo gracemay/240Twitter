@@ -1,4 +1,4 @@
-//package TwitterAssignment;
+package TwitterAssignment;
 import java.util.*;
 import java.text.*;
 
@@ -16,7 +16,7 @@ public class User{
     protected String username;
     private String password;
     protected String email;
-    protected String date;
+    protected long date;
     protected String description;
     protected int userFollowers;
     protected int userFollowing;
@@ -25,14 +25,28 @@ public class User{
     public String[] followings;
 
     //User constructor:edited
-    //removed the date parameter to get the system time
+    //changed the date to a long to make reading from a file with registration dates persistent
+    //      plus it's easier to convert from a long than to a long
     //public User(String usname, String pswd, String email, String dateMade, String description,
     public User(String usname, String pswd, String email, String description,
                 int uFollwers, int uFollwing, String followers, String following){
         username = usname;
         password = pswd;
         this.email = email;
-        date = Main.sdf.format(new Date(System.currentTimeMillis()));
+        date = System.currentTimeMillis();
+        this.description = description;
+        userFollowers = uFollwers;
+        userFollowing = uFollwing;
+        addToFollowers(followers);
+        addToFollowings(following);
+    }
+    
+    public User(String usname, String pswd, String email, long date, String description,
+                int uFollwers, int uFollwing, String followers, String following){
+        username = usname;
+        password = pswd;
+        this.email = email;
+        this.date = date;
         this.description = description;
         userFollowers = uFollwers;
         userFollowing = uFollwing;
@@ -61,7 +75,7 @@ public class User{
         email = em;
     }
 
-    void setRegisterDate(String rdate){
+    void setRegisterDate(long rdate){
         date = rdate;
     }
 
@@ -101,11 +115,9 @@ public class User{
         return email;
     }
 
-    public String getRegisterDate(){
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy h:mm:ss a");
-        String formatDate = sdf.format(date);
-        return formatDate;
+    
+    public long getRegisterDate(){
+        return date;
     }
 
     public int getFollowing(){
@@ -130,20 +142,20 @@ public class User{
 
 } //end of User clas
 
-class PraticeUser{
-    public static void main(String[] args){
-        //User use = new User("Jacqueline", "123456", "jcoates@gmai.com", "11/12/2016", "this is a test",
-        User use = new User("Jacqueline", "123456", "jcoates@gmai.com", "this is a test",
-        3, 3, "jec12;pj34;sam;", "grace12;pet;will.i.am");
-
-        System.out.println(use.getUsername());
-        System.out.println(use.getEmail());
-        System.out.println(use.getFollowers());
-        System.out.println(use.getFollowing());
-        System.out.println(use.getRegisterDate());
-        System.out.println(use.getPassword());
-        use.getFollowerList();
-        use.getFollowingList();
-
-    }
-}
+//class PraticeUser{
+//    public static void main(String[] args){
+//        //User use = new User("Jacqueline", "123456", "jcoates@gmai.com", "11/12/2016", "this is a test",
+//        User use = new User("Jacqueline", "123456", "jcoates@gmai.com", "this is a test",
+//        3, 3, "jec12;pj34;sam;", "grace12;pet;will.i.am");
+//
+//        System.out.println(use.getUsername());
+//        System.out.println(use.getEmail());
+//        System.out.println(use.getFollowers());
+//        System.out.println(use.getFollowing());
+//        System.out.println(use.getRegisterDate());
+//        System.out.println(use.getPassword());
+//        use.getFollowerList();
+//        use.getFollowingList();
+//
+//    }
+//}

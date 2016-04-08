@@ -1,4 +1,4 @@
-//package TwitterAssignment;
+package TwitterAssignment;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.security.NoSuchAlgorithmException;
 public class TwitterServer
 {
     
-    public static void main(String[] args) throws IOException, FileNotFoundException, NoSuchAlgorithmException, InterruptedException
+    public static void start() throws IOException, FileNotFoundException, NoSuchAlgorithmException, InterruptedException
     {
 
         int portNumber = 4444;

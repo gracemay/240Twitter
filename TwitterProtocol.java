@@ -1,4 +1,4 @@
-//package TwitterAssignment;
+package TwitterAssignment;
 
 import TwitterAssignment.*;
 import TwitterAssignment.Main;
@@ -58,7 +58,8 @@ public class TwitterProtocol {
             case POST:
                 post = input;
                 Message m = new Message(post.split(" ", 2)[0].substring(1), (int) (System.nanoTime() % Integer.MAX_VALUE), post.split(" ", 2)[1], System.currentTimeMillis(), false);
-                Main.addMessage(Main.readMessageInput("MessageFile.txt"), m);
+                Main.messageList.add(m);
+                Main.updateMessagesFIle();
                 //System.out.println(m.getUser() + "        " + sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n");
                 //output = (m.getUser() + "        " + sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n");
                 

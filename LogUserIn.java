@@ -1,4 +1,4 @@
-//package TwitterAssignment;
+package TwitterAssignment;
 
 import java.util.ArrayList;
 
@@ -24,34 +24,32 @@ public class LogUserIn {
     // Checks all username AList indexes for username match, 
     // then checks password AList index for pswd match 
     public static boolean checkLoginSuccess(ArrayList<User> userList, String u, String p){
-        int pswdIndex = -1;
-        boolean check = false;
+        for (int i = 0; i < userList.size(); i++)
+            if (userList.get(i).getUsername().equals(u) && userList.get(i).getPassword().equals(p))
+                return true;
         
 //        for (int i = 0; i < uList.size(); i++) {
 //            if (uList.get(i).equals(u)) {
 //                pswdIndex = i;
 //            }
 //        }
-        for (int i = 0; i < userList.size(); i++)
-        {
-            if (userList.get(i).getUsername().equals(u) && userList.get(i).getPassword().equals(p))
-            {
-                check = true;
-            }
-            
-        }
-        
-        
-        
+
         
 //        for (int i = 0; i < pList.size(); i++) {
 //            if (pList.get(pswdIndex).equals(p)) {
 //                check = true;
 //            }
 //        }
-        return check;
+        return false;
     }
     
+    public static User getUser(ArrayList<User> userList, String u, String p)
+    {
+        for (int i = 0; i < userList.size(); i++)
+            if (userList.get(i).getUsername().equals(u) && userList.get(i).getPassword().equals(p))
+                return userList.get(i);
+        return null;
+    }
     // Getter method
 //    public String getUsername(boolean pswdCheck) {
 //        if (pswdCheck){

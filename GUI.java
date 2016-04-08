@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-//package TwitterAssignment;
+package TwitterAssignment;
 
 import java.awt.Color;
 import java.io.BufferedReader;
@@ -313,7 +313,7 @@ public class GUI extends javax.swing.JFrame
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args)
+    public static void start()
     {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

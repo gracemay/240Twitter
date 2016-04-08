@@ -1,4 +1,4 @@
-//package TwitterAssignment;
+package TwitterAssignment;
 
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
@@ -15,6 +15,18 @@ import java.util.Scanner;
  * Date: (4/6/16) Solved issue, learned to pull LOL
  * Date: (4/6/16) Grace is trying to test her GitHub syncing lots of stuff.
  * BLAHHHH!!!!
+ * Evan Shipman:
+ * Date: (4/8/16) Changed addMessage and addUser to updateMessageFile and updateUserFile. A new message or user is
+ *      added outside of those methods that way we also have a way to remove messages and users without unnecessary
+ *      coding. Removed or renamed main methods from other classes so they can still be called. Cleaned up the
+ *      checkLoginSuccess method and added a getUser method in the LogUserIn class to help with deleting accounts.
+ *      Added a second constructor in User to accept a date as a long, and also changed the data type to a long
+ *      because it's much easier to convert from a long rather than back to a long. The User.getRegisterDate() now
+ *      returns a long so it must be converted with the formatter if it will be displayed to the user. Added the
+ *      case 4 in main (Delete user account)
+ *      ** If a user is placed in the UsersFile twice by mistake, deleting the account only removes one of them **
+ *      ** Sometimes I've noticed the Scanner doesn't work right after lots of inputs                           **
+ *      UPDATE: I think I finished the Scanner errors by changing them to nextLine()
  */
 public class Main {
 
@@ -24,6 +36,7 @@ public class Main {
     protected static ArrayList<Message> messageList;
     public static SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy");     //added to
     public static SimpleDateFormat sdfMessages = new SimpleDateFormat("MM/dd/yyy hh:mm a");
+    public static User currentUser;
     //added username and passwd to be data memebers.
     protected static String username = "", passwd = "";
 
@@ -46,33 +59,32 @@ public class Main {
 
     //this method logs the user in
     public static boolean LogIn(Scanner in){
-        boolean done = false, success = false;
+        boolean success = false;
         int attempts = 0;
         System.out.println("Please enter log-in information (leave blank to quit)");
-        while (!done && attempts <= 2)
+        while (!success && attempts <= 2)
         {
             System.out.print("Username:");
-            username = in.next();
+            username = in.nextLine();
             System.out.print("Password:");
-            passwd = (in.next());
+            passwd = (in.nextLine());
 
             if (username.equals("") || passwd.equals(""))
-                done = true;
-
+                success = false;
 //            LogUserIn lui = new LogUserIn(username, passwd);
             success = LogUserIn.checkLoginSuccess(userList, username, passwd);
-            done = (success);
+            currentUser = LogUserIn.getUser(userList, username, passwd);
             attempts++;
-            if(!done || attempts > 2){
+            if(!success && attempts > 2){
                 System.out.println("Error: Incorrect username or password.");
-                break;
+                return false;
             }
         }
-        return done;
+        return success;
     }
 
     //this method will run until the user is loged out.
-    public static void WhileLoggedIn(Scanner in){
+    public static void WhileLoggedIn(Scanner in) throws IOException{
         boolean done = false, success = false;
         Scanner command = new Scanner(System.in);
         while(!success){
@@ -83,7 +95,7 @@ public class Main {
                     + "4.) Delete account\n"
                     + "else, logout/quit\n"
                     + "command:");
-            switch (command.nextInt()) {
+            switch (Integer.parseInt(command.nextLine())) {
                 case 1:
                     //added a try catch statement for java.io.IOException
                     boolean work = false;
@@ -92,8 +104,7 @@ public class Main {
                             //get public or private message
                             System.out.print("Public message (Y/N)? ");
                             boolean privateMessage;
-                            in.nextLine();
-                            String ans = in.nextLine().toLowerCase();
+                            String ans = in.nextLine();
                             if(ans.equalsIgnoreCase("y"))
                                 privateMessage = false;
                             else
@@ -104,7 +115,7 @@ public class Main {
                             Message msg = new Message(username, (int) (System.nanoTime() % Integer.MAX_VALUE), content, System.currentTimeMillis(), privateMessage);
                             //simple message ID for now
                             messageList.add(msg);
-                            addMessage(messageList, msg); //until we come up with something
+                            updateMessagesFIle(); //until we come up with something
                             work = true;
                         }catch (Exception e){
                             System.out.println("Error With Message. Try again!");
@@ -114,20 +125,27 @@ public class Main {
                 case 2:
                     for (Message message : messageList) {
                         if (!message.privacy) {
-                            System.out.println("@" + message.getUser() + "  on " + sdfMessages.format(new Date(message.getDate())));
+                            System.out.println(message.getUser() + "  on " + sdfMessages.format(new Date(message.getDate())));
                             System.out.println(message.getMessage() + "\n");
                         }
                     }
                     break;
                 case 3:     //can be optimized later to search by relevance
                     System.out.println("Enter search terms separated by spaces:");
-                    String[] terms = in.next().split(" ");
+                    String[] terms = in.nextLine().split(" ");
                     for (Message m : messageList)
                         if (hasTerms(m, terms))
                             System.out.println(m.getUser() + "  on " + sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n");
                     break;
                 case 4:
-
+                    System.out.println("Are you sure you want to delete your account? (Yes/No): ");
+                    in.nextLine();
+                    if (in.nextLine().equalsIgnoreCase("Yes") && !currentUser.equals(null))
+                    {
+                        userList.remove(currentUser);
+                        updateUserFile();
+                    }
+                    System.exit(0);     //until we add a log out function
                     break;
                 default:
                     success = true;
@@ -164,7 +182,7 @@ public class Main {
         String username;
         String password;
         String email;
-        String dateMade;
+        long dateMade;
         String description;
         int followersCount;
         int followingCount;
@@ -174,14 +192,13 @@ public class Main {
             username = inTxt.nextLine();
             password = inTxt.nextLine();
             email = inTxt.nextLine();
-            dateMade = inTxt.nextLine();
+            dateMade = Long.parseLong(inTxt.nextLine());
             description = inTxt.nextLine();
             followersCount = Integer.parseInt(inTxt.nextLine());
             followingCount = Integer.parseInt(inTxt.nextLine());
             followers = inTxt.nextLine();
             following = inTxt.nextLine();
-            
-            User u = new User(username, password, email, description, followersCount, followingCount, followers, following);
+            User u = new User(username, password, email, dateMade, description, followersCount, followingCount, followers, following);
             uList.add(u);
 //            pList.add((password));
 //            usernameList.add(username);
@@ -189,10 +206,10 @@ public class Main {
         return uList;
     }
     
-    public static void addMessage(ArrayList<Message> mList, Message m) throws IOException
+    public static void updateMessagesFIle() throws IOException
     {
         FileWriter fw = new FileWriter(new File("MessageFile.txt"));
-        for (Message msg : mList)
+        for (Message msg : messageList)
         {
             System.out.println(msg.getMessage());
             fw.write(msg.getUser() + "\n");
@@ -204,11 +221,10 @@ public class Main {
         fw.close();
     }
     
-    public static void addUser(ArrayList<User> uList, User u) throws IOException
+    public static void updateUserFile() throws IOException
     {
-        uList.add(u);
-        FileWriter fw = new FileWriter(new File("usersFile.txt"));
-        for (User user : uList)
+        FileWriter fw = new FileWriter(new File("UsersFile.txt"));
+        for (User user : userList)
         {
             String followers = "", following = "";
             fw.write(user.getUsername() + "\n");
