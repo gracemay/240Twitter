@@ -27,7 +27,6 @@ public class Main {
     //added username and passwd to be data memebers.
     protected static String username = "", passwd = "";
 
-
     public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
         //GUI graphical = new GUI();
         //graphical.start();
@@ -35,7 +34,6 @@ public class Main {
         messageList = new ArrayList<Message>();
         userList = readUserInput("UsersFile.txt");
         messageList = readMessageInput("MessageFile.txt");
-
         Scanner in = new Scanner(System.in);
 
         boolean done = LogIn(in);
@@ -191,7 +189,6 @@ public class Main {
         return uList;
     }
     
-
     public static void addMessage(ArrayList<Message> mList, Message m) throws IOException
     {
         FileWriter fw = new FileWriter(new File("MessageFile.txt"));
@@ -206,7 +203,7 @@ public class Main {
         }
         fw.close();
     }
-
+    
     public static void addUser(ArrayList<User> uList, User u) throws IOException
     {
         uList.add(u);
@@ -238,7 +235,7 @@ public class Main {
         }
         fw.close();
     }
-
+    
     public static boolean hasTerms(Message msg, String[] terms)
     {
         for (int i = 0; i < terms.length; i++)
