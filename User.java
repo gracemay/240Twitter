@@ -40,7 +40,7 @@ public class User{
         addToFollowers(followers);
         addToFollowings(following);
     }
-    
+
     public User(String usname, String pswd, String email, long date, String description,
                 int uFollwers, int uFollwing, String followers, String following){
         username = usname;
@@ -115,7 +115,7 @@ public class User{
         return email;
     }
 
-    
+
     public long getRegisterDate(){
         return date;
     }
@@ -127,7 +127,7 @@ public class User{
     public int getFollowers(){
         return userFollowers;
     }
-    
+
     public void getFollowingList(){
         for(int x = 0; x < followings.length; x++)
             System.out.println("Following number "+x+": "+followings[x]);

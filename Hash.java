@@ -17,7 +17,7 @@ public class Hash
      * @param input The String to be hashed
      * @return The MD5 digest of the String
      * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException 
+     * @throws UnsupportedEncodingException
      */
     public static String md5(String input) throws NoSuchAlgorithmException, UnsupportedEncodingException
     {
@@ -26,13 +26,13 @@ public class Hash
         byte[] digest = md.digest();
         return String.format("%032x", new java.math.BigInteger(1, digest));
     }
-    
+
     /**
      * Hashes a String with SHA-1
      * @param input The String to be hashed
      * @return The SHA-1 digest of the String
      * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException 
+     * @throws UnsupportedEncodingException
      */
     public static String sha1(String input) throws NoSuchAlgorithmException, UnsupportedEncodingException
     {
@@ -41,13 +41,13 @@ public class Hash
         byte[] digest = md.digest();
         return String.format("%040x", new java.math.BigInteger(1, digest));
     }
-    
+
     /**
      * Hashes a String with SHA-256
      * @param input The String to be hashed
      * @return The SHA-256 digest of the String
      * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException 
+     * @throws UnsupportedEncodingException
      */
     public static String sha256(String input) throws NoSuchAlgorithmException, UnsupportedEncodingException
     {
@@ -56,13 +56,13 @@ public class Hash
         byte[] digest = md.digest();
         return String.format("%064x", new java.math.BigInteger(1, digest));
     }
-    
+
     /**
      * Hashes a String with SHA-384
      * @param input The String t be hashed
      * @return THe SHA-384 digest of the String
      * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException 
+     * @throws UnsupportedEncodingException
      */
     public static String sha384(String input) throws NoSuchAlgorithmException, UnsupportedEncodingException
     {
@@ -71,13 +71,13 @@ public class Hash
         byte[] digest = md.digest();
         return String.format("%064x", new java.math.BigInteger(1, digest));
     }
-    
+
     /**
      * Hashes a String with SHA-512
      * @param input The String to be hashed
      * @return The SHA-512 digest of the String
      * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException 
+     * @throws UnsupportedEncodingException
      */
     public static String sha512(String input) throws NoSuchAlgorithmException, UnsupportedEncodingException
     {
@@ -86,5 +86,5 @@ public class Hash
         byte[] digest = md.digest();
         return String.format("%064x", new java.math.BigInteger(1, digest));
     }
-    
+
 }

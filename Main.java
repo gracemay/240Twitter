@@ -4,7 +4,6 @@ import java.io.*;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 /**
  * @author Evan Shipman
@@ -31,7 +30,7 @@ import java.util.Scanner;
  */
 public class Main {
 
-//    private static ArrayList<String> pList = new ArrayList<String>();
+    //    private static ArrayList<String> pList = new ArrayList<String>();
 //    private static ArrayList<String> usernameList = new ArrayList<String>();
     protected static ArrayList<User> userList;
     protected static ArrayList<Message> messageList;
@@ -49,7 +48,7 @@ public class Main {
         userList = readUserInput("UsersFile.txt");
         messageList = readMessageInput("MessageFile.txt");
         Scanner in = new Scanner(System.in);
-        
+
         boolean done = LogIn(in);
         if(done)
             WhileLoggedIn(in);
@@ -90,72 +89,42 @@ public class Main {
         Scanner command = new Scanner(System.in);
         while(!success){
             System.out.print("What would you like to do?\n"
-                    + "2.) Post Messages\n"
-                    + "3.) View Messages\n"
-                    + "4.) Search Messages\n"
-                    + "5.) Delete account\n"
-                    + "6.) Delete messages\n"
+                    + "1.) Post Messages\n"
+                    + "2.) View Messages\n"
+                    + "3.) Search Messages\n"
+                    + "4.) Delete account\n"
+                    + "5.) Delete messages\n"
                     + "else, logout/quit\n"
                     + "command:");
             switch (Integer.parseInt(command.nextLine())) {
-                case 2:
+                case 1:
                     //added a try catch statement for java.io.IOException
-                    boolean work = false;
-                    do {
-                        try {
-                            //get public or private message
-                            System.out.print("Public message (Y/N)? ");
-                            boolean privateMessage;
-                            String ans = in.nextLine();
-                            if(ans.equalsIgnoreCase("y"))
-                                privateMessage = false;
-                            else
-                                privateMessage = true;
-                            //ask for message
-                            System.out.println("Please enter the message:");
-                            String content = in.nextLine();
-                            Message msg = new Message(username, (int) (System.nanoTime() % Integer.MAX_VALUE), content, System.currentTimeMillis(), privateMessage);
-                            //simple message ID for now
-                            messageList.add(msg);
-                            updateMessagesFile(); //until we come up with something
-                            work = true;
-                        }catch (Exception e){
-                            System.out.println("Error With Message. Try again!");
-                        }
-                    } while(!work);
+                    LogUserIn.case1AddMessage(messageList, username);
                     break;                                                                                                        //better
-                case 3:
-                    for (Message message : messageList) {
-                        if (!message.privacy) {
-                            System.out.println(message.getUser() + "  on " + sdfMessages.format(new Date(message.getDate())));
-                            System.out.println(message.getMessage() + "\n");
-                        }
-                    }
+                case 2:
+                    //prints out messages
+                    LogUserIn.case2Print(messageList);
                     break;
-                case 4:     //can be optimized later to search by relevance
-                    System.out.println("Enter search terms separated by spaces:");
-                    String[] terms = in.nextLine().split(" ");
-                    for (Message m : messageList)
-                        if (hasTerms(m, terms))
-                            System.out.println(m.getUser() + "  on " + sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n");
+                case 3:     //can be optimized later to search by relevance
+                    LogUserIn.case3Search(messageList);
                     break;
-                case 5:
+                case 4:
                     System.out.println("Are you sure you want to delete your account? (Yes/No): ");
                     if (in.nextLine().equalsIgnoreCase("Yes") && !currentUser.equals(null))
                     {
                         userList.remove(currentUser);
-                        updateUserFile();
+                        updateUserFile(userList);
                         ArrayList<Message> temp = new ArrayList<Message>();
                         for (Message m : messageList)
                             if (m.getUser().equals(currentUser.getUsername()) && m.getPrivacy() == true)
                                 temp.add(m);
                         for (Message m : temp)
                             messageList.remove(m);
-                        updateMessagesFile();
+                        LogUserIn.updateMessagesFile(messageList);
                     }
                     System.exit(0);     //until we add a log out function
                     break;
-                case 6:
+                case 5:
                     for (Message m : messageList)
                         if (m.getUser().equals(currentUser.getUsername()))
                             System.out.println(messageList.indexOf(m) + ": " + sdfMessages.format(m.getDate()) + "\n" + m.getMessage() + "\n--------------------");
@@ -167,13 +136,44 @@ public class Main {
                         if (index < messageList.size() && messageList.get(index).getUser().equals(currentUser.getUsername()))
                             messageList.remove(messageList.get(index));
                     }
-                    updateMessagesFile();
+                    LogUserIn.updateMessagesFile(messageList);
                     break;
                 default:
                     success = true;
                     break;
             }
         }
+    }
+
+    private static void updateUserFile(ArrayList<User> userList) throws IOException
+    {
+        FileWriter fw = new FileWriter(new File("UsersFile.txt"));
+        for (User user : userList)
+        {
+            String followers = "", following = "";
+            fw.write(user.getUsername() + "\n");
+            fw.write(user.getPassword() + "\n");
+            fw.write(user.getEmail() + "\n");
+            fw.write(user.getRegisterDate() + "\n");
+            fw.write(user.description + "\n");
+            fw.write(user.getFollowers() + "\n");
+            fw.write(user.getFollowing() + "\n");
+            for (int i = 0; i < user.followers.length; i++)
+            {
+                followers += user.followers[i];
+                if (i != user.followers.length - 1)
+                    followers += ";";
+            }
+            for (int i = 0; i < user.followings.length; i++)
+            {
+                following += user.followings[i];
+                if (i != user.followings.length - 1)
+                    following += ";";
+            }
+            fw.write(followers + "\n");
+            fw.write(following + "\n");
+        }
+        fw.close();
     }
 
     public static ArrayList readMessageInput(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -196,7 +196,7 @@ public class Main {
         }
         return mList;
     }
-        
+
     public static ArrayList readUserInput(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
         ArrayList<User> uList = new ArrayList<User>();
         File inFile = new File(inputName);
@@ -227,58 +227,5 @@ public class Main {
         }
         return uList;
     }
-    
-    public static void updateMessagesFile() throws IOException
-    {
-        FileWriter fw = new FileWriter(new File("MessageFile.txt"));
-        for (Message msg : messageList)
-        {
-            System.out.println(msg.getMessage());
-            fw.write(msg.getUser() + "\n");
-            fw.write(msg.getMessageID() + "\n");
-            fw.write(msg.getMessage() + "\n");
-            fw.write(Long.toString(msg.getDate()) + "\n");
-            fw.write(Boolean.toString(msg.getPrivacy()) + "\n");
-        }
-        fw.close();
-    }
-    
-    public static void updateUserFile() throws IOException
-    {
-        FileWriter fw = new FileWriter(new File("UsersFile.txt"));
-        for (User user : userList)
-        {
-            String followers = "", following = "";
-            fw.write(user.getUsername() + "\n");
-            fw.write(user.getPassword() + "\n");
-            fw.write(user.getEmail() + "\n");
-            fw.write(user.getRegisterDate() + "\n");
-            fw.write(user.description + "\n");
-            fw.write(user.getFollowers() + "\n");
-            fw.write(user.getFollowing() + "\n");
-            for (int i = 0; i < user.followers.length; i++)
-            {
-                followers += user.followers[i];
-                if (i != user.followers.length - 1)
-                    followers += ";";
-            }
-            for (int i = 0; i < user.followings.length; i++)
-            {
-                following += user.followings[i];
-                if (i != user.followings.length - 1)
-                    following += ";";
-            }
-            fw.write(followers + "\n");
-            fw.write(following + "\n");
-        }
-        fw.close();
-    }
-    
-    public static boolean hasTerms(Message msg, String[] terms)
-    {
-        for (int i = 0; i < terms.length; i++)
-            if (msg.getMessage().contains(terms[i]))
-                return true;
-        return false;
-    }
+
 }
