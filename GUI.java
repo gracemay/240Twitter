@@ -4,26 +4,14 @@ package TwitterAssignment;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TwitterAssignment;
-
-<<<<<<< HEAD:src/TwitterAssignment/GUI.java
 import java.awt.*;
-=======
-import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JTextArea;
->>>>>>> 1d551966a9599b580ec094129f25dda7082fe1e7:GUI.java
 
 /**
  *

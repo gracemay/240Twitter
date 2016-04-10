@@ -1,5 +1,7 @@
 package TwitterAssignment;
 
+
+
 /**
  * @Author Jacqueline
  * @Date 3/21/16
@@ -33,7 +35,7 @@ public class Message {
 //            messageList[x] = this.message.substring(x,x+1);
 //        }
 //    }
-    
+
     public Message(String user, int messageID, String message, long date, boolean privacy){
         this.user = user;
         this.messageID = messageID;
@@ -63,7 +65,7 @@ public class Message {
     public boolean getPrivacy(){
         return privacy;
     }
-    
+
     public String getUser()
     {
         return user;
@@ -76,16 +78,16 @@ public class Message {
 
 }
 //check the class
-class TryMessage{
-    public static void main(String[] args){
-        //create class
-        Message pratice = new Message("jec123", 3, "Hello this is a pratice run", 111216, true);
-        //..-Message pratice = new Message("jec123", 3, "Hello this is a pratice run", true);..
-
-        //check all methods
-        System.out.println(pratice.getMessage());
-        System.out.println(pratice.getMessageLength());
-        System.out.println(pratice.getPrivacy());
-
-    }
-}
+//class TryMessage{
+//    public static void main(String[] args){
+//        //create class
+//        Message pratice = new Message("jec123", 3, "Hello this is a pratice run", 111216, true);
+//        //..-Message pratice = new Message("jec123", 3, "Hello this is a pratice run", true);..
+//
+//        //check all methods
+//        System.out.println(pratice.getMessage());
+//        System.out.println(pratice.getMessageLength());
+//        System.out.println(pratice.getPrivacy());
+//
+//    }
+//}
