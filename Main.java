@@ -41,14 +41,14 @@ public class Main {
     protected static String username = "", passwd = "";
 
     public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
-        //GUI graphical = new GUI();
-        //graphical.start();
+        GUI graphical = new GUI();
+        graphical.start();
         userList = new ArrayList<User>();
         messageList = new ArrayList<Message>();
         userList = readUserInput("usersFile.txt");
         messageList = readMessageInput("messageFile.txt");
         Scanner in = new Scanner(System.in);
-
+        
         boolean done = LogIn(in);
         if(done)
             WhileLoggedIn(in);
@@ -118,7 +118,7 @@ public class Main {
                             Message msg = new Message(username, (int) (System.nanoTime() % Integer.MAX_VALUE), content, System.currentTimeMillis(), privateMessage);
                             //simple message ID for now
                             messageList.add(msg);
-                            updateMessagesFIle(); //until we come up with something
+                            updateMessagesFile(); //until we come up with something
                             work = true;
                         }catch (Exception e){
                             System.out.println("Error With Message. Try again!");
@@ -146,6 +146,11 @@ public class Main {
                     {
                         userList.remove(currentUser);
                         updateUserFile();
+                        for (Message m : messageList)
+                            if (m.getUser().equals(currentUser.getUsername()) && m.getPrivacy() == true)
+                                messageList.remove(m);
+                        updateMessagesFile();
+                            
                     }
                     System.exit(0);     //until we add a log out function
                     break;
@@ -208,7 +213,7 @@ public class Main {
         return uList;
     }
     
-    public static void updateMessagesFIle() throws IOException
+    public static void updateMessagesFile() throws IOException
     {
         FileWriter fw = new FileWriter(new File("MessageFile.txt"));
         for (Message msg : messageList)
