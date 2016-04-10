@@ -41,8 +41,8 @@ public class Main {
     protected static String username = "", passwd = "";
 
     public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
-        GUI graphical = new GUI();
-        graphical.start();
+//        GUI graphical = new GUI();
+//        graphical.start();
         userList = new ArrayList<User>();
         messageList = new ArrayList<Message>();
         userList = readUserInput("UsersFile.txt");
@@ -143,11 +143,13 @@ public class Main {
                     {
                         userList.remove(currentUser);
                         updateUserFile();
+                        ArrayList<Message> temp = new ArrayList<Message>();
                         for (Message m : messageList)
                             if (m.getUser().equals(currentUser.getUsername()) && m.getPrivacy() == true)
-                                messageList.remove(m);
+                                temp.add(m);
+                        for (Message m : temp)
+                            messageList.remove(m);
                         updateMessagesFile();
-                            
                     }
                     System.exit(0);     //until we add a log out function
                     break;
