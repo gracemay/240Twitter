@@ -139,7 +139,6 @@ public class Main {
                     break;
                 case 4:
                     System.out.println("Are you sure you want to delete your account? (Yes/No): ");
-                    in.nextLine();
                     if (in.nextLine().equalsIgnoreCase("Yes") && !currentUser.equals(null))
                     {
                         userList.remove(currentUser);

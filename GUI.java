@@ -305,7 +305,41 @@ public class GUI extends javax.swing.JFrame
     {//GEN-HEADEREND:event_refreshActionPerformed
         
         
-        
+        String hostName = "";
+        int portNumber = 4444;
+        try (
+            Socket twitterSocket = new Socket(hostName, portNumber);
+            ServerSocket server = new ServerSocket(portNumber + 1);
+            Socket incoming = server.accept();
+            BufferedReader fromServer = new BufferedReader(new InputStreamReader(incoming.getInputStream()));
+            PrintWriter out = new PrintWriter(twitterSocket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(twitterSocket.getInputStream()));
+        ) {
+            
+            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+            String tempFromServer, reply = "", fromUser;
+            char[] cbuf = new char[2048];
+            
+            fromUser = "NOTMSG";
+            if (fromUser != null)
+                out.println(fromUser);
+            //out.close();
+            fromServer.read(cbuf);
+            
+            String[] msgText = new String(cbuf).split("\n");
+            for (int i = 0; i < msgText.length; i++)
+                if (i % 3 == 1)
+                    msgText[i] = Main.sdfMessages.format(Long.parseLong(msgText[i]));
+                    
+            msgs.setText(new String(cbuf));
+           
+            
+            //post.setText("");
+        } catch (UnknownHostException e) {
+            System.err.println("Don't know about host " + hostName);
+        } catch (IOException e) {
+            System.err.println("Couldn't get I/O for the connection to " + hostName);
+        }
         
         
     }//GEN-LAST:event_refreshActionPerformed
