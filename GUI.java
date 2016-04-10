@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TwitterAssignment;
+//package TwitterAssignment;
 
 import java.awt.Color;
 import java.io.BufferedReader;
@@ -240,7 +240,7 @@ public class GUI extends javax.swing.JFrame
         
             
         //INSERT SERVER IP ADDRESS HERE
-        String hostName = "";
+        String hostName = "10.214.3.51";
         int portNumber = 4444;
         try (
             Socket twitterSocket = new Socket(hostName, portNumber);

@@ -48,7 +48,7 @@ public class Main {
         userList = readUserInput("UsersFile.txt");
         messageList = readMessageInput("MessageFile.txt");
         Scanner in = new Scanner(System.in);
-
+        
         boolean done = LogIn(in);
         if(done)
             WhileLoggedIn(in);
