@@ -27,6 +27,7 @@ import java.util.Scanner;
  *      ** If a user is placed in the UsersFile twice by mistake, deleting the account only removes one of them **
  *      ** Sometimes I've noticed the Scanner doesn't work right after lots of inputs                           **
  *      UPDATE: I think I finished the Scanner errors by changing them to nextLine()
+ * Date: (4/10/16) Added delete messages functionality (case 5)
  */
 public class Main {
 
@@ -93,6 +94,7 @@ public class Main {
                     + "2.) View Messages\n"
                     + "3.) Search Messages\n"
                     + "4.) Delete account\n"
+                    + "5.) Delete messages\n"
                     + "else, logout/quit\n"
                     + "command:");
             switch (Integer.parseInt(command.nextLine())) {
@@ -152,6 +154,20 @@ public class Main {
                         updateMessagesFile();
                     }
                     System.exit(0);     //until we add a log out function
+                    break;
+                case 5:
+                    for (Message m : messageList)
+                        if (m.getUser().equals(currentUser.getUsername()))
+                            System.out.println(messageList.indexOf(m) + ": " + sdfMessages.format(m.getDate()) + "\n" + m.getMessage() + "\n--------------------");
+                    System.out.println("Which message(s) would you like to delete (numbers separated by spaces)?");
+                    String[] deletions = in.nextLine().split(" ");
+                    for (int i = 0; i < deletions.length; i++)
+                    {
+                        int index = Integer.parseInt(deletions[i]);
+                        if (index < messageList.size() && messageList.get(index).getUser().equals(currentUser.getUsername()))
+                            messageList.remove(messageList.get(index));
+                    }
+                    updateMessagesFile();
                     break;
                 default:
                     success = true;
