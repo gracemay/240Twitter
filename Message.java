@@ -1,4 +1,4 @@
-//package TwitterAssignment;
+package TwitterAssignment;
 
 /**
  * @Author Jacqueline
@@ -76,16 +76,16 @@ public class Message {
 
 }
 //check the class
-class TryMessage{
-    public static void main(String[] args){
-        //create class
-        Message pratice = new Message("jec123", 3, "Hello this is a pratice run", 111216, true);
-        //..-Message pratice = new Message("jec123", 3, "Hello this is a pratice run", true);..
-
-        //check all methods
-        System.out.println(pratice.getMessage());
-        System.out.println(pratice.getMessageLength());
-        System.out.println(pratice.getPrivacy());
-
-    }
-}
+//class TryMessage{
+//    public static void main(String[] args){
+//        //create class
+//        Message pratice = new Message("jec123", 3, "Hello this is a pratice run", 111216, true);
+//        //..-Message pratice = new Message("jec123", 3, "Hello this is a pratice run", true);..
+//
+//        //check all methods
+//        System.out.println(pratice.getMessage());
+//        System.out.println(pratice.getMessageLength());
+//        System.out.println(pratice.getPrivacy());
+//
+//    }
+//}
