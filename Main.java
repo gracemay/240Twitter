@@ -1,4 +1,4 @@
-package TwitterAssignment;
+//package TwitterAssignment;
 
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
@@ -45,8 +45,8 @@ public class Main {
         //graphical.start();
         userList = new ArrayList<User>();
         messageList = new ArrayList<Message>();
-        userList = readUserInput("UsersFile.txt");
-        messageList = readMessageInput("MessageFile.txt");
+        userList = readUserInput("usersFile.txt");
+        messageList = readMessageInput("messageFile.txt");
         Scanner in = new Scanner(System.in);
 
         boolean done = LogIn(in);
@@ -89,14 +89,15 @@ public class Main {
         Scanner command = new Scanner(System.in);
         while(!success){
             System.out.print("What would you like to do?\n"
-                    + "1.) Post Messages\n"
-                    + "2.) View Messages\n"
-                    + "3.) Search Messages\n"
-                    + "4.) Delete account\n"
+                    + "1.) Create account\n"
+                    + "2.) Post Messages\n"
+                    + "3.) View Messages\n"
+                    + "4.) Search Messages\n"
+                    + "5.) Delete account\n"
                     + "else, logout/quit\n"
                     + "command:");
             switch (Integer.parseInt(command.nextLine())) {
-                case 1:
+                case 2:
                     //added a try catch statement for java.io.IOException
                     boolean work = false;
                     do {
@@ -122,7 +123,7 @@ public class Main {
                         }
                     } while(!work);
                     break;                                                                                                        //better
-                case 2:
+                case 3:
                     for (Message message : messageList) {
                         if (!message.privacy) {
                             System.out.println(message.getUser() + "  on " + sdfMessages.format(new Date(message.getDate())));
@@ -130,16 +131,15 @@ public class Main {
                         }
                     }
                     break;
-                case 3:     //can be optimized later to search by relevance
+                case 4:     //can be optimized later to search by relevance
                     System.out.println("Enter search terms separated by spaces:");
                     String[] terms = in.nextLine().split(" ");
                     for (Message m : messageList)
                         if (hasTerms(m, terms))
                             System.out.println(m.getUser() + "  on " + sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n");
                     break;
-                case 4:
+                case 5:
                     System.out.println("Are you sure you want to delete your account? (Yes/No): ");
-                    in.nextLine();
                     if (in.nextLine().equalsIgnoreCase("Yes") && !currentUser.equals(null))
                     {
                         userList.remove(currentUser);
