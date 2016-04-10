@@ -1,4 +1,5 @@
 package TwitterAssignment;
+
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -26,6 +27,7 @@ import java.util.Scanner;
  *      ** If a user is placed in the UsersFile twice by mistake, deleting the account only removes one of them **
  *      ** Sometimes I've noticed the Scanner doesn't work right after lots of inputs                           **
  *      UPDATE: I think I finished the Scanner errors by changing them to nextLine()
+ * Date: (4/10/16) Added delete messages functionality (case 5)
  */
 public class Main {
 
@@ -40,8 +42,8 @@ public class Main {
     protected static String username = "", passwd = "";
 
     public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
-        //GUI graphical = new GUI();
-        //graphical.start();
+//        GUI graphical = new GUI();
+//        graphical.start();
         userList = new ArrayList<User>();
         messageList = new ArrayList<Message>();
         userList = readUserInput("UsersFile.txt");
@@ -92,16 +94,43 @@ public class Main {
                     + "2.) View Messages\n"
                     + "3.) Search Messages\n"
                     + "4.) Delete account\n"
+                    + "5.) Delete messages\n"
                     + "else, logout/quit\n"
                     + "command:");
             switch (Integer.parseInt(command.nextLine())) {
                 case 1:
-                    //adds messages
-                    LogUserIn.case1AddMessage(messageList, username);
+                    //added a try catch statement for java.io.IOException
+                    boolean work = false;
+                    do {
+                        try {
+                            //get public or private message
+                            System.out.print("Public message (Y/N)? ");
+                            boolean privateMessage;
+                            String ans = in.nextLine();
+                            if(ans.equalsIgnoreCase("y"))
+                                privateMessage = false;
+                            else
+                                privateMessage = true;
+                            //ask for message
+                            System.out.println("Please enter the message:");
+                            String content = in.nextLine();
+                            Message msg = new Message(username, (int) (System.nanoTime() % Integer.MAX_VALUE), content, System.currentTimeMillis(), privateMessage);
+                            //simple message ID for now
+                            messageList.add(msg);
+                            updateMessagesFile(); //until we come up with something
+                            work = true;
+                        }catch (Exception e){
+                            System.out.println("Error With Message. Try again!");
+                        }
+                    } while(!work);
                     break;                                                                                                        //better
                 case 2:
-                    //view Message
-                    LogUserIn.case2ShowMessages(messageList);
+                    for (Message message : messageList) {
+                        if (!message.privacy) {
+                            System.out.println(message.getUser() + "  on " + sdfMessages.format(new Date(message.getDate())));
+                            System.out.println(message.getMessage() + "\n");
+                        }
+                    }
                     break;
                 case 3:     //can be optimized later to search by relevance
                     System.out.println("Enter search terms separated by spaces:");
@@ -116,8 +145,29 @@ public class Main {
                     {
                         userList.remove(currentUser);
                         updateUserFile();
+                        ArrayList<Message> temp = new ArrayList<Message>();
+                        for (Message m : messageList)
+                            if (m.getUser().equals(currentUser.getUsername()) && m.getPrivacy() == true)
+                                temp.add(m);
+                        for (Message m : temp)
+                            messageList.remove(m);
+                        updateMessagesFile();
                     }
                     System.exit(0);     //until we add a log out function
+                    break;
+                case 5:
+                    for (Message m : messageList)
+                        if (m.getUser().equals(currentUser.getUsername()))
+                            System.out.println(messageList.indexOf(m) + ": " + sdfMessages.format(m.getDate()) + "\n" + m.getMessage() + "\n--------------------");
+                    System.out.println("Which message(s) would you like to delete (numbers separated by spaces)?");
+                    String[] deletions = in.nextLine().split(" ");
+                    for (int i = 0; i < deletions.length; i++)
+                    {
+                        int index = Integer.parseInt(deletions[i]);
+                        if (index < messageList.size() && messageList.get(index).getUser().equals(currentUser.getUsername()))
+                            messageList.remove(messageList.get(index));
+                    }
+                    updateMessagesFile();
                     break;
                 default:
                     success = true;
@@ -178,6 +228,21 @@ public class Main {
         return uList;
     }
 
+    public static void updateMessagesFile() throws IOException
+    {
+        FileWriter fw = new FileWriter(new File("MessageFile.txt"));
+        for (Message msg : messageList)
+        {
+            System.out.println(msg.getMessage());
+            fw.write(msg.getUser() + "\n");
+            fw.write(msg.getMessageID() + "\n");
+            fw.write(msg.getMessage() + "\n");
+            fw.write(Long.toString(msg.getDate()) + "\n");
+            fw.write(Boolean.toString(msg.getPrivacy()) + "\n");
+        }
+        fw.close();
+    }
+
     public static void updateUserFile() throws IOException
     {
         FileWriter fw = new FileWriter(new File("UsersFile.txt"));
@@ -217,5 +282,3 @@ public class Main {
         return false;
     }
 }
-
-
