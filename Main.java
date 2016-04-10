@@ -103,19 +103,11 @@ public class Main {
                     LogUserIn.case1AddMessage(messageList, username);
                     break;                                                                                                        //better
                 case 2:
-                    for (Message message : messageList) {
-                        if (!message.privacy) {
-                            System.out.println(message.getUser() + "  on " + sdfMessages.format(new Date(message.getDate())));
-                            System.out.println(message.getMessage() + "\n");
-                        }
-                    }
+                    //prints out messages
+                    LogUserIn.case2Print(messageList);
                     break;
                 case 3:     //can be optimized later to search by relevance
-                    System.out.println("Enter search terms separated by spaces:");
-                    String[] terms = in.nextLine().split(" ");
-                    for (Message m : messageList)
-                        if (hasTerms(m, terms))
-                            System.out.println(m.getUser() + "  on " + sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n");
+                    LogUserIn.case3Search(messageList);
                     break;
                 case 4:
                     System.out.println("Are you sure you want to delete your account? (Yes/No): ");
@@ -237,11 +229,4 @@ public class Main {
         fw.close();
     }
 
-    public static boolean hasTerms(Message msg, String[] terms)
-    {
-        for (int i = 0; i < terms.length; i++)
-            if (msg.getMessage().contains(terms[i]))
-                return true;
-        return false;
-    }
 }

@@ -3,7 +3,9 @@ package TwitterAssignment;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -12,6 +14,8 @@ import java.util.Scanner;
  * LogUserIn class contains a constructor, a checkLoginSuccess method, and a getUsername method.
  */
 public class LogUserIn {
+    private static SimpleDateFormat sdfMessages = new SimpleDateFormat("MM/dd/yyy hh:mm a");
+    private static Scanner in = new Scanner(System.in);
 
 //    public ArrayList<String> uList;
 //    public ArrayList<String> pList;
@@ -54,9 +58,8 @@ public class LogUserIn {
                 return user;
         return null;
     }
-
+    //adds a message. called from main.java case one
     public static void case1AddMessage(ArrayList<Message> messageList, String username){
-        Scanner in = new Scanner(System.in);
         boolean work = false;
         do {
             try {
@@ -81,8 +84,33 @@ public class LogUserIn {
             }
         } while(!work);
     }
+    //prints out messages; still need work about public and private
+    public static void case2Print(ArrayList<Message> messageList){
+        for (Message message : messageList) {
+            if (!message.privacy) {
+                System.out.println(message.getUser() + "  on " + sdfMessages.format(new Date(message.getDate())));
+                System.out.println(message.getMessage() + "\n");
+            }
+        }
+    }
 
-    private static void updateMessagesFile(ArrayList<Message> messageList) throws IOException
+    public static void case3Search(ArrayList<Message> messageList){
+        System.out.println("Enter search terms separated by spaces:");
+        String[] terms = in.nextLine().split(" ");
+        for (Message m : messageList)
+            if (hasTerms(m, terms))
+                System.out.println(m.getUser() + "  on " + sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n");
+    }
+
+    protected static boolean hasTerms(Message msg, String[] terms)
+    {
+        for (int i = 0; i < terms.length; i++)
+            if (msg.getMessage().contains(terms[i]))
+                return true;
+        return false;
+    }
+
+    protected static void updateMessagesFile(ArrayList<Message> messageList) throws IOException
     {
         FileWriter fw = new FileWriter(new File("MessageFile.txt"));
         for (Message msg : messageList)
