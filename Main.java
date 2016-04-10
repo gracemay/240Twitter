@@ -100,29 +100,7 @@ public class Main {
             switch (Integer.parseInt(command.nextLine())) {
                 case 1:
                     //added a try catch statement for java.io.IOException
-                    boolean work = false;
-                    do {
-                        try {
-                            //get public or private message
-                            System.out.print("Public message (Y/N)? ");
-                            boolean privateMessage;
-                            String ans = in.nextLine();
-                            if(ans.equalsIgnoreCase("y"))
-                                privateMessage = false;
-                            else
-                                privateMessage = true;
-                            //ask for message
-                            System.out.println("Please enter the message:");
-                            String content = in.nextLine();
-                            Message msg = new Message(username, (int) (System.nanoTime() % Integer.MAX_VALUE), content, System.currentTimeMillis(), privateMessage);
-                            //simple message ID for now
-                            messageList.add(msg);
-                            updateMessagesFile(); //until we come up with something
-                            work = true;
-                        }catch (Exception e){
-                            System.out.println("Error With Message. Try again!");
-                        }
-                    } while(!work);
+                    LogUserIn.case1AddMessage(messageList, username);
                     break;                                                                                                        //better
                 case 2:
                     for (Message message : messageList) {
@@ -226,21 +204,6 @@ public class Main {
 //            usernameList.add(username);
         }
         return uList;
-    }
-
-    public static void updateMessagesFile() throws IOException
-    {
-        FileWriter fw = new FileWriter(new File("MessageFile.txt"));
-        for (Message msg : messageList)
-        {
-            System.out.println(msg.getMessage());
-            fw.write(msg.getUser() + "\n");
-            fw.write(msg.getMessageID() + "\n");
-            fw.write(msg.getMessage() + "\n");
-            fw.write(Long.toString(msg.getDate()) + "\n");
-            fw.write(Boolean.toString(msg.getPrivacy()) + "\n");
-        }
-        fw.close();
     }
 
     public static void updateUserFile() throws IOException

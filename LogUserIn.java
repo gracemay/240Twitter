@@ -1,6 +1,10 @@
 package TwitterAssignment;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * @Author William
@@ -49,6 +53,48 @@ public class LogUserIn {
             if (user.getPassword().equals(p) && user.getUsername().equals(u))
                 return user;
         return null;
+    }
+
+    public static void case1AddMessage(ArrayList<Message> messageList, String username){
+        Scanner in = new Scanner(System.in);
+        boolean work = false;
+        do {
+            try {
+                //get public or private message
+                System.out.print("Public message (Y/N)? ");
+                boolean privateMessage;
+                String ans = in.nextLine();
+                if(ans.equalsIgnoreCase("y"))
+                    privateMessage = false;
+                else
+                    privateMessage = true;
+                //ask for message
+                System.out.println("Please enter the message:");
+                String content = in.nextLine();
+                Message msg = new Message(username, (int) (System.nanoTime() % Integer.MAX_VALUE), content, System.currentTimeMillis(), privateMessage);
+                //simple message ID for now
+                messageList.add(msg);
+                updateMessagesFile(messageList); //until we come up with something
+                work = true;
+            }catch (Exception e){
+                System.out.println("Error With Message. Try again!");
+            }
+        } while(!work);
+    }
+
+    private static void updateMessagesFile(ArrayList<Message> messageList) throws IOException
+    {
+        FileWriter fw = new FileWriter(new File("MessageFile.txt"));
+        for (Message msg : messageList)
+        {
+            System.out.println(msg.getMessage());
+            fw.write(msg.getUser() + "\n");
+            fw.write(msg.getMessageID() + "\n");
+            fw.write(msg.getMessage() + "\n");
+            fw.write(Long.toString(msg.getDate()) + "\n");
+            fw.write(Boolean.toString(msg.getPrivacy()) + "\n");
+        }
+        fw.close();
     }
     // Getter method
 //    public String getUsername(boolean pswdCheck) {
