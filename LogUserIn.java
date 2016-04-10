@@ -102,7 +102,7 @@ public class LogUserIn {
                 System.out.println(m.getUser() + "  on " + sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n");
     }
 
-    protected static boolean hasTerms(Message msg, String[] terms)
+    private static boolean hasTerms(Message msg, String[] terms)
     {
         for (int i = 0; i < terms.length; i++)
             if (msg.getMessage().contains(terms[i]))

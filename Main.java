@@ -4,7 +4,6 @@ import java.io.*;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 /**
  * @author Evan Shipman
@@ -121,7 +120,7 @@ public class Main {
                                 temp.add(m);
                         for (Message m : temp)
                             messageList.remove(m);
-                        updateMessagesFile();
+                        LogUserIn.updateMessagesFile(messageList);
                     }
                     System.exit(0);     //until we add a log out function
                     break;
@@ -137,7 +136,7 @@ public class Main {
                         if (index < messageList.size() && messageList.get(index).getUser().equals(currentUser.getUsername()))
                             messageList.remove(messageList.get(index));
                     }
-                    updateMessagesFile();
+                    LogUserIn.updateMessagesFile(messageList);
                     break;
                 default:
                     success = true;
