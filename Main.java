@@ -241,12 +241,7 @@ public class Main {
         return false;
     }
 
-<<<<<<< HEAD
-
-
 
 }
 
-=======
-}
->>>>>>> ce74a552e1842912a3709f42285bb9331c6f0788
+
