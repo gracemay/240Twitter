@@ -4,8 +4,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
-
+import java.text.SimpleDateFormat;
 /**
  * @Author William
  * @Date 3/25/16
@@ -80,6 +81,16 @@ public class LogUserIn {
                 System.out.println("Error With Message. Try again!");
             }
         } while(!work);
+    }
+
+    public static void case2ShowMessages(ArrayList<Message> messageList){
+        SimpleDateFormat sdfMessages = new SimpleDateFormat("MM/dd/yyy hh:mm a");
+        for (Message message : messageList) {
+            if (!message.privacy) {
+                System.out.println(message.getUser() + "  on " + sdfMessages.format(new Date(message.getDate())));
+                System.out.println(message.getMessage() + "\n");
+            }
+        }
     }
 
     private static void updateMessagesFIle(ArrayList<Message> messageList) throws IOException

@@ -100,12 +100,8 @@ public class Main {
                     LogUserIn.case1AddMessage(messageList, username);
                     break;                                                                                                        //better
                 case 2:
-                    for (Message message : messageList) {
-                        if (!message.privacy) {
-                            System.out.println(message.getUser() + "  on " + sdfMessages.format(new Date(message.getDate())));
-                            System.out.println(message.getMessage() + "\n");
-                        }
-                    }
+                    //view Message
+                    LogUserIn.case2ShowMessages(messageList);
                     break;
                 case 3:     //can be optimized later to search by relevance
                     System.out.println("Enter search terms separated by spaces:");
