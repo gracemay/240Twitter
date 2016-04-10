@@ -61,7 +61,7 @@ public class TwitterProtocol {
                 post = input;
                 Message m = new Message(post.split(" ", 2)[0].substring(1), (int) (System.nanoTime() % Integer.MAX_VALUE), post.split(" ", 2)[1], System.currentTimeMillis(), false);
                 Main.messageList.add(m);
-                Main.updateMessagesFIle();
+                Main.updateMessagesFile();
                 //System.out.println(m.getUser() + "        " + sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n");
                 //output = (m.getUser() + "        " + sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n");
                 
