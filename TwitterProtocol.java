@@ -43,7 +43,9 @@ public class TwitterProtocol {
     {
         String output = "";
         if (input == null)
-           state = WAITING;
+            state = WAITING;
+        else if (input.equals("NOTMSG"))
+            state = DONE;
         
         switch (state)
         {

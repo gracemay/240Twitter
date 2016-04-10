@@ -45,9 +45,9 @@ public class LogUserIn {
     
     public static User getUser(ArrayList<User> userList, String u, String p)
     {
-        for (int i = 0; i < userList.size(); i++)
-            if (userList.get(i).getUsername().equals(u) && userList.get(i).getPassword().equals(p))
-                return userList.get(i);
+        for (User user : userList)
+            if (user.getPassword().equals(p) && user.getUsername().equals(u))
+                return user;
         return null;
     }
     // Getter method
