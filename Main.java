@@ -97,6 +97,8 @@ public class Main {
                     + "else, logout/quit\n"
                     + "command:");
             switch (Integer.parseInt(command.nextLine())) {
+                case 1:
+                    
                 case 2:
                     //added a try catch statement for java.io.IOException
                     boolean work = false;
