@@ -28,6 +28,8 @@ import java.util.Scanner;
  *      UPDATE: I think I finished the Scanner errors by changing them to nextLine()
  * Date: (4/10/16) Added delete messages functionality (case 5)
  * Date: (4/11/16) Added case 8 follow/unfollow
+ *      UPDATE: Added methods in the User class to follow/unfollow (currently do not work). Any help on those would
+ *              be appreciated
  */
 public class Main {
 
@@ -81,6 +83,9 @@ public class Main {
 //            LogUserIn lui = new LogUserIn(username, passwd);
                 success = LogUserIn.checkLoginSuccess(userList, username, passwd);
                 currentUser = LogUserIn.getUser(userList, username, passwd);
+                for (User u : userList)
+                    if (currentUser.getUsername().equals(u.getUsername()))
+                        u = currentUser;
                 attempts++;
                 if(!success && attempts > 2){
                     System.out.println("Error: Incorrect username or password.");
@@ -208,7 +213,7 @@ public class Main {
                     for (User u : userList)
                         if (u.getUsername().equals(username))
                             if (!currentUser.isFollowing(u.getUsername()))
-                                currentUser.addFollower(username);
+                                currentUser.addFollowing(username);
                     updateUserFile();
                     break;
                 case 9:
@@ -220,6 +225,8 @@ public class Main {
                     if (!removed)
                         System.out.println("You are either not following that user, or that user does not exist.");
                     updateUserFile();
+//                    for (int i = 0; i < currentUser.followings.length; i++)
+//                        System.out.println(currentUser.followings[i]);
                     break;
                 default:
                     success = true;

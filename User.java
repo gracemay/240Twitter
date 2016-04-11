@@ -1,4 +1,5 @@
 package TwitterAssignment;
+
 /**
  * @Author: Grace May
  * @Date: 3/25/2016
@@ -114,6 +115,34 @@ public class User{
         for (int i = 0; i < followers.length; i++)
             followers[i] = temp[i];
         userFollowers++;
+    }
+    
+    public boolean removeFollower(String username)
+    {
+        String[] temp = new String[followers.length - 1];
+        int offset = 0;
+        for (int i = 0; i < followers.length; i++)
+        {
+            if (followers[i].equals(username))
+                offset++;
+            else
+                temp[i - offset] = followers[i];
+        }
+        userFollowers--;
+        return (offset != 0);
+    }
+    
+    public void addFollowing(String username)
+    {
+        String[] temp = new String[followings.length + 1];
+        for (int i = 0; i < temp.length; i++)
+            if (i < followings.length)
+                temp[i] = followings[i];
+        temp[temp.length - 1] = username;
+        followings = new String[temp.length];
+        for (int i = 0; i < followings.length; i++)
+            followings[i] = temp[i];
+        userFollowing++;
     }
     
     public boolean removeFollowing(String username)
