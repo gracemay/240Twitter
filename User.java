@@ -107,23 +107,28 @@ public class User{
     {
         String[] temp = new String[followers.length + 1];
         for (int i = 0; i < temp.length; i++)
-            if (i < temp.length)
+            if (i < followers.length)
                 temp[i] = followers[i];
         temp[temp.length - 1] = username;
-        followers = temp;
+        followers = new String[temp.length];
+        for (int i = 0; i < followers.length; i++)
+            followers[i] = temp[i];
+        userFollowers++;
     }
     
-    public void removeFollowing(String username)
+    public boolean removeFollowing(String username)
     {
         String[] temp = new String[followings.length - 1];
         int offset = 0;
         for (int i = 0; i < followings.length; i++)
         {
-            if (!followings[i].equals(username))
-                temp[i - offset] = followings[i];
-            else
+            if (followings[i].equals(username))
                 offset++;
+            else
+                temp[i - offset] = followings[i];
         }
+        userFollowing--;
+        return (offset != 0);
     }
 
     /** These methods below are the getter methods for the User class. **/

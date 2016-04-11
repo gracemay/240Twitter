@@ -46,8 +46,8 @@ public class Main {
 //        graphical.start();
         userList = new ArrayList<User>();
         messageList = new ArrayList<Message>();
-        userList = readUserInput("usersFile.txt");
-        messageList = readMessageInput("messageFile.txt");
+        userList = readUserInput("UsersFile.txt");
+        messageList = readMessageInput("MessageFile.txt");
         Scanner in = new Scanner(System.in);
 
         boolean done = LogIn(in);
@@ -98,6 +98,7 @@ public class Main {
                     + "5.) Delete account\n"
                     + "6.) Delete messages\n"
                     + "8.) Follow a user\n"
+                    + "9.) Unfollow a user\n"
                     + "else, logout/quit\n"
                     + "command:");
             switch (Integer.parseInt(command.nextLine())) {
@@ -130,7 +131,7 @@ public class Main {
                    //  System.out.println("Element" + i + "'s list of followers' names is: " + userList.get(i).getFollowerList());
                    //  System.out.println("Element" + i + "'s list of following' names is: " + userList.get(i).getFollowingList());
                      }
-                     updateUserFile(userList);
+                     updateUserFile();
                      break;
                     
                 case 2:
@@ -165,7 +166,7 @@ public class Main {
                     if (in.nextLine().equalsIgnoreCase("Yes") && !currentUser.equals(null))
                     {
                         userList.remove(currentUser);
-                        updateUserFile(userList);
+                        updateUserFile();
                         ArrayList<Message> temp = new ArrayList<Message>();
                         for (Message m : messageList)
                             if (m.getUser().equals(currentUser.getUsername()) && m.getPrivacy() == true)
@@ -195,57 +196,29 @@ public class Main {
 //                    writeMessageFileOutput();
 //                    break;
                 case 8:
-                    System.out.println("Please enter the username of the user you wish to follow:");
+                    System.out.print("Please enter the username of the user you wish to follow:");
                     String username = in.nextLine();
                     for (User u : userList)
-                    {
                         if (u.getUsername().equals(username))
-                        {
                             if (!currentUser.isFollowing(u.getUsername()))
                                 currentUser.addFollower(username);
-                        }
-                    }
+                    updateUserFile();
                     break;
-                //case 9:
-                //    writeUserFileOutput();
-                //    writeMessageFileOutput();
-                //    break;
+                case 9:
+                    System.out.println("People you are following:");
+                    for (int i = 0; i < currentUser.getFollowingList().length; i++)
+                        System.out.println(i + ".) " + currentUser.getFollowingList()[i]);
+                    System.out.print("Which of them would you like to unfollow?");
+                    boolean removed = currentUser.removeFollowing(in.nextLine());
+                    if (!removed)
+                        System.out.println("You are either not following that user, or that user does not exist.");
+                    updateUserFile();
+                    break;
                 default:
                     success = true;
                     break;
             }
         }
-    }
-
-    private static void updateUserFile(ArrayList<User> userList) throws IOException
-    {
-        FileWriter fw = new FileWriter(new File("usersFile.txt"));
-        for (User user : userList)
-        {
-            String followers = "", following = "";
-            fw.write(user.getUsername() + "\n");
-            fw.write(user.getPassword() + "\n");
-            fw.write(user.getEmail() + "\n");
-            fw.write(user.getRegisterDate() + "\n");
-            fw.write(user.description + "\n");
-            fw.write(user.getFollowers() + "\n");
-            fw.write(user.getFollowing() + "\n");
-            for (int i = 0; i < user.followers.length; i++)
-            {
-                followers += user.followers[i];
-                if (i != user.followers.length - 1)
-                    followers += ";";
-            }
-            for (int i = 0; i < user.followings.length; i++)
-            {
-                following += user.followings[i];
-                if (i != user.followings.length - 1)
-                    following += ";";
-            }
-            fw.write(followers + "\n");
-            fw.write(following + "\n");
-        }
-        fw.close();
     }
 
     public static ArrayList readMessageInput(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -302,7 +275,7 @@ public class Main {
     
     public static void updateMessagesFile() throws IOException
     {
-        FileWriter fw = new FileWriter(new File("messageFile.txt"));
+        FileWriter fw = new FileWriter(new File("MessageFile.txt"));
         for (Message msg : messageList)
         {
             System.out.println(msg.getMessage());
@@ -317,7 +290,7 @@ public class Main {
     
     public static void updateUserFile() throws IOException
     {
-        FileWriter fw = new FileWriter(new File("usersFile.txt"));
+        FileWriter fw = new FileWriter(new File("UsersFile.txt"));
         for (User user : userList)
         {
             String followers = "", following = "";
