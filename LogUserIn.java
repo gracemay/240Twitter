@@ -85,9 +85,12 @@ public class LogUserIn {
         } while(!work);
     }
     //prints out messages; still need work about public and private
-    public static void casePrint(ArrayList<Message> messageList){
+    //@param messageList array and boolean to determine the result
+    //if true no one is logged in, if false no one is logged in
+    public static void casePrint(ArrayList<Message> messageList, boolean loggedInSituation){
         for (Message message : messageList) {
-            if (!message.privacy || Main.currentUser.isFollowing(message.getUser())) {
+            //if loggedInSituation and privacy is true only print out public:  if loggedInSituation is false and message is false or the follower
+            if ((loggedInSituation && message.privacy) || (!loggedInSituation && (!message.privacy || Main.currentUser.isFollowing(message.getUser())))) {
                 System.out.println(message.getUser() + "  on " + sdfMessages.format(new Date(message.getDate())));
                 System.out.println(message.getMessage() + "\n");
             }

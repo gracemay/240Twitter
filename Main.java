@@ -40,7 +40,7 @@ public class Main {
     public static User currentUser;
     //added username and passwd to be data memebers.
     protected static String username = "", passwd = "";
-
+    //the thing where everything happened
     public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
 //        GUI graphical = new GUI();
 //        graphical.start();
@@ -62,23 +62,30 @@ public class Main {
     public static boolean LogIn(Scanner in){
         boolean success = false;
         int attempts = 0;
-        System.out.println("Please enter log-in information (leave blank to quit)");
-        while (!success && attempts <= 2)
-        {
-            System.out.print("Username:");
-            username = in.nextLine();
-            System.out.print("Password:");
-            passwd = (in.nextLine());
+        System.out.println("Do you wish to log in?(Y/N)");
+        if(in.nextLine().equalsIgnoreCase("n")) {
+            //print out public messages only
+            LogUserIn.casePrint(messageList, true);
+        }else{
+            //log in
+            System.out.println("Please enter log-in information (leave blank to quit)");
+            while (!success && attempts <= 2)
+            {
+                System.out.print("Username:");
+                username = in.nextLine();
+                System.out.print("Password:");
+                passwd = (in.nextLine());
 
-            if (username.equals("") || passwd.equals(""))
-                success = false;
+                if (username.equals("") || passwd.equals(""))
+                    success = false;
 //            LogUserIn lui = new LogUserIn(username, passwd);
-            success = LogUserIn.checkLoginSuccess(userList, username, passwd);
-            currentUser = LogUserIn.getUser(userList, username, passwd);
-            attempts++;
-            if(!success && attempts > 2){
-                System.out.println("Error: Incorrect username or password.");
-                return false;
+                success = LogUserIn.checkLoginSuccess(userList, username, passwd);
+                currentUser = LogUserIn.getUser(userList, username, passwd);
+                attempts++;
+                if(!success && attempts > 2){
+                    System.out.println("Error: Incorrect username or password.");
+                    return false;
+                }
             }
         }
         return success;
@@ -156,7 +163,7 @@ public class Main {
 ======= **/
                 case 3:
                     //prints out messages
-                    LogUserIn.casePrint(messageList);
+                    LogUserIn.casePrint(messageList, false);
                     break;
                 case 4:     //can be optimized later to search by relevance
                     LogUserIn.caseSearch(messageList);
