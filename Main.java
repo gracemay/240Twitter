@@ -27,6 +27,7 @@ import java.util.Scanner;
  *      ** Sometimes I've noticed the Scanner doesn't work right after lots of inputs                           **
  *      UPDATE: I think I finished the Scanner errors by changing them to nextLine()
  * Date: (4/10/16) Added delete messages functionality (case 5)
+ * Date: (4/11/16) Added case 8 follow/unfollow
  */
 public class Main {
 
@@ -96,6 +97,7 @@ public class Main {
                     + "4.) Search Messages\n"
                     + "5.) Delete account\n"
                     + "6.) Delete messages\n"
+                    + "8.) Follow a user\n"
                     + "else, logout/quit\n"
                     + "command:");
             switch (Integer.parseInt(command.nextLine())) {
@@ -192,6 +194,18 @@ public class Main {
 //                    writeUserFileOutputFile();
 //                    writeMessageFileOutput();
 //                    break;
+                case 8:
+                    System.out.println("Please enter the username of the user you wish to follow:");
+                    String username = in.nextLine();
+                    for (User u : userList)
+                    {
+                        if (u.getUsername().equals(username))
+                        {
+                            if (!currentUser.isFollowing(u.getUsername()))
+                                currentUser.addFollower(username);
+                        }
+                    }
+                    break;
                 default:
                     success = true;
                     break;

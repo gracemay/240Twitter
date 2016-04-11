@@ -101,6 +101,29 @@ public class User{
         userFollowing = ufwing;
 
     }
+    
+    public void addFollower(String username)
+    {
+        String[] temp = new String[followers.length + 1];
+        for (int i = 0; i < temp.length; i++)
+            if (i < temp.length)
+                temp[i] = followers[i];
+        temp[temp.length - 1] = username;
+        followers = temp;
+    }
+    
+    public void removeFollowing(String username)
+    {
+        String[] temp = new String[followings.length - 1];
+        int offset = 0;
+        for (int i = 0; i < followings.length; i++)
+        {
+            if (!followings[i].equals(username))
+                temp[i - offset] = followings[i];
+            else
+                offset++;
+        }
+    }
 
     /** These methods below are the getter methods for the User class. **/
     public String getUsername(){
