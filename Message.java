@@ -14,6 +14,7 @@ public class Message {
     int messageID;
     String message;
     long date;
+    //public if true; private for false
     boolean privacy;
 
     String[] messageList = new String[140];
