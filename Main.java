@@ -53,41 +53,49 @@ public class Main {
         boolean done = LogIn(in);
         if(done)
             WhileLoggedIn(in);
-        else
-            System.out.println("User is not logged in.");
-
     }
 
     //this method logs the user in
-    public static boolean LogIn(Scanner in){
+    public static boolean LogIn(Scanner in) {
         boolean success = false;
+        boolean cont = false;
         int attempts = 0;
-        System.out.println("Do you wish to log in?(Y/N)");
-        if(in.nextLine().equalsIgnoreCase("n")) {
-            //print out public messages only
-            LogUserIn.casePrint(messageList, true);
-        }else{
-            //log in
-            System.out.println("Please enter log-in information (leave blank to quit)");
-            while (!success && attempts <= 2)
-            {
-                System.out.print("Username:");
-                username = in.nextLine();
-                System.out.print("Password:");
-                passwd = (in.nextLine());
+        //will iterate unless the user quits of login. If not loggedin can see all public messages
+        do{
+            System.out.println("Do you wish to: " +
+                    "\n1). Login" +
+                    "\n2). View Public Messages" +
+                    "\nDefault). Quit" +
+                    "\nPlease write out the number you wish to do(or nothing to quit).");
+            String ans = in.nextLine();
+            if (ans.equals("2")) {
+                LogUserIn.casePrint(messageList, true);
+            } else if (ans.equals("1")) {
+                //log in
+                System.out.println("Please enter log-in information (leave blank to quit)");
+                while (!success && attempts <= 2) {
+                    System.out.print("Username:");
+                    username = in.nextLine();
+                    System.out.print("Password:");
+                    passwd = (in.nextLine());
 
-                if (username.equals("") || passwd.equals(""))
-                    success = false;
+                    if (username.equals("") || passwd.equals(""))
+                        success = false;
 //            LogUserIn lui = new LogUserIn(username, passwd);
-                success = LogUserIn.checkLoginSuccess(userList, username, passwd);
-                currentUser = LogUserIn.getUser(userList, username, passwd);
-                attempts++;
-                if(!success && attempts > 2){
-                    System.out.println("Error: Incorrect username or password.");
-                    return false;
+                    success = LogUserIn.checkLoginSuccess(userList, username, passwd);
+                    currentUser = LogUserIn.getUser(userList, username, passwd);
+                    attempts++;
+                    if (!success && attempts > 2) {
+                        System.out.println("Error: Incorrect username or password.");
+                        return false;
+                    }else
+                        cont = true;
                 }
+            } else{
+                cont = true;
+                System.out.println("Goodbye");
             }
-        }
+        }while(cont == false);
         return success;
     }
 
