@@ -41,8 +41,8 @@ public class Main {
     protected static String username = "", passwd = "";
 
     public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
-//        GUI graphical = new GUI();
-//        graphical.start();
+        GUI graphical = new GUI();
+        graphical.start();
         userList = new ArrayList<User>();
         messageList = new ArrayList<Message>();
         userList = readUserInput("UsersFile.txt");
