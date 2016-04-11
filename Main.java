@@ -1,4 +1,4 @@
-package TwitterAssignment;
+//package TwitterAssignment;
 
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
@@ -45,8 +45,8 @@ public class Main {
 //        graphical.start();
         userList = new ArrayList<User>();
         messageList = new ArrayList<Message>();
-        userList = readUserInput("UsersFile.txt");
-        messageList = readMessageInput("MessageFile.txt");
+        userList = readUserInput("usersFile.txt");
+        messageList = readMessageInput("messageFile.txt");
         Scanner in = new Scanner(System.in);
 
         boolean done = LogIn(in);
@@ -110,23 +110,23 @@ public class Main {
                     String createDescription = in.nextLine();
                     int createFollowersCount = 0;
                     int createFollowingCount = 0;
-                    String createFollowersNames = "N/A";
-                    String createFollowingNames = "N/A";
+                    String createFollowersNames = "";
+                    String createFollowingNames = "";
                     //System.out.println("");
 
                     User createUser = new User(createUsername,createPassword, createEmail, createDescription,createFollowersCount, createFollowingCount, createFollowersNames, createFollowingNames);
                     System.out.println("The info in createUser is: \n");
                     userList.add(createUser);
                     for(int i=0; i < userList.size(); i++){
-                     System.out.println("Element " + i + "'s username is: " + userList.get(i).getUsername());
-                     System.out.println("Element " + i + "'s password is: " + userList.get(i).getPassword());
-                     System.out.println("Element " + i + "'s email is: " + userList.get(i).getEmail());
-                     System.out.println("Element " + i + "'s registered date is: " + userList.get(i).getRegisterDate());
-                     System.out.println("Element " + i + "'s description is: " + userList.get(i).getDescription());
-                     System.out.println("Element " + i + "'s number of followers is: " + userList.get(i).getFollowers());
-                     System.out.println("Element " + i + "'s number of following is: " + userList.get(i).getFollowing());
-                     System.out.println("Element " + i + "'s list of followers' names is: " + createFollowersNames);
-                     System.out.println("Element " + i + "'s list of following' names is: " + createFollowingNames);
+                     System.out.println("Element" + i + "'s username is: " + userList.get(i).getUsername());
+                     System.out.println("Element" + i + "'s password is: " + userList.get(i).getPassword());
+                     System.out.println("Element" + i + "'s email is: " + userList.get(i).getEmail());
+                     System.out.println("Element" + i + "'s registered date is: " + userList.get(i).getRegisterDate());
+                   //  System.out.println("Element" + i + "'s description is: " + userList.get(i).getDescription());
+                     System.out.println("Element" + i + "'s number of followers is: " + userList.get(i).getFollowers());
+                     System.out.println("Element" + i + "'s number of following is: " + userList.get(i).getFollowing());
+                   //  System.out.println("Element" + i + "'s list of followers' names is: " + userList.get(i).getFollowerList());
+                   //  System.out.println("Element" + i + "'s list of following' names is: " + userList.get(i).getFollowingList());
                      }
                      updateUserFile(userList);
                      break;
@@ -134,7 +134,7 @@ public class Main {
                 case 2:
                     //added a try catch statement for java.io.IOException
                     LogUserIn.case1AddMessage(messageList, username);
-                    break;                                                                                                        //better
+                     break;                                                                                                        //better
 /**<<<<<<< HEAD
                 case 3:
                     for (Message message : messageList) {
@@ -188,10 +188,10 @@ public class Main {
                     }
                     LogUserIn.updateMessagesFile(messageList);
                     break;
-//                case 7:
-//                    writeUserFileOutputFile();
-//                    writeMessageFileOutput();
-//                    break;
+                case 7:
+                    writeUserFileOutput();
+                    writeMessageFileOutput();
+                    break;
                 default:
                     success = true;
                     break;
@@ -201,7 +201,7 @@ public class Main {
 
     private static void updateUserFile(ArrayList<User> userList) throws IOException
     {
-        FileWriter fw = new FileWriter(new File("UsersFile.txt"));
+        FileWriter fw = new FileWriter(new File("usersFile.txt"));
         for (User user : userList)
         {
             String followers = "", following = "";
@@ -284,7 +284,7 @@ public class Main {
     
     public static void updateMessagesFile() throws IOException
     {
-        FileWriter fw = new FileWriter(new File("MessageFile.txt"));
+        FileWriter fw = new FileWriter(new File("messageFile.txt"));
         for (Message msg : messageList)
         {
             System.out.println(msg.getMessage());
@@ -299,7 +299,7 @@ public class Main {
     
     public static void updateUserFile() throws IOException
     {
-        FileWriter fw = new FileWriter(new File("UsersFile.txt"));
+        FileWriter fw = new FileWriter(new File("usersFile.txt"));
         for (User user : userList)
         {
             String followers = "", following = "";
@@ -334,9 +334,32 @@ public class Main {
             if (msg.getMessage().contains(terms[i]))
                 return true;
         return false;
-    }
-
-
-
+    }                
+           
+    public static void writeUserFileOutput() throws FileNotFoundException{    
+       PrintWriter writer = new PrintWriter("UsersFile.txt");
+       for (int i = 0; i < userList.size(); i++) {
+           writer.println(userList.get(i).getUsername());
+           writer.println(userList.get(i).getPassword());
+           writer.println(userList.get(i).getEmail());
+           writer.println(userList.get(i).getRegisterDate());
+           writer.println(userList.get(i).getFollowing());
+           writer.println(userList.get(i).getFollowers());
+           writer.println(userList.get(i).getFollowingList());
+           writer.println(userList.get(i).getFollowerList());
+       }
+       writer.close();
+   }
+   
+   public static void writeMessageFileOutput() throws FileNotFoundException {    
+       PrintWriter writer = new PrintWriter("MessageFile.txt");
+       for (int i = 0; i < messageList.size(); i++) {
+           writer.println(messageList.get(i).getUser());
+           writer.println(messageList.get(i).getMessageID());
+           writer.println(messageList.get(i).getMessage());
+           writer.println(messageList.get(i).getDate());
+           writer.println(messageList.get(i).getPrivacy());
+       }
+       writer.close();
+   }
 }
-
