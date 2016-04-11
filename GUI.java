@@ -240,7 +240,7 @@ public class GUI extends javax.swing.JFrame
 
 
         //INSERT SERVER IP ADDRESS HERE
-        String hostName = "10.214.3.51";
+        String hostName = "10.213.5.221";
         int portNumber = 4444;
         try (
                 Socket twitterSocket = new Socket(hostName, portNumber);

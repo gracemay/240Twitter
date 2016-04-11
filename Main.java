@@ -1,4 +1,4 @@
-//package TwitterAssignment;
+package TwitterAssignment;
 
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
@@ -45,8 +45,8 @@ public class Main {
 //        graphical.start();
         userList = new ArrayList<User>();
         messageList = new ArrayList<Message>();
-        userList = readUserInput("usersFile.txt");
-        messageList = readMessageInput("messageFile.txt");
+        userList = readUserInput("UsersFile.txt");
+        messageList = readMessageInput("MessageFile.txt");
         Scanner in = new Scanner(System.in);
 
         boolean done = LogIn(in);
@@ -188,6 +188,10 @@ public class Main {
                     }
                     LogUserIn.updateMessagesFile(messageList);
                     break;
+//                case 7:
+//                    writeUserFileOutputFile();
+//                    writeMessageFileOutput();
+//                    break;
                 default:
                     success = true;
                     break;

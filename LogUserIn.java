@@ -1,4 +1,4 @@
-//package TwitterAssignment;
+package TwitterAssignment;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -87,7 +87,7 @@ public class LogUserIn {
     //prints out messages; still need work about public and private
     public static void case2Print(ArrayList<Message> messageList){
         for (Message message : messageList) {
-            if (!message.privacy) {
+            if (!message.privacy || Main.currentUser.isFollowing(message.getUser())) {
                 System.out.println(message.getUser() + "  on " + sdfMessages.format(new Date(message.getDate())));
                 System.out.println(message.getMessage() + "\n");
             }
