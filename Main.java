@@ -84,6 +84,17 @@ public class Main {
                     if (username.equals("") || passwd.equals(""))
                         success = false;
 //            LogUserIn lui = new LogUserIn(username, passwd);
+<<<<<<< HEAD
+                success = LogUserIn.checkLoginSuccess(userList, username, passwd);
+                currentUser = LogUserIn.getUser(userList, username, passwd);
+                for (User u : userList)
+                    if (currentUser.getUsername().equals(u.getUsername()))
+                        u = currentUser;
+                attempts++;
+                if(!success && attempts > 2){
+                    System.out.println("Error: Incorrect username or password.");
+                    return false;
+=======
                     success = LogUserIn.checkLoginSuccess(userList, username, passwd);
                     currentUser = LogUserIn.getUser(userList, username, passwd);
                     attempts++;
@@ -92,6 +103,7 @@ public class Main {
                         return false;
                     }else
                         cont = true;
+>>>>>>> 09794992d02b52e8ec449a958dfb87cb83e2f40c
                 }
             } else{
                 cont = true;
