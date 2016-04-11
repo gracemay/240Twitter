@@ -9,6 +9,10 @@ import java.text.*;
  *
  * @Author: Jacqueline Coates
  * @Date Edited: 4/2/2016
+ *
+ * @Author: William Scheid
+ * Date Edited: 4/10/2016
+ * Getter method returns for following/follower list simplified
  */
 public class User{
 //extends LogUserIn{
@@ -29,7 +33,7 @@ public class User{
     //      plus it's easier to convert from a long than to a long
     //public User(String usname, String pswd, String email, String dateMade, String description,
     public User(String usname, String pswd, String email, String description,
-                int uFollwers, int uFollwing, String followers, String following){
+                int uFollwers, int uFollwing, String followers, String followings){
         username = usname;
         password = pswd;
         this.email = email;
@@ -38,11 +42,11 @@ public class User{
         userFollowers = uFollwers;
         userFollowing = uFollwing;
         addToFollowers(followers);
-        addToFollowings(following);
+        addToFollowings(followings);
     }
-
+    
     public User(String usname, String pswd, String email, long date, String description,
-                int uFollwers, int uFollwing, String followers, String following){
+                int uFollwers, int uFollwing, String followers, String followings){
         username = usname;
         password = pswd;
         this.email = email;
@@ -51,7 +55,7 @@ public class User{
         userFollowers = uFollwers;
         userFollowing = uFollwing;
         addToFollowers(followers);
-        addToFollowings(following);
+        addToFollowings(followings);
     }
     //fill the followers array using the split() method
     void addToFollowers(String followers){
@@ -138,7 +142,7 @@ public class User{
         return email;
     }
 
-
+    
     public long getRegisterDate(){
         return date;
     }
@@ -150,19 +154,15 @@ public class User{
     public int getFollowers(){
         return userFollowers;
     }
-
-    public void getFollowingList(){
-        for(int x = 0; x < followings.length; x++)
-            System.out.println("Following number "+x+": "+followings[x]);
-        System.out.println();
-    }
-
-    public void getFollowerList(){
-        for(int x = 0; x < followers.length; x++)
-            System.out.println("Follower number "+x+": "+followers[x]);
-        System.out.println();
-    }
     
+    public String[] getFollowingList(){
+        return followings;
+    }
+
+    public String[] getFollowerList(){
+        return followers;
+    }
+
     public boolean hasFollower(String follower)
     {
         for (int i = 0; i < followers.length; i++)

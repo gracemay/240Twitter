@@ -10,7 +10,7 @@ First message made on this application!
 false
 wscheid
 2
-Captain America doesn’t miss leg day.
+Captain America doesnt miss leg day.
 3312016
 false
 gmay
@@ -18,11 +18,6 @@ gmay
 I <3 Captain America
 4012016
 false
-gmay
-4
-@capamer, I will support you! Your shield is awesome and you are so cool! I believe in you and your principles!
-4022016
-true
 wscheid
 1319872507
 love

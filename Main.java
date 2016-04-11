@@ -46,8 +46,8 @@ public class Main {
 //        graphical.start();
         userList = new ArrayList<User>();
         messageList = new ArrayList<Message>();
-        userList = readUserInput("UsersFile.txt");
-        messageList = readMessageInput("MessageFile.txt");
+        userList = readUserInput("usersFile.txt");
+        messageList = readMessageInput("messageFile.txt");
         Scanner in = new Scanner(System.in);
 
         boolean done = LogIn(in);
@@ -136,7 +136,7 @@ public class Main {
                 case 2:
                     //added a try catch statement for java.io.IOException
                     LogUserIn.case1AddMessage(messageList, username);
-                    break;                                                                                                        //better
+                     break;                                                                                                        //better
 /**<<<<<<< HEAD
                 case 3:
                     for (Message message : messageList) {
@@ -206,6 +206,10 @@ public class Main {
                         }
                     }
                     break;
+                //case 9:
+                //    writeUserFileOutput();
+                //    writeMessageFileOutput();
+                //    break;
                 default:
                     success = true;
                     break;
@@ -348,9 +352,32 @@ public class Main {
             if (msg.getMessage().contains(terms[i]))
                 return true;
         return false;
-    }
-
-
-
+    }                
+           
+    //public static void writeUserFileOutput() throws FileNotFoundException{    
+    //   PrintWriter writer = new PrintWriter("UsersFile.txt");
+    //   for (int i = 0; i < userList.size(); i++) {
+    //       writer.println(userList.get(i).getUsername());
+    //       writer.println(userList.get(i).getPassword());
+    //       writer.println(userList.get(i).getEmail());
+    //       writer.println(userList.get(i).getRegisterDate());
+    //       writer.println(userList.get(i).getFollowing());
+    //       writer.println(userList.get(i).getFollowers());
+    //       writer.println(userList.get(i).getFollowingList());
+    //       writer.println(userList.get(i).getFollowerList());
+    //   }
+    //   writer.close();
+    // }
+   
+    //public static void writeMessageFileOutput() throws FileNotFoundException {    
+    //   PrintWriter writer = new PrintWriter("MessageFile.txt");
+    //   for (int i = 0; i < messageList.size(); i++) {
+    //       writer.println(messageList.get(i).getUser());
+    //       writer.println(messageList.get(i).getMessageID());
+    //       writer.println(messageList.get(i).getMessage());
+    //       writer.println(messageList.get(i).getDate());
+    //       writer.println(messageList.get(i).getPrivacy());
+    //   }
+    //   writer.close();
+    //}
 }
-
