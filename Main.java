@@ -100,13 +100,13 @@ public class Main {
                     + "command:");
             switch (Integer.parseInt(command.nextLine())) {
                 case 1:
-                    System.out.println("To create an account on Twitter. Please enter a username:\n");
+                    System.out.println("To create an account on Twitter. Please enter a username:");
                     String createUsername = in.nextLine();
-                    System.out.println("Please enter a password:\n");
+                    System.out.println("Please enter a password:");
                     String createPassword = in.nextLine();
-                    System.out.println("Please enter an email address:\n");
+                    System.out.println("Please enter an email address:");
                     String createEmail = in.nextLine();
-                    System.out.println("Please enter a one-line description about yourself.\n");
+                    System.out.println("Please enter a one-line description about yourself.");
                     String createDescription = in.nextLine();
                     int createFollowersCount = 0;
                     int createFollowingCount = 0;
@@ -115,7 +115,21 @@ public class Main {
                     //System.out.println("");
 
                     User createUser = new User(createUsername,createPassword, createEmail, createDescription,createFollowersCount, createFollowingCount, createFollowersNames, createFollowingNames);
-                    System.out.println("The info in createUser is: " + createUser);
+                    System.out.println("The info in createUser is: \n");
+                    userList.add(createUser);
+                    for(int i=0; i < userList.size(); i++){
+                     System.out.println("Element" + i + "'s username is: " + userList.get(i).getUsername());
+                     System.out.println("Element" + i + "'s password is: " + userList.get(i).getPassword());
+                     System.out.println("Element" + i + "'s email is: " + userList.get(i).getEmail());
+                     System.out.println("Element" + i + "'s registered date is: " + userList.get(i).getRegisterDate());
+                   //  System.out.println("Element" + i + "'s description is: " + userList.get(i).getDescription());
+                     System.out.println("Element" + i + "'s number of followers is: " + userList.get(i).getFollowers());
+                     System.out.println("Element" + i + "'s number of following is: " + userList.get(i).getFollowing());
+                   //  System.out.println("Element" + i + "'s list of followers' names is: " + userList.get(i).getFollowerList());
+                   //  System.out.println("Element" + i + "'s list of following' names is: " + userList.get(i).getFollowingList());
+                     }
+                     updateUserFile(userList);
+                     break;
                     
                 case 2:
                     //added a try catch statement for java.io.IOException
@@ -137,11 +151,11 @@ public class Main {
                         if (hasTerms(m, terms))
                             System.out.println(m.getUser() + "  on " + sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n");
 ======= **/
-                case 2:
+                case 3:
                     //prints out messages
                     LogUserIn.case2Print(messageList);
                     break;
-                case 3:     //can be optimized later to search by relevance
+                case 4:     //can be optimized later to search by relevance
                     LogUserIn.case3Search(messageList);
                     break;
                 case 5:
@@ -183,7 +197,7 @@ public class Main {
 
     private static void updateUserFile(ArrayList<User> userList) throws IOException
     {
-        FileWriter fw = new FileWriter(new File("UsersFile.txt"));
+        FileWriter fw = new FileWriter(new File("usersFile.txt"));
         for (User user : userList)
         {
             String followers = "", following = "";
@@ -266,7 +280,7 @@ public class Main {
     
     public static void updateMessagesFile() throws IOException
     {
-        FileWriter fw = new FileWriter(new File("MessageFile.txt"));
+        FileWriter fw = new FileWriter(new File("messageFile.txt"));
         for (Message msg : messageList)
         {
             System.out.println(msg.getMessage());
@@ -281,7 +295,7 @@ public class Main {
     
     public static void updateUserFile() throws IOException
     {
-        FileWriter fw = new FileWriter(new File("UsersFile.txt"));
+        FileWriter fw = new FileWriter(new File("usersFile.txt"));
         for (User user : userList)
         {
             String followers = "", following = "";
