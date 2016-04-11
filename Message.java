@@ -1,4 +1,6 @@
+
 //package TwitterAssignment;
+
 
 /**
  * @Author Jacqueline
@@ -33,7 +35,7 @@ public class Message {
 //            messageList[x] = this.message.substring(x,x+1);
 //        }
 //    }
-    
+
     public Message(String user, int messageID, String message, long date, boolean privacy){
         this.user = user;
         this.messageID = messageID;
@@ -63,7 +65,7 @@ public class Message {
     public boolean getPrivacy(){
         return privacy;
     }
-    
+
     public String getUser()
     {
         return user;

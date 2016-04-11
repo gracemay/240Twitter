@@ -4,7 +4,6 @@ import java.io.*;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 /**
  * @author Evan Shipman
@@ -27,10 +26,11 @@ import java.util.Scanner;
  *      ** If a user is placed in the UsersFile twice by mistake, deleting the account only removes one of them **
  *      ** Sometimes I've noticed the Scanner doesn't work right after lots of inputs                           **
  *      UPDATE: I think I finished the Scanner errors by changing them to nextLine()
+ * Date: (4/10/16) Added delete messages functionality (case 5)
  */
 public class Main {
 
-//    private static ArrayList<String> pList = new ArrayList<String>();
+    //    private static ArrayList<String> pList = new ArrayList<String>();
 //    private static ArrayList<String> usernameList = new ArrayList<String>();
     protected static ArrayList<User> userList;
     protected static ArrayList<Message> messageList;
@@ -41,14 +41,14 @@ public class Main {
     protected static String username = "", passwd = "";
 
     public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
-        GUI graphical = new GUI();
-        graphical.start();
+//        GUI graphical = new GUI();
+//        graphical.start();
         userList = new ArrayList<User>();
         messageList = new ArrayList<Message>();
         userList = readUserInput("usersFile.txt");
         messageList = readMessageInput("messageFile.txt");
         Scanner in = new Scanner(System.in);
-        
+
         boolean done = LogIn(in);
         if(done)
             WhileLoggedIn(in);
@@ -89,11 +89,13 @@ public class Main {
         Scanner command = new Scanner(System.in);
         while(!success){
             System.out.print("What would you like to do?\n"
+
                     + "1.) Create account\n"
                     + "2.) Post Messages\n"
                     + "3.) View Messages\n"
                     + "4.) Search Messages\n"
                     + "5.) Delete account\n"
+                    + "6.) Delete messages\n"
                     + "else, logout/quit\n"
                     + "command:");
             switch (Integer.parseInt(command.nextLine())) {
@@ -117,30 +119,9 @@ public class Main {
                     
                 case 2:
                     //added a try catch statement for java.io.IOException
-                    boolean work = false;
-                    do {
-                        try {
-                            //get public or private message
-                            System.out.print("Public message (Y/N)? ");
-                            boolean privateMessage;
-                            String ans = in.nextLine();
-                            if(ans.equalsIgnoreCase("y"))
-                                privateMessage = false;
-                            else
-                                privateMessage = true;
-                            //ask for message
-                            System.out.println("Please enter the message:");
-                            String content = in.nextLine();
-                            Message msg = new Message(username, (int) (System.nanoTime() % Integer.MAX_VALUE), content, System.currentTimeMillis(), privateMessage);
-                            //simple message ID for now
-                            messageList.add(msg);
-                            updateMessagesFile(); //until we come up with something
-                            work = true;
-                        }catch (Exception e){
-                            System.out.println("Error With Message. Try again!");
-                        }
-                    } while(!work);
+                    LogUserIn.case1AddMessage(messageList, username);
                     break;                                                                                                        //better
+/**<<<<<<< HEAD
                 case 3:
                     for (Message message : messageList) {
                         if (!message.privacy) {
@@ -155,26 +136,80 @@ public class Main {
                     for (Message m : messageList)
                         if (hasTerms(m, terms))
                             System.out.println(m.getUser() + "  on " + sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n");
+======= **/
+                case 2:
+                    //prints out messages
+                    LogUserIn.case2Print(messageList);
+                    break;
+                case 3:     //can be optimized later to search by relevance
+                    LogUserIn.case3Search(messageList);
                     break;
                 case 5:
                     System.out.println("Are you sure you want to delete your account? (Yes/No): ");
                     if (in.nextLine().equalsIgnoreCase("Yes") && !currentUser.equals(null))
                     {
                         userList.remove(currentUser);
-                        updateUserFile();
+                        updateUserFile(userList);
+                        ArrayList<Message> temp = new ArrayList<Message>();
                         for (Message m : messageList)
                             if (m.getUser().equals(currentUser.getUsername()) && m.getPrivacy() == true)
-                                messageList.remove(m);
-                        updateMessagesFile();
-                            
+                                temp.add(m);
+                        for (Message m : temp)
+                            messageList.remove(m);
+                        LogUserIn.updateMessagesFile(messageList);
                     }
                     System.exit(0);     //until we add a log out function
+                    break;
+                case 6:
+                    for (Message m : messageList)
+                        if (m.getUser().equals(currentUser.getUsername()))
+                            System.out.println(messageList.indexOf(m) + ": " + sdfMessages.format(m.getDate()) + "\n" + m.getMessage() + "\n--------------------");
+                    System.out.println("Which message(s) would you like to delete (numbers separated by spaces)?");
+                    String[] deletions = in.nextLine().split(" ");
+                    for (int i = 0; i < deletions.length; i++)
+                    {
+                        int index = Integer.parseInt(deletions[i]);
+                        if (index < messageList.size() && messageList.get(index).getUser().equals(currentUser.getUsername()))
+                            messageList.remove(messageList.get(index));
+                    }
+                    LogUserIn.updateMessagesFile(messageList);
                     break;
                 default:
                     success = true;
                     break;
             }
         }
+    }
+
+    private static void updateUserFile(ArrayList<User> userList) throws IOException
+    {
+        FileWriter fw = new FileWriter(new File("UsersFile.txt"));
+        for (User user : userList)
+        {
+            String followers = "", following = "";
+            fw.write(user.getUsername() + "\n");
+            fw.write(user.getPassword() + "\n");
+            fw.write(user.getEmail() + "\n");
+            fw.write(user.getRegisterDate() + "\n");
+            fw.write(user.description + "\n");
+            fw.write(user.getFollowers() + "\n");
+            fw.write(user.getFollowing() + "\n");
+            for (int i = 0; i < user.followers.length; i++)
+            {
+                followers += user.followers[i];
+                if (i != user.followers.length - 1)
+                    followers += ";";
+            }
+            for (int i = 0; i < user.followings.length; i++)
+            {
+                following += user.followings[i];
+                if (i != user.followings.length - 1)
+                    following += ";";
+            }
+            fw.write(followers + "\n");
+            fw.write(following + "\n");
+        }
+        fw.close();
     }
 
     public static ArrayList readMessageInput(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -197,7 +232,7 @@ public class Main {
         }
         return mList;
     }
-        
+
     public static ArrayList readUserInput(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
         ArrayList<User> uList = new ArrayList<User>();
         File inFile = new File(inputName);
