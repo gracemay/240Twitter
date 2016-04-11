@@ -1,4 +1,4 @@
-package TwitterAssignment;
+//package TwitterAssignment;
 
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
@@ -48,13 +48,52 @@ public class Main {
         userList = readUserInput("UsersFile.txt");
         messageList = readMessageInput("MessageFile.txt");
         Scanner in = new Scanner(System.in);
+         
+       boolean createaccount = true;
+     //  boolean done = LogIn(in);
+        if(createaccount){
+            System.out.println("To create an account on Twitter. Please enter a username:");
+                    String createUsername = in.nextLine();
+                    System.out.println("Please enter a password:");
+                    String createPassword = in.nextLine();
+                    System.out.println("Please enter an email address:");
+                    String createEmail = in.nextLine();
+                    System.out.println("Please enter a one-line description about yourself.");
+                    String createDescription = in.nextLine();
+                    int createFollowersCount = 0;
+                    int createFollowingCount = 0;
+                    String createFollowersNames = "N/A";
+                    String createFollowingNames = "N/A";
+                    //System.out.println("");
 
-        boolean done = LogIn(in);
-        if(done)
-            WhileLoggedIn(in);
-        else
-            System.out.println("User is not logged in.");
-
+                    User createUser = new User(createUsername,createPassword, createEmail, createDescription,createFollowersCount, createFollowingCount, createFollowersNames, createFollowingNames);
+                    System.out.println("The info in createUser is: \n");
+                    userList.add(createUser);
+                    for(int i=0; i < userList.size(); i++){
+                     System.out.println("Element " + i + "'s username is: " + userList.get(i).getUsername());
+                     System.out.println("Element " + i + "'s password is: " + userList.get(i).getPassword());
+                     System.out.println("Element " + i + "'s email is: " + userList.get(i).getEmail());
+                     System.out.println("Element " + i + "'s registered date is: " + userList.get(i).getRegisterDate());
+                     System.out.println("Element " + i + "'s description is: " + userList.get(i).getDescription());
+                     System.out.println("Element " + i + "'s number of followers is: " + userList.get(i).getFollowers());
+                     System.out.println("Element " + i + "'s number of following is: " + userList.get(i).getFollowing());
+                     System.out.println("Element " + i + "'s list of followers' names is: " + createFollowersNames);
+                     System.out.println("Element " + i + "'s list of following' names is: " + createFollowingNames);
+                     }
+                     updateUserFile(userList);
+                     boolean done = LogIn(in);
+               if(done)
+                  WhileLoggedIn(in);
+               else
+                  System.out.println("User is not logged in. Please log in.");
+            }// else{ 
+            /**   boolean done = LogIn(in);
+               if(done)
+                  WhileLoggedIn(in);
+               else
+                  System.out.println("User is not logged in. Please log in.");
+           }   **/    
+            
     }
 
     //this method logs the user in
@@ -90,16 +129,16 @@ public class Main {
         while(!success){
             System.out.print("What would you like to do?\n"
 
-                    + "1.) Create account\n"
-                    + "2.) Post Messages\n"
-                    + "3.) View Messages\n"
-                    + "4.) Search Messages\n"
-                    + "5.) Delete account\n"
-                    + "6.) Delete messages\n"
+                //    + "1.) Create account\n"
+                    + "1.) Post Messages\n"
+                    + "2.) View Messages\n"
+                    + "3.) Search Messages\n"
+                    + "4.) Delete account\n"
+                    + "5.) Delete messages\n"
                     + "else, logout/quit\n"
                     + "command:");
             switch (Integer.parseInt(command.nextLine())) {
-                case 1:
+              /**  case 1:
                     System.out.println("To create an account on Twitter. Please enter a username:");
                     String createUsername = in.nextLine();
                     System.out.println("Please enter a password:");
@@ -130,8 +169,8 @@ public class Main {
                      }
                      updateUserFile(userList);
                      break;
-                    
-                case 2:
+                    **/
+                case 1:
                     //added a try catch statement for java.io.IOException
                     LogUserIn.case1AddMessage(messageList, username);
                     break;                                                                                                        //better
@@ -151,14 +190,14 @@ public class Main {
                         if (hasTerms(m, terms))
                             System.out.println(m.getUser() + "  on " + sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n");
 ======= **/
-                case 3:
+                case 2:
                     //prints out messages
                     LogUserIn.case2Print(messageList);
                     break;
-                case 4:     //can be optimized later to search by relevance
+                case 3:     //can be optimized later to search by relevance
                     LogUserIn.case3Search(messageList);
                     break;
-                case 5:
+                case 4:
                     System.out.println("Are you sure you want to delete your account? (Yes/No): ");
                     if (in.nextLine().equalsIgnoreCase("Yes") && !currentUser.equals(null))
                     {
@@ -174,7 +213,7 @@ public class Main {
                     }
                     System.exit(0);     //until we add a log out function
                     break;
-                case 6:
+                case 5:
                     for (Message m : messageList)
                         if (m.getUser().equals(currentUser.getUsername()))
                             System.out.println(messageList.indexOf(m) + ": " + sdfMessages.format(m.getDate()) + "\n" + m.getMessage() + "\n--------------------");
