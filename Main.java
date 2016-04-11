@@ -98,6 +98,22 @@ public class Main {
                     + "command:");
             switch (Integer.parseInt(command.nextLine())) {
                 case 1:
+                    System.out.println("To create an account on Twitter. Please enter a username:\n");
+                    String createUsername = in.nextLine();
+                    System.out.println("Please enter a password:\n");
+                    String createPassword = in.nextLine();
+                    System.out.println("Please enter an email address:\n");
+                    String createEmail = in.nextLine();
+                    System.out.println("Please enter a one-line description about yourself.\n");
+                    String createDescription = in.nextLine();
+                    int createFollowersCount = 0;
+                    int createFollowingCount = 0;
+                    String createFollowersNames = "";
+                    String createFollowingNames = "";
+                    //System.out.println("");
+
+                    User createUser = new User(createUsername,createPassword, createEmail, createDescription,createFollowersCount, createFollowingCount, createFollowersNames, createFollowingNames);
+                    System.out.println("The info in createUser is: " + createUser);
                     
                 case 2:
                     //added a try catch statement for java.io.IOException
