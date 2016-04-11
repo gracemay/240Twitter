@@ -1,4 +1,4 @@
-package TwitterAssignment;
+//package TwitterAssignment;
 
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
@@ -28,6 +28,7 @@ import java.util.Scanner;
  *      UPDATE: I think I finished the Scanner errors by changing them to nextLine()
  * Date: (4/10/16) Added delete messages functionality (case 5)
  * Date: (4/11/16) Added case 8 follow/unfollow
+ * Date: (4/11/16) Added case 10 search and view use profile. -WS
  */
 public class Main {
 
@@ -114,6 +115,7 @@ public class Main {
                     + "6.) Delete messages\n"
                     + "8.) Follow a user\n"
                     + "9.) Unfollow a user\n"
+                    + "10.) View user profile\n"
                     + "else, logout/quit\n"
                     + "command:");
             switch (Integer.parseInt(command.nextLine())) {
@@ -228,6 +230,38 @@ public class Main {
                     if (!removed)
                         System.out.println("You are either not following that user, or that user does not exist.");
                     updateUserFile();
+                    break;
+                case 10:
+                    System.out.print("Enter username to view user's profile:");
+                    String userprofile = in.nextLine();
+                    int ind = -1;
+                    for (int i = 0; i < userList.size(); i++){
+                        if ((userList.get(i).getUsername()).equals(userprofile))
+                            ind = i; 
+                            break;  
+                    }
+                    
+                    if (ind != -1) {
+                       System.out.println("Username: "+ userList.get(ind).getUsername() +".");
+                       System.out.println("User registered on: "+ userList.get(ind).getRegisterDate() +".");
+                       System.out.println("User follows "+ userList.get(ind).getFollowing() +" other users.");
+                       System.out.println("User has "+ userList.get(ind).getFollowers() +" followers.");
+                       // What to show if searched users has no followers/followings - slight glitch still
+                       if ((userList.get(ind).getFollowingList()).equals("<")) {
+                           System.out.println("User has no followers.");
+                       } else {
+                           System.out.println(userprofile +" follows: "+ userList.get(ind).getFollowingList() +".");
+                       }
+                       if ((userList.get(ind).getFollowerList()).equals("<")) {
+                           System.out.println("User follows no other users.");
+                       } else {
+                           System.out.println("User followers: "+ userList.get(ind).getFollowerList() +".");
+                       }
+                    }
+                    // If user does not exist
+                    if (ind == -1) {
+                    System.out.println("No user exists with the username "+ userprofile +".");
+                    }
                     break;
                 default:
                     success = true;
