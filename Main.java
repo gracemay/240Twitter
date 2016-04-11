@@ -110,23 +110,23 @@ public class Main {
                     String createDescription = in.nextLine();
                     int createFollowersCount = 0;
                     int createFollowingCount = 0;
-                    String createFollowersNames = "";
-                    String createFollowingNames = "";
+                    String createFollowersNames = "N/A";
+                    String createFollowingNames = "N/A";
                     //System.out.println("");
 
                     User createUser = new User(createUsername,createPassword, createEmail, createDescription,createFollowersCount, createFollowingCount, createFollowersNames, createFollowingNames);
                     System.out.println("The info in createUser is: \n");
                     userList.add(createUser);
                     for(int i=0; i < userList.size(); i++){
-                     System.out.println("Element" + i + "'s username is: " + userList.get(i).getUsername());
-                     System.out.println("Element" + i + "'s password is: " + userList.get(i).getPassword());
-                     System.out.println("Element" + i + "'s email is: " + userList.get(i).getEmail());
-                     System.out.println("Element" + i + "'s registered date is: " + userList.get(i).getRegisterDate());
-                   //  System.out.println("Element" + i + "'s description is: " + userList.get(i).getDescription());
-                     System.out.println("Element" + i + "'s number of followers is: " + userList.get(i).getFollowers());
-                     System.out.println("Element" + i + "'s number of following is: " + userList.get(i).getFollowing());
-                   //  System.out.println("Element" + i + "'s list of followers' names is: " + userList.get(i).getFollowerList());
-                   //  System.out.println("Element" + i + "'s list of following' names is: " + userList.get(i).getFollowingList());
+                     System.out.println("Element " + i + "'s username is: " + userList.get(i).getUsername());
+                     System.out.println("Element " + i + "'s password is: " + userList.get(i).getPassword());
+                     System.out.println("Element " + i + "'s email is: " + userList.get(i).getEmail());
+                     System.out.println("Element " + i + "'s registered date is: " + userList.get(i).getRegisterDate());
+                     System.out.println("Element " + i + "'s description is: " + userList.get(i).getDescription());
+                     System.out.println("Element " + i + "'s number of followers is: " + userList.get(i).getFollowers());
+                     System.out.println("Element " + i + "'s number of following is: " + userList.get(i).getFollowing());
+                     System.out.println("Element " + i + "'s list of followers' names is: " + createFollowersNames);
+                     System.out.println("Element " + i + "'s list of following' names is: " + createFollowingNames);
                      }
                      updateUserFile(userList);
                      break;
@@ -197,7 +197,7 @@ public class Main {
 
     private static void updateUserFile(ArrayList<User> userList) throws IOException
     {
-        FileWriter fw = new FileWriter(new File("usersFile.txt"));
+        FileWriter fw = new FileWriter(new File("UsersFile.txt"));
         for (User user : userList)
         {
             String followers = "", following = "";
@@ -280,7 +280,7 @@ public class Main {
     
     public static void updateMessagesFile() throws IOException
     {
-        FileWriter fw = new FileWriter(new File("messageFile.txt"));
+        FileWriter fw = new FileWriter(new File("MessageFile.txt"));
         for (Message msg : messageList)
         {
             System.out.println(msg.getMessage());
@@ -295,7 +295,7 @@ public class Main {
     
     public static void updateUserFile() throws IOException
     {
-        FileWriter fw = new FileWriter(new File("usersFile.txt"));
+        FileWriter fw = new FileWriter(new File("UsersFile.txt"));
         for (User user : userList)
         {
             String followers = "", following = "";

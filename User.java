@@ -78,6 +78,10 @@ public class User{
     void setRegisterDate(long rdate){
         date = rdate;
     }
+    
+    void setDescription(String desc){
+        description = desc;
+    }
 
     void setUserFollowers(int ufwer){
         int addingpeople =0;
@@ -118,6 +122,10 @@ public class User{
 
     public long getRegisterDate(){
         return date;
+    }
+    
+    public String getDescription(){
+        return description;
     }
 
     public int getFollowing(){
