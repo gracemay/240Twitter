@@ -1,7 +1,4 @@
 package TwitterAssignment;
-import java.util.*;
-import java.text.*;
-
 /**
  * @Author: Grace May
  * @Date: 3/25/2016

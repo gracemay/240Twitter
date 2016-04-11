@@ -135,8 +135,8 @@ public class Main {
                     
                 case 2:
                     //added a try catch statement for java.io.IOException
-                    LogUserIn.case1AddMessage(messageList, username);
-                     break;                                                                                                        //better
+                    LogUserIn.caseAddMessage(messageList, username);
+                    break;                                                                                                        //better
 /**<<<<<<< HEAD
                 case 3:
                     for (Message message : messageList) {
@@ -155,10 +155,10 @@ public class Main {
 ======= **/
                 case 3:
                     //prints out messages
-                    LogUserIn.case2Print(messageList);
+                    LogUserIn.casePrint(messageList);
                     break;
                 case 4:     //can be optimized later to search by relevance
-                    LogUserIn.case3Search(messageList);
+                    LogUserIn.caseSearch(messageList);
                     break;
                 case 5:
                     System.out.println("Are you sure you want to delete your account? (Yes/No): ");

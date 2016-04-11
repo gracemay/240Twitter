@@ -59,7 +59,7 @@ public class LogUserIn {
         return null;
     }
     //adds a message. called from main.java case one
-    public static void case1AddMessage(ArrayList<Message> messageList, String username){
+    public static void caseAddMessage(ArrayList<Message> messageList, String username){
         boolean work = false;
         do {
             try {
@@ -85,16 +85,16 @@ public class LogUserIn {
         } while(!work);
     }
     //prints out messages; still need work about public and private
-    public static void case2Print(ArrayList<Message> messageList){
+    public static void casePrint(ArrayList<Message> messageList){
         for (Message message : messageList) {
-            if (!message.privacy || Main.currentUser.isFollowing(message.getUser())) {
+            //if (!message.privacy || Main.currentUser.isFollowing(message.getUser())) {
                 System.out.println(message.getUser() + "  on " + sdfMessages.format(new Date(message.getDate())));
                 System.out.println(message.getMessage() + "\n");
-            }
+           // }
         }
     }
 
-    public static void case3Search(ArrayList<Message> messageList){
+    public static void caseSearch(ArrayList<Message> messageList){
         System.out.println("Enter search terms separated by spaces:");
         String[] terms = in.nextLine().split(" ");
         for (Message m : messageList)
