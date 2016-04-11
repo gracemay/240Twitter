@@ -139,6 +139,22 @@ public class User{
             System.out.println("Follower number "+x+": "+followers[x]);
         System.out.println();
     }
+    
+    public boolean hasFollower(String follower)
+    {
+        for (int i = 0; i < followers.length; i++)
+            if (followers[i].equals(follower))
+                return true;
+        return false;
+    }
+    
+    public boolean isFollowing(String follower)
+    {
+        for (int i = 0; i < followings.length; i++)
+            if (followings[i].equals(follower))
+                return true;
+        return false;
+    }
 
 } //end of User clas
 
