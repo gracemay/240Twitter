@@ -172,7 +172,7 @@ public class User{
                 return true;
         return false;
     }
-    
+    //returns true if the follower is in the following list
     public boolean isFollowing(String follower)
     {
         for (int i = 0; i < followings.length; i++)
