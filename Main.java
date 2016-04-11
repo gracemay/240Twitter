@@ -75,6 +75,9 @@ public class Main {
 //            LogUserIn lui = new LogUserIn(username, passwd);
             success = LogUserIn.checkLoginSuccess(userList, username, passwd);
             currentUser = LogUserIn.getUser(userList, username, passwd);
+            for (User u : userList)
+                if (u.getUsername().equals(username) && u.getPassword().equals(passwd))
+                    currentUser = u;
             attempts++;
             if(!success && attempts > 2){
                 System.out.println("Error: Incorrect username or password.");
@@ -206,8 +209,8 @@ public class Main {
                     break;
                 case 9:
                     System.out.println("People you are following:");
-                    for (int i = 0; i < currentUser.getFollowingList().length; i++)
-                        System.out.println(i + ".) " + currentUser.getFollowingList()[i]);
+                    for (int i = 0; i < currentUser.followings.length; i++)
+                        System.out.println(i + ".) " + currentUser.followings[i]);
                     System.out.print("Which of them would you like to unfollow?");
                     boolean removed = currentUser.removeFollowing(in.nextLine());
                     if (!removed)
