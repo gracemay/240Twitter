@@ -188,6 +188,10 @@ public class Main {
                     }
                     LogUserIn.updateMessagesFile(messageList);
                     break;
+                case 7:
+                    writeUserFileOutput();
+                    writeMessageFileOutput();
+                    break;
                 default:
                     success = true;
                     break;
@@ -330,9 +334,32 @@ public class Main {
             if (msg.getMessage().contains(terms[i]))
                 return true;
         return false;
-    }
-
-
-
+    }                
+           
+    public static void writeUserFileOutput() throws FileNotFoundException{    
+       PrintWriter writer = new PrintWriter("UsersFile.txt");
+       for (int i = 0; i < userList.size(); i++) {
+           writer.println(userList.get(i).getUsername());
+           writer.println(userList.get(i).getPassword());
+           writer.println(userList.get(i).getEmail());
+           writer.println(userList.get(i).getRegisterDate());
+           writer.println(userList.get(i).getFollowing());
+           writer.println(userList.get(i).getFollowers());
+           writer.println(userList.get(i).getFollowingList());
+           writer.println(userList.get(i).getFollowerList());
+       }
+       writer.close();
+   }
+   
+   public static void writeMessageFileOutput() throws FileNotFoundException {    
+       PrintWriter writer = new PrintWriter("MessageFile.txt");
+       for (int i = 0; i < messageList.size(); i++) {
+           writer.println(messageList.get(i).getUser());
+           writer.println(messageList.get(i).getMessageID());
+           writer.println(messageList.get(i).getMessage());
+           writer.println(messageList.get(i).getDate());
+           writer.println(messageList.get(i).getPrivacy());
+       }
+       writer.close();
+   }
 }
-
