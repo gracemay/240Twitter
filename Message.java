@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 //package TwitterAssignment;
+=======
+
+package TwitterAssignment;
+>>>>>>> 362d518cd2a5b6e9e79d385b36fd864574625660
 
 
 /**
@@ -13,6 +18,7 @@ public class Message {
     int messageID;
     String message;
     long date;
+    //public if true; private for false
     boolean privacy;
 
     String[] messageList = new String[140];
