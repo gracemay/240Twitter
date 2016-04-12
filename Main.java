@@ -42,8 +42,8 @@ public class Main {
     public static User currentUser;
     //added username and passwd to be data memebers.
     protected static String username = "", passwd = "";
-    //the thing where everything happened
-    public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
+    //the thing where everything happens
+    public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException, InterruptedException {
 //        GUI graphical = new GUI();
 //        graphical.start();
         userList = new ArrayList<User>();
@@ -134,7 +134,7 @@ public class Main {
                     + "5.) Delete Messages\n"
                     + "6.) Follow a User\n"
                     + "7.) Unfollow a User\n"
-                    + "8.) View User Profile"
+                    + "8.) View User Profile\n"
                     + "else, logout/quit\n"
                     + "command:");
             switch (Integer.parseInt(command.nextLine())) {
@@ -205,6 +205,11 @@ public class Main {
                     updateUserFile();
                     break;
                 case 7:
+                    if (currentUser.followings.length == 1)
+                    {
+                        System.out.println("You are not following anyone");
+                        break;
+                    }
                     System.out.println("People you are following:");
                     for (int i = 0; i < currentUser.followings.length; i++)
                         System.out.println(i + ".) " + currentUser.followings[i]);
