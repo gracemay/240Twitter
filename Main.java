@@ -52,27 +52,47 @@ public class Main {
         messageList = readMessageInput("MessageFile.txt");
         Scanner in = new Scanner(System.in);
 
-        boolean done = LogIn(in);
+        boolean done = startProgram(in);
         if(done)
             WhileLoggedIn(in);
     }
 
     //this method logs the user in
-    public static boolean LogIn(Scanner in) {
+    public static boolean startProgram(Scanner in) throws IOException {
         boolean success = false;
         boolean cont = false;
         int attempts = 0;
         //will iterate unless the user quits of login. If not loggedin can see all public messages
-        do{
+        do{     //magic do not touch
             System.out.println("Do you wish to: " +
-                    "\n1). Login" +
-                    "\n2). View Public Messages" +
+                    "\n1). Create New Account" +
+                    "\n2). Login" +
+                    "\n3). View Public Messages" +
                     "\nDefault). Quit" +
                     "\nPlease write out the number you wish to do(or nothing to quit).");
             String ans = in.nextLine();
-            if (ans.equals("2")) {
+            if (ans.equals("1"))
+            {
+                System.out.println("To create an account on Twitter. Please enter a username:");
+                String createUsername = in.nextLine();
+                System.out.println("Please enter a password:");
+                String createPassword = in.nextLine();
+                System.out.println("Please enter an email address:");
+                String createEmail = in.nextLine();
+                System.out.println("Please enter a one-line description about yourself.");
+                String createDescription = in.nextLine();
+                int createFollowersCount = 0;
+                int createFollowingCount = 0;
+                String createFollowersNames = "N/A";
+                String createFollowingNames = "N/A";
+
+                User createUser = new User(createUsername,createPassword, createEmail, createDescription,createFollowersCount, createFollowingCount, createFollowersNames, createFollowingNames);
+                userList.add(createUser);
+                 updateUserFile();
+            }
+            else if (ans.equals("3")) {
                 LogUserIn.casePrint(messageList, true);
-            } else if (ans.equals("1")) {
+            } else if (ans.equals("2")) {
                 //log in
                 System.out.println("Please enter log-in information (leave blank to quit)");
                 while (!success && attempts <= 2) {
@@ -84,17 +104,6 @@ public class Main {
                     if (username.equals("") || passwd.equals(""))
                         success = false;
 //            LogUserIn lui = new LogUserIn(username, passwd);
-<<<<<<< HEAD
-                success = LogUserIn.checkLoginSuccess(userList, username, passwd);
-                currentUser = LogUserIn.getUser(userList, username, passwd);
-                for (User u : userList)
-                    if (currentUser.getUsername().equals(u.getUsername()))
-                        u = currentUser;
-                attempts++;
-                if(!success && attempts > 2){
-                    System.out.println("Error: Incorrect username or password.");
-                    return false;
-=======
                     success = LogUserIn.checkLoginSuccess(userList, username, passwd);
                     currentUser = LogUserIn.getUser(userList, username, passwd);
                     attempts++;
@@ -103,7 +112,6 @@ public class Main {
                         return false;
                     }else
                         cont = true;
->>>>>>> 09794992d02b52e8ec449a958dfb87cb83e2f40c
                 }
             } else{
                 cont = true;
@@ -119,51 +127,18 @@ public class Main {
         Scanner command = new Scanner(System.in);
         while(!success){
             System.out.print("What would you like to do?\n"
-
-                    + "1.) Create account\n"
-                    + "2.) Post Messages\n"
-                    + "3.) View Messages\n"
-                    + "4.) Search Messages\n"
-                    + "5.) Delete account\n"
-                    + "6.) Delete messages\n"
-                    + "8.) Follow a user\n"
-                    + "9.) Unfollow a user\n"
+                    + "1.) Post Messages\n"
+                    + "2.) View Messages\n"
+                    + "3.) Search Messages\n"
+                    + "4.) Delete Account\n"
+                    + "5.) Delete Messages\n"
+                    + "6.) Follow a User\n"
+                    + "7.) Unfollow a User\n"
+                    + "8.) View User Profile"
                     + "else, logout/quit\n"
                     + "command:");
             switch (Integer.parseInt(command.nextLine())) {
                 case 1:
-                    System.out.println("To create an account on Twitter. Please enter a username:");
-                    String createUsername = in.nextLine();
-                    System.out.println("Please enter a password:");
-                    String createPassword = in.nextLine();
-                    System.out.println("Please enter an email address:");
-                    String createEmail = in.nextLine();
-                    System.out.println("Please enter a one-line description about yourself.");
-                    String createDescription = in.nextLine();
-                    int createFollowersCount = 0;
-                    int createFollowingCount = 0;
-                    String createFollowersNames = "";
-                    String createFollowingNames = "";
-                    //System.out.println("");
-
-                    User createUser = new User(createUsername,createPassword, createEmail, createDescription,createFollowersCount, createFollowingCount, createFollowersNames, createFollowingNames);
-                    System.out.println("The info in createUser is: \n");
-                    userList.add(createUser);
-                    for(int i=0; i < userList.size(); i++){
-                     System.out.println("Element" + i + "'s username is: " + userList.get(i).getUsername());
-                     System.out.println("Element" + i + "'s password is: " + userList.get(i).getPassword());
-                     System.out.println("Element" + i + "'s email is: " + userList.get(i).getEmail());
-                     System.out.println("Element" + i + "'s registered date is: " + userList.get(i).getRegisterDate());
-                   //  System.out.println("Element" + i + "'s description is: " + userList.get(i).getDescription());
-                     System.out.println("Element" + i + "'s number of followers is: " + userList.get(i).getFollowers());
-                     System.out.println("Element" + i + "'s number of following is: " + userList.get(i).getFollowing());
-                   //  System.out.println("Element" + i + "'s list of followers' names is: " + userList.get(i).getFollowerList());
-                   //  System.out.println("Element" + i + "'s list of following' names is: " + userList.get(i).getFollowingList());
-                     }
-                     updateUserFile();
-                     break;
-                    
-                case 2:
                     //added a try catch statement for java.io.IOException
                     LogUserIn.caseAddMessage(messageList, username);
                     break;                                                                                                        //better
@@ -183,14 +158,14 @@ public class Main {
                         if (hasTerms(m, terms))
                             System.out.println(m.getUser() + "  on " + sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n");
 ======= **/
-                case 3:
+                case 2:
                     //prints out messages
                     LogUserIn.casePrint(messageList, false);
                     break;
-                case 4:     //can be optimized later to search by relevance
+                case 3:     //can be optimized later to search by relevance
                     LogUserIn.caseSearch(messageList);
                     break;
-                case 5:
+                case 4:
                     System.out.println("Are you sure you want to delete your account? (Yes/No): ");
                     if (in.nextLine().equalsIgnoreCase("Yes") && !currentUser.equals(null))
                     {
@@ -206,7 +181,7 @@ public class Main {
                     }
                     System.exit(0);     //until we add a log out function
                     break;
-                case 6:
+                case 5:
                     for (Message m : messageList)
                         if (m.getUser().equals(currentUser.getUsername()))
                             System.out.println(messageList.indexOf(m) + ": " + sdfMessages.format(m.getDate()) + "\n" + m.getMessage() + "\n--------------------");
@@ -220,11 +195,7 @@ public class Main {
                     }
                     LogUserIn.updateMessagesFile(messageList);
                     break;
-//                case 7:
-//                    writeUserFileOutputFile();
-//                    writeMessageFileOutput();
-//                    break;
-                case 8:
+                case 6:
                     System.out.print("Please enter the username of the user you wish to follow:");
                     String username = in.nextLine();
                     for (User u : userList)
@@ -233,7 +204,7 @@ public class Main {
                                 currentUser.addFollowing(username);
                     updateUserFile();
                     break;
-                case 9:
+                case 7:
                     System.out.println("People you are following:");
                     for (int i = 0; i < currentUser.followings.length; i++)
                         System.out.println(i + ".) " + currentUser.followings[i]);
@@ -334,18 +305,14 @@ public class Main {
             fw.write(user.getFollowing() + "\n");
             for (int i = 0; i < user.followers.length; i++)
             {
-                followers += user.followers[i];
-                if (i != user.followers.length - 1)
-                    followers += ";";
+                followers += user.followers[i] + ";";
             }
             for (int i = 0; i < user.followings.length; i++)
             {
-                following += user.followings[i];
-                if (i != user.followings.length - 1)
-                    following += ";";
+                following += user.followings[i] + ";";
             }
             fw.write(followers + "\n");
-            fw.write(following + "\n");
+            fw.write(following.substring(0, following.length()) + "\n");
         }
         fw.close();
     }
