@@ -1,4 +1,4 @@
-package TwitterAssignment;
+//package TwitterAssignment;
 
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
@@ -45,7 +45,7 @@ public class Main {
     //the thing where everything happens
     public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException, InterruptedException {
 //        GUI graphical = new GUI();
-//        graphical.start();
+//b        graphical.start();
         userList = new ArrayList<User>();
         messageList = new ArrayList<Message>();
         userList = readUserInput("UsersFile.txt");

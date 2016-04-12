@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TwitterAssignment;
+//package TwitterAssignment;
 
 import java.awt.Color;
 import java.io.BufferedReader;
@@ -240,16 +240,16 @@ public class GUI extends javax.swing.JFrame
 
 
         //INSERT SERVER IP ADDRESS HERE
-        String hostName = "10.213.5.221";
+        String hostName = "10.214.18.152";
         int portNumber = 4444;
-        try (
+        try{
                 Socket twitterSocket = new Socket(hostName, portNumber);
                 ServerSocket server = new ServerSocket(portNumber + 1);
                 Socket incoming = server.accept();
                 BufferedReader fromServer = new BufferedReader(new InputStreamReader(incoming.getInputStream()));
                 PrintWriter out = new PrintWriter(twitterSocket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(twitterSocket.getInputStream()));
-        ) {
+        
 
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
             String tempFromServer, reply = "", fromUser;
@@ -307,14 +307,14 @@ public class GUI extends javax.swing.JFrame
 
         String hostName = "";
         int portNumber = 4444;
-        try (
+        try {
                 Socket twitterSocket = new Socket(hostName, portNumber);
                 ServerSocket server = new ServerSocket(portNumber + 1);
                 Socket incoming = server.accept();
                 BufferedReader fromServer = new BufferedReader(new InputStreamReader(incoming.getInputStream()));
                 PrintWriter out = new PrintWriter(twitterSocket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(twitterSocket.getInputStream()));
-        ) {
+        
 
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
             String tempFromServer, reply = "", fromUser;

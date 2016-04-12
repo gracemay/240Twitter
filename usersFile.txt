@@ -14,17 +14,17 @@ nromanof@gmail.com
 Black Widow role-playing account
 4
 1
-capamer;gmay;Jec123;dummy
-capamer
+capamer;gmay;Jec123;dummy;
+capamer;
 gmay
 caprules
 gracemay221@gmail.com
 0412016
-Grace loves Captain America because he’s a history person.
+Grace loves Captain America because he is a history person.
 3
 1
-capamer;Jec123;dummy
-redLedger
+capamer;Jec123;dummy;
+redLedger;
 capamer
 Usarules
 capamericaforever42@gmail.com
@@ -32,8 +32,8 @@ capamericaforever42@gmail.com
 Sticking to what is right and wrong.
 1
 2
-redLedger
-redLedger;gmay
+redLedger;
+redLedger;gmay;
 Jec123
 loveCaptain!
 j.e.coates@gmail.com
@@ -41,14 +41,5 @@ j.e.coates@gmail.com
 I am awesome! Peace Out!
 2
 2
-capamer;dummy
-gmay;redLedger;dummy
-dummy
-dum
-d@gmail.com
-11231234
-Pratice test!
-2
-2
-Jec123; gmay
-Jec123;redLedger
+evan1;jaq2;
+gra3;will4;
