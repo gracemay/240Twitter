@@ -1,11 +1,4 @@
-<<<<<<< HEAD
 //package TwitterAssignment;
-import java.util.*;
-import java.text.*;
-
-=======
-package TwitterAssignment;
->>>>>>> 362d518cd2a5b6e9e79d385b36fd864574625660
 /**
  * @Author: Grace May
  * @Date: 3/25/2016
@@ -63,10 +56,14 @@ public class User{
     }
     //fill the followers array using the split() method
     void addToFollowers(String followers){
+        if (followers.substring(0,4).equals("N/A") && followers.length() >= 4)
+            followers.replaceAll("N/A;", "");
         this.followers = followers.split(";");
     }
     //fill the following array using the split() method
     void addToFollowings(String followings){
+        if (followings.substring(0, 4).equals("N/A") && followings.length() >= 4)
+            followings.replaceAll("N/A;", "");
         this.followings = followings.split(";");
     }
 
@@ -112,15 +109,54 @@ public class User{
     
     public void addFollower(String username)
     {
-        String[] temp = new String[followers.length + 1];
-        for (int i = 0; i < temp.length; i++)
-            if (i < followers.length)
-                temp[i] = followers[i];
-        temp[temp.length - 1] = username;
-        followers = new String[temp.length];
-        for (int i = 0; i < followers.length; i++)
-            followers[i] = temp[i];
+        if (followers[0].equals("N/A"))
+            followers[0] = username;
+        else
+        {
+            String[] temp = new String[followers.length + 1];
+            for (int i = 0; i < temp.length; i++)
+                if (i < followers.length)
+                    temp[i] = followers[i];
+            temp[temp.length - 1] = username;
+            followers = new String[temp.length];
+            for (int i = 0; i < followers.length; i++)
+                followers[i] = temp[i];
+        }
         userFollowers++;
+    }
+    
+    public boolean removeFollower(String username)
+    {
+        String[] temp = new String[followers.length - 1];
+        int offset = 0;
+        for (int i = 0; i < followers.length; i++)
+        {
+            if (followers[i].equals(username))
+                offset++;
+            else
+                temp[i] = followers[i - offset];
+            
+        }
+        userFollowers--;
+        return (offset != 0);
+    }
+    
+    public void addFollowing(String username)
+    {
+        if (followings[0].equals("N/A"))
+            followings[0] = username;
+        else
+        {
+            String[] temp = new String[followings.length + 1];
+            for (int i = 0; i < temp.length; i++)
+                if (i < followings.length)
+                    temp[i] = followings[i];
+            temp[temp.length - 1] = username;
+            followings = new String[temp.length];
+            for (int i = 0; i < followings.length; i++)
+                followings[i] = temp[i];
+        }
+        userFollowing++;
     }
     
     public boolean removeFollowing(String username)
@@ -132,7 +168,11 @@ public class User{
             if (followings[i].equals(username))
                 offset++;
             else
-                temp[i - offset] = followings[i];
+                temp[i] = followings[i - offset];
+            
+            
+            System.out.println("Temp " + i + " " + temp[i]);
+            System.out.println("Following " + i + " " + followings[i]);
         }
         userFollowing--;
         return (offset != 0);
@@ -151,6 +191,9 @@ public class User{
         return email;
     }
 
+    public String getDescription(){
+        return description;
+    }
     
     public long getRegisterDate(){
         return date;

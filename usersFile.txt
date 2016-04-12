@@ -14,17 +14,17 @@ nromanof@gmail.com
 Black Widow role-playing account
 4
 1
-capamer;gmay;Jec123;dummy
-capamer
+capamer;gmay;Jec123;dummy;
+capamer;
 gmay
 caprules
 gracemay221@gmail.com
 0412016
-Grace loves Captain America because he’s a history person.
+Grace loves Captain America because he is a history person.
 3
 1
-capamer;Jec123;dummy
-redLedger
+capamer;Jec123;dummy;
+redLedger;
 capamer
 Usarules
 capamericaforever42@gmail.com
@@ -32,8 +32,8 @@ capamericaforever42@gmail.com
 Sticking to what is right and wrong.
 1
 2
-redLedger
-redLedger;gmay
+redLedger;
+redLedger;gmay;
 Jec123
 loveCaptain!
 j.e.coates@gmail.com
@@ -41,82 +41,5 @@ j.e.coates@gmail.com
 I am awesome! Peace Out!
 2
 2
-<<<<<<< HEAD
-evan1;jaq2
-gra3;will4
-gmay
-caprules
-gracemay221@gmail.com
-1460385688103
-Grace loves the Captain America movies
-0
-0
-N/A
-N/A
-Sally
-sally
-sallytew@amseo.com
-1460386493839
-Sally is the first user to be created in the new format!
-0
-0
-N/A
-N/A
-Karen
-karen
-karen@maisdl.com
-1460386571057
-Karen is the first user to use the new format with commands!
-0
-0
-N/A
-N/A
-Harry
-harryp
-harryp@make.com
-1460386901142
-Harry Potter loves Cap!
-0
-0
-N/A
-N/A
-Amanda
-amanda
-amanda@masre.com
-1460387930137
-Amanda loves Cap!
-0
-0
-N/A
-N/A
-Randy
-randy
-randy@rew.net
-1460388018117
-Randy loves pasta and Cap America! :)
-0
-0
-N/A
-N/A
-Ida
-ida
-ida@maiflw.com
-1460412615870
-Ida loves yogurt and Captain America.
-0
-0
-N/A
-N/A
-=======
-capamer;dummy
-gmay;redLedger;dummy
-dummy
-dum
-d@gmail.com
-11231234
-Pratice test!
-2
-2
-Jec123; gmay
-Jec123;redLedger
->>>>>>> 362d518cd2a5b6e9e79d385b36fd864574625660
+evan1;jaq2;
+gra3;will4;

@@ -1,9 +1,7 @@
-<<<<<<< HEAD
-//package TwitterAssignment;
-=======
 
-package TwitterAssignment;
->>>>>>> 362d518cd2a5b6e9e79d385b36fd864574625660
+
+//package TwitterAssignment;
+
 
 
 /**
