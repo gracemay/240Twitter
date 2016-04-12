@@ -210,21 +210,7 @@ public class Main {
         return uList;
     }
     
-    public static void updateMessagesFile() throws IOException
-    {
-        FileWriter fw = new FileWriter(new File("MessageFile.txt"));
-        for (Message msg : messageList)
-        {
-            System.out.println(msg.getMessage());
-            fw.write(msg.getUser() + "\n");
-            fw.write(msg.getMessageID() + "\n");
-            fw.write(msg.getMessage() + "\n");
-            fw.write(Long.toString(msg.getDate()) + "\n");
-            fw.write(Boolean.toString(msg.getPrivacy()) + "\n");
-        }
-        fw.close();
-    }
-           
+
     //public static void writeUserFileOutput() throws FileNotFoundException{    
     //   PrintWriter writer = new PrintWriter("UsersFile.txt");
     //   for (int i = 0; i < userList.size(); i++) {
