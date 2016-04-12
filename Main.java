@@ -65,6 +65,7 @@ public class Main {
             System.out.println("Do you wish to: " +
                     "\n1). Login" +
                     "\n2). View Public Messages" +
+                    "" +
                     "\nDefault). Quit" +
                     "\nPlease write out the number you wish to do(or nothing to quit).");
             String ans = in.nextLine();
