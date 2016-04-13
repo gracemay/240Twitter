@@ -195,7 +195,10 @@ public class LogUserIn {
         for (User u : Main.userList)
             if (u.getUsername().equals(username))
                 if (!Main.currentUser.isFollowing(u.getUsername()))
-                    Main.currentUser.addFollower(username);
+                {
+                    Main.currentUser.addFollowing(username);
+                    u.addFollower(Main.currentUser.getUsername());
+                }
         try{
             updateUserFile();
         }catch (java.io.IOException e){
@@ -208,8 +211,13 @@ public class LogUserIn {
         for (int i = 0; i < Main.currentUser.followings.length; i++)
             System.out.println(i + ".) " + Main.currentUser.followings[i]);
         System.out.print("Which of them would you like to unfollow?");
-        boolean removed = Main.currentUser.removeFollowing(in.nextLine());
-        if (!removed)
+        String username = in.nextLine();
+        boolean removed = Main.currentUser.removeFollowing(username);
+        if (removed)
+            for (User u : Main.userList)
+                if (u.getUsername().equals(username))
+                    u.removeFollower(username);
+        else
             System.out.println("You are either not following that user, or that user does not exist.");
         try{
             updateUserFile();
