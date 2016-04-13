@@ -41,5 +41,27 @@ j.e.coates@gmail.com
 I am awesome! Peace Out!
 2
 2
+<<<<<<< HEAD
+capamer;dummy
+gmay;redLedger;dummy
+dummy
+dum
+d@gmail.com
+11231234
+Pratice test!
+2
+2
+Jec123; gmay
+Jec123;redLedger
+jackie
+password
+jcoates@gmail.com
+1460501137965
+THis is great!
+1
+0
+Jec123
+=======
 evan1;jaq2;
 gra3;will4;
+>>>>>>> a4679b38f81b4630b0157021f2238cb55a93fef3

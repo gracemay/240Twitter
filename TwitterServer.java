@@ -23,9 +23,9 @@ public class TwitterServer
             {
                 Socket incoming = serverSocket.accept();
                 Socket update = new Socket(incoming.getInetAddress(), portNumber + 1);
-                RefreshServerThread.mList = Main.readMessageInput("MessageFile.txt");
-                RefreshServerThread refresher = new RefreshServerThread(update);
-                refresher.start();
+                //RefreshServerThread.mList = Main.readMessageInput("messageFile.txt");
+                //RefreshServerThread refresher = new RefreshServerThread(update);
+                //refresher.start();
                 new TwitterServerThread(incoming).start();
             }
         } catch (IOException e)
