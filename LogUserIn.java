@@ -11,7 +11,7 @@ import java.util.Scanner;
 /**
  * @Author William
  * @Date 3/25/16
- * LogUserIn class contains a constructor, a checkLoginSuccess method, and a getUsername method.
+ * LogUserIn class contains does all the grunt work for what the user does while in the system.
  */
 public class LogUserIn {
     private static SimpleDateFormat sdfMessages = new SimpleDateFormat("MM/dd/yyy hh:mm a");
@@ -117,7 +117,8 @@ public class LogUserIn {
     public static void casePrint(boolean loggedInSituation){
         for (Message message : Main.messageList) {
             //if loggedInSituation and privacy is true only print out public:  if loggedInSituation is false and message is false or the follower
-            if ((loggedInSituation && message.privacy) || (!loggedInSituation && (!message.privacy || Main.currentUser.isFollowing(message.getUser())))) {
+            if ((loggedInSituation && message.privacy) ||
+                    (!loggedInSituation && ( message.privacy || (!message.privacy && Main.currentUser.isFollowing(message.getUser()))))) {
                 System.out.println(message.getUser() + "  on " + sdfMessages.format(new Date(message.getDate())));
                 System.out.println(message.getMessage() + "\n");
             }
@@ -183,7 +184,10 @@ public class LogUserIn {
         for (User u : Main.userList)
             if (u.getUsername().equals(username))
                 if (!Main.currentUser.isFollowing(u.getUsername()))
-                    Main.currentUser.addFollower(username);
+                {
+                    Main.currentUser.addFollowing(username);
+                    u.addFollower(Main.currentUser.getUsername());
+                }
         try{
             updateUserFile();
         }catch (java.io.IOException e){
@@ -196,8 +200,13 @@ public class LogUserIn {
         for (int i = 0; i < Main.currentUser.followings.length; i++)
             System.out.println(i + ".) " + Main.currentUser.followings[i]);
         System.out.print("Which of them would you like to unfollow?");
-        boolean removed = Main.currentUser.removeFollowing(in.nextLine());
-        if (!removed)
+        String username = in.nextLine();
+        boolean removed = Main.currentUser.removeFollowing(username);
+        if (removed)
+            for (User u : Main.userList)
+                if (u.getUsername().equals(username))
+                    u.removeFollower(username);
+        else
             System.out.println("You are either not following that user, or that user does not exist.");
         try{
             updateUserFile();
@@ -272,7 +281,7 @@ public class LogUserIn {
         fw.close();
     }
 
-    public static void updateUserFile() throws IOException
+    private static void updateUserFile() throws IOException
     {
         FileWriter fw = new FileWriter(new File("UsersFile.txt"));
         for (User user : Main.userList)

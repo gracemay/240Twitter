@@ -45,7 +45,7 @@ public class Main {
     //the thing where everything happens
     public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException, InterruptedException {
 //        GUI graphical = new GUI();
-//b        graphical.start();
+//        graphical.start();
         userList = new ArrayList<User>();
         messageList = new ArrayList<Message>();
         userList = readUserInput("UsersFile.txt");
@@ -205,11 +205,11 @@ public class Main {
             email = inTxt.nextLine();
             dateMade = Long.parseLong(inTxt.nextLine());
             description = inTxt.nextLine();
-            followersCount = Integer.parseInt(inTxt.nextLine());
             followingCount = Integer.parseInt(inTxt.nextLine());
-            followers = inTxt.nextLine();
+            followersCount = Integer.parseInt(inTxt.nextLine());
             following = inTxt.nextLine();
-            User u = new User(username, password, email, dateMade, description, followersCount, followingCount, followers, following);
+            followers = inTxt.nextLine();
+            User u = new User(username, password, email, dateMade, description, followingCount, followersCount, following, followers);
             uList.add(u);
 //            pList.add((password));
 //            usernameList.add(username);

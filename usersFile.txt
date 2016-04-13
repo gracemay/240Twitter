@@ -1,3 +1,12 @@
+username
+password
+email
+11112016
+Description
+1
+1
+following
+follower
 wscheid
 password
 wscheid@gmail.com
@@ -20,7 +29,11 @@ gmay
 caprules
 gracemay221@gmail.com
 412016
+<<<<<<< HEAD
 Grace loves Captain America because he is a history person.
+=======
+Grace loves Captain America because he’s a history person.
+>>>>>>> 54a41685d9835f22d735925339cc17e7f07ed744
 3
 1
 capamer;Jec123;dummy
@@ -41,6 +54,7 @@ j.e.coates@gmail.com
 I am awesome! Peace Out!
 2
 2
+<<<<<<< HEAD
 evan1;jaq2
 gra3;will4
 Bob
@@ -79,3 +93,25 @@ Denise loves Cap America.
 0
 ;gmay
 
+=======
+capamer;dummy
+gmay;redLedger;dummy
+dummy
+dum
+d@gmail.com
+11231234
+Pratice test!
+2
+2
+Jec123; gmay
+Jec123;redLedger
+jackie
+password
+jcoates@gmail.com
+1460501137965
+THis is great!
+2
+0
+Jec123;wscheid
+>
+>>>>>>> 54a41685d9835f22d735925339cc17e7f07ed744
