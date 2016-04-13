@@ -205,11 +205,11 @@ public class Main {
             email = inTxt.nextLine();
             dateMade = Long.parseLong(inTxt.nextLine());
             description = inTxt.nextLine();
-            followersCount = Integer.parseInt(inTxt.nextLine());
             followingCount = Integer.parseInt(inTxt.nextLine());
-            followers = inTxt.nextLine();
+            followersCount = Integer.parseInt(inTxt.nextLine());
             following = inTxt.nextLine();
-            User u = new User(username, password, email, dateMade, description, followersCount, followingCount, followers, following);
+            followers = inTxt.nextLine();
+            User u = new User(username, password, email, dateMade, description, followingCount, followersCount, following, followers);
             uList.add(u);
 //            pList.add((password));
 //            usernameList.add(username);

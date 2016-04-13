@@ -30,7 +30,7 @@ public class User{
     //      plus it's easier to convert from a long than to a long
     //public User(String usname, String pswd, String email, String dateMade, String description,
     public User(String usname, String pswd, String email, String description,
-                int uFollwers, int uFollwing, String followers, String followings){
+                int uFollwing, int uFollwers, String followings, String followers){
         username = usname;
         password = pswd;
         this.email = email;
@@ -43,7 +43,7 @@ public class User{
     }
     
     public User(String usname, String pswd, String email, long date, String description,
-                int uFollwers, int uFollwing, String followers, String followings){
+                int uFollwing, int uFollwers, String followings, String followers){
         username = usname;
         password = pswd;
         this.email = email;
@@ -223,6 +223,7 @@ public class User{
         return false;
     }
     //returns true if the follower is in the following list
+    //param: the follower string
     public boolean isFollowing(String follower)
     {
         for (int i = 0; i < followings.length; i++)

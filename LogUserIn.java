@@ -129,7 +129,7 @@ public class LogUserIn {
         for (Message message : Main.messageList) {
             //if loggedInSituation and privacy is true only print out public:  if loggedInSituation is false and message is false or the follower
             if ((loggedInSituation && message.privacy) ||
-                    (!loggedInSituation && (!message.privacy || Main.currentUser.isFollowing(message.getUser())))) {
+                    (!loggedInSituation && ( message.privacy || (!message.privacy && Main.currentUser.isFollowing(message.getUser()))))) {
                 System.out.println(message.getUser() + "  on " + sdfMessages.format(new Date(message.getDate())));
                 System.out.println(message.getMessage() + "\n");
             }
