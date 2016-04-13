@@ -122,6 +122,9 @@ public class User{
             for (int i = 0; i < followers.length; i++)
                 followers[i] = temp[i];
         }
+        for (User u : Main.userList)
+            if (u.getPassword().equals(password) && u.getUsername().equals(username))
+                u = this;
         userFollowers++;
     }
     
@@ -135,9 +138,12 @@ public class User{
                 offset++;
             else
                 temp[i] = followers[i - offset];
-            
         }
+        followers = temp;
         userFollowers--;
+        for (User u : Main.userList)
+            if (u.getPassword().equals(password) && u.getUsername().equals(username))
+                u = this;
         return (offset != 0);
     }
     
@@ -156,6 +162,9 @@ public class User{
             for (int i = 0; i < followings.length; i++)
                 followings[i] = temp[i];
         }
+        for (User u : Main.userList)
+            if (u.getPassword().equals(password) && u.getUsername().equals(username))
+                u = this;
         userFollowing++;
     }
     
@@ -169,11 +178,11 @@ public class User{
                 offset++;
             else
                 temp[i] = followings[i - offset];
-            
-            
-            System.out.println("Temp " + i + " " + temp[i]);
-            System.out.println("Following " + i + " " + followings[i]);
         }
+        followings = temp;
+        for (User u : Main.userList)
+            if (u.getPassword().equals(password) && u.getUsername().equals(username))
+                u = this;
         userFollowing--;
         return (offset != 0);
     }
