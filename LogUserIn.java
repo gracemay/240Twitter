@@ -11,7 +11,7 @@ import java.util.Scanner;
 /**
  * @Author William
  * @Date 3/25/16
- * LogUserIn class contains a constructor, a checkLoginSuccess method, and a getUsername method.
+ * LogUserIn class contains does all the grunt work for what the user does while in the system.
  */
 public class LogUserIn {
     private static SimpleDateFormat sdfMessages = new SimpleDateFormat("MM/dd/yyy hh:mm a");
@@ -128,7 +128,8 @@ public class LogUserIn {
     public static void casePrint(boolean loggedInSituation){
         for (Message message : Main.messageList) {
             //if loggedInSituation and privacy is true only print out public:  if loggedInSituation is false and message is false or the follower
-            if ((loggedInSituation && message.privacy) || (!loggedInSituation && (!message.privacy || Main.currentUser.isFollowing(message.getUser())))) {
+            if ((loggedInSituation && message.privacy) ||
+                    (!loggedInSituation && (!message.privacy || Main.currentUser.isFollowing(message.getUser())))) {
                 System.out.println(message.getUser() + "  on " + sdfMessages.format(new Date(message.getDate())));
                 System.out.println(message.getMessage() + "\n");
             }
@@ -283,7 +284,7 @@ public class LogUserIn {
         fw.close();
     }
 
-    public static void updateUserFile() throws IOException
+    private static void updateUserFile() throws IOException
     {
         FileWriter fw = new FileWriter(new File("UsersFile.txt"));
         for (User user : Main.userList)
