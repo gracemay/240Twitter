@@ -1,4 +1,4 @@
-package TwitterAssignment;
+//package TwitterAssignment;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -70,24 +70,12 @@ public class LogUserIn {
         String createDescription = in.nextLine();
         int createFollowersCount = 0;
         int createFollowingCount = 0;
-        String createFollowersNames = ";";
-        String createFollowingNames = ";";
-        //System.out.println("");
+        String createFollowersNames = "";
+        String createFollowingNames = "";
 
         User createUser = new User(createUsername,createPassword, createEmail, createDescription,createFollowersCount, createFollowingCount, createFollowersNames, createFollowingNames);
-        System.out.println("The info in createUser is: \n");
         Main.userList.add(createUser);
-        for(int i=0; i < Main.userList.size(); i++){
-            System.out.println("Element" + i + "'s username is: " + Main.userList.get(i).getUsername());
-            System.out.println("Element" + i + "'s password is: " + Main.userList.get(i).getPassword());
-            System.out.println("Element" + i + "'s email is: " + Main.userList.get(i).getEmail());
-            System.out.println("Element" + i + "'s registered date is: " + Main.userList.get(i).getRegisterDate());
-            //  System.out.println("Element" + i + "'s description is: " + userList.get(i).getDescription());
-            System.out.println("Element" + i + "'s number of followers is: " + Main.userList.get(i).getFollowers());
-            System.out.println("Element" + i + "'s number of following is: " + Main.userList.get(i).getFollowing());
-            //  System.out.println("Element" + i + "'s list of followers' names is: " + userList.get(i).getFollowerList());
-            //  System.out.println("Element" + i + "'s list of following' names is: " + userList.get(i).getFollowingList());
-        }
+        
         try{
             updateUserFile();
         }catch (java.io.IOException e){
@@ -129,7 +117,7 @@ public class LogUserIn {
         for (Message message : Main.messageList) {
             //if loggedInSituation and privacy is true only print out public:  if loggedInSituation is false and message is false or the follower
             if ((loggedInSituation && message.privacy) ||
-                    (!loggedInSituation && (!message.privacy || Main.currentUser.isFollowing(message.getUser())))) {
+                    (!loggedInSituation && ( message.privacy || (!message.privacy && Main.currentUser.isFollowing(message.getUser()))))) {
                 System.out.println(message.getUser() + "  on " + sdfMessages.format(new Date(message.getDate())));
                 System.out.println(message.getMessage() + "\n");
             }

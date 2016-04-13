@@ -1,4 +1,4 @@
-package TwitterAssignment;
+//package TwitterAssignment;
 
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
@@ -65,14 +65,18 @@ public class Main {
         //will iterate unless the user quits of login. If not loggedin can see all public messages
         do{     //magic do not touch
             System.out.println("Do you wish to: " +
-                    "\n1). Login" +
-                    "\n2). View Public Messages" +
-                    "\n3). Create An Account" +
+                    "\n1). Create An Account" +
+                    "\n2). Login" +
+                    "\n3). View Public Messages" +
                     "\n4). Quit" +
                     "\nPlease write out the number you wish to do.");
 
             switch (Integer.parseInt(in.nextLine())) {
-                case 1: //Login
+                case 1: //Create an account
+                   LogUserIn.caseCreateAccount();
+                    cont = true;
+                 //   break;
+                case 2: //Login
                     System.out.println("Please enter log-in information (leave blank to quit)");
                     while (!success && attempts <= 2) {
                         System.out.print("Username:");
@@ -93,12 +97,8 @@ public class Main {
                             cont = true;
                     }
                     break;
-                case 2:
+                case 3: //Print messages
                     LogUserIn.casePrint(true);
-                    break;
-                case 3:
-                    LogUserIn.caseCreateAccount();
-                    cont = true;
                     break;
                 default:
                     cont = true;
@@ -205,11 +205,11 @@ public class Main {
             email = inTxt.nextLine();
             dateMade = Long.parseLong(inTxt.nextLine());
             description = inTxt.nextLine();
-            followersCount = Integer.parseInt(inTxt.nextLine());
             followingCount = Integer.parseInt(inTxt.nextLine());
-            followers = inTxt.nextLine();
+            followersCount = Integer.parseInt(inTxt.nextLine());
             following = inTxt.nextLine();
-            User u = new User(username, password, email, dateMade, description, followersCount, followingCount, followers, following);
+            followers = inTxt.nextLine();
+            User u = new User(username, password, email, dateMade, description, followingCount, followersCount, following, followers);
             uList.add(u);
 //            pList.add((password));
 //            usernameList.add(username);

@@ -1,30 +1,43 @@
+username
+password
+email
+11112016
+Description
+1
+1
+following
+follower
 wscheid
 password
 wscheid@gmail.com
-03312016
+3312016
 Captain America fan account
 0
 0
-<;
-<;
+<
+<
 redLedger
 xoxo
 nromanof@gmail.com
-02152016
+2152016
 Black Widow role-playing account
 4
 1
-capamer;gmay;Jec123;dummy;
-capamer;
+capamer;gmay;Jec123;dummy
+capamer
 gmay
 caprules
 gracemay221@gmail.com
-0412016
+412016
+<<<<<<< HEAD
 Grace loves Captain America because he is a history person.
+=======
+Grace loves Captain America because he’s a history person.
+>>>>>>> 54a41685d9835f22d735925339cc17e7f07ed744
 3
 1
-capamer;Jec123;dummy;
-redLedger;
+capamer;Jec123;dummy
+redLedger
 capamer
 Usarules
 capamericaforever42@gmail.com
@@ -32,8 +45,8 @@ capamericaforever42@gmail.com
 Sticking to what is right and wrong.
 1
 2
-redLedger;
-redLedger;gmay;
+redLedger
+redLedger;gmay
 Jec123
 loveCaptain!
 j.e.coates@gmail.com
@@ -42,6 +55,45 @@ I am awesome! Peace Out!
 2
 2
 <<<<<<< HEAD
+evan1;jaq2
+gra3;will4
+Bob
+bob
+bob@bobby.com
+1460560042178
+Bob loves bread and Cap America! :)
+0
+0
+
+
+Frank
+frank
+frank@frank.com
+1460560547220
+Frank loves franks and Captain America. :)
+2
+0
+;gmay;Johnny
+
+Johnny
+johnny
+johnny@mwl.com
+1460560661646
+Johnny despises Iron Man.
+1
+0
+;gmay
+
+Denise
+denise
+denise@wela.com
+1460561476540
+Denise loves Cap America.
+1
+0
+;gmay
+
+=======
 capamer;dummy
 gmay;redLedger;dummy
 dummy
@@ -58,10 +110,8 @@ password
 jcoates@gmail.com
 1460501137965
 THis is great!
-1
+2
 0
-Jec123
-=======
-evan1;jaq2;
-gra3;will4;
->>>>>>> a4679b38f81b4630b0157021f2238cb55a93fef3
+Jec123;wscheid
+>
+>>>>>>> 54a41685d9835f22d735925339cc17e7f07ed744
