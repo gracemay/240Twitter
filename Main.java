@@ -28,6 +28,8 @@ import java.util.Scanner;
  *      UPDATE: I think I finished the Scanner errors by changing them to nextLine()
  * Date: (4/10/16) Added delete messages functionality (case 5)
  * Date: (4/11/16) Added case 8 follow/unfollow
+ *      UPDATE: Added methods in the User class to follow/unfollow (currently do not work). Any help on those would
+ *              be appreciated
  */
 public class Main {
 
@@ -40,28 +42,28 @@ public class Main {
     public static User currentUser;
     //added username and passwd to be data memebers.
     protected static String username = "", passwd = "";
-    //the thing where everything happened
-    public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
+    //the thing where everything happens
+    public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException, InterruptedException {
 //        GUI graphical = new GUI();
-//        graphical.start();
+//b        graphical.start();
         userList = new ArrayList<User>();
         messageList = new ArrayList<Message>();
         userList = readUserInput("UsersFile.txt");
         messageList = readMessageInput("MessageFile.txt");
         Scanner in = new Scanner(System.in);
 
-        boolean done = LogIn(in);
+        boolean done = startProgram(in);
         if(done)
             WhileLoggedIn(in);
     }
 
     //this method logs the user in
-    public static boolean LogIn(Scanner in) {
+    public static boolean startProgram(Scanner in) throws IOException {
         boolean success = false;
         boolean cont = false;
         int attempts = 0;
         //will iterate unless the user quits of login. If not loggedin can see all public messages
-        do{
+        do{     //magic do not touch
             System.out.println("Do you wish to: " +
                     "\n1). Login" +
                     "\n2). View Public Messages" +
@@ -116,10 +118,11 @@ public class Main {
                     + "1.) Post Messages\n"
                     + "2.) View Messages\n"
                     + "3.) Search Messages\n"
-                    + "4.) Delete account\n"
-                    + "5.) Delete messages\n"
-                    + "6.) Follow a user\n"
-                    + "7.) Unfollow a user\n"
+                    + "4.) Delete Account\n"
+                    + "5.) Delete Messages\n"
+                    + "6.) Follow a User\n"
+                    + "7.) Unfollow a User\n"
+                    + "8.) View User Profile\n"
                     + "else, logout/quit\n"
                     + "command:");
             switch (Integer.parseInt(command.nextLine())) {
@@ -150,6 +153,10 @@ public class Main {
                 case 7:
                     //Unfollow a user
                     LogUserIn.caseUnfollow();
+                    break;
+                case 8:
+                   //view user profile
+                    LogUserIn.caseViewProfile();
                     break;
                 default:
                     success = true;
@@ -209,7 +216,6 @@ public class Main {
         }
         return uList;
     }
-    
 
     //public static void writeUserFileOutput() throws FileNotFoundException{    
     //   PrintWriter writer = new PrintWriter("UsersFile.txt");

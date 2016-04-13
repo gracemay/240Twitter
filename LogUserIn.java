@@ -58,6 +58,7 @@ public class LogUserIn {
                 return user;
         return null;
     }
+
     public static  void caseCreateAccount(){
         System.out.println("To create an account on Twitter. Please enter a username:");
         String createUsername = in.nextLine();
@@ -93,6 +94,7 @@ public class LogUserIn {
             System.out.println("Error updating User File");
         }
     }
+
     //adds a message. called from main.java case one
     public static void caseAddMessage(){
         boolean work = false;
@@ -119,6 +121,7 @@ public class LogUserIn {
             }
         } while(!work);
     }
+
     //prints out messages; still need work about public and private
     //@param messageList array and boolean to determine the result
     //if true no one is logged in, if false no one is logged in
@@ -131,6 +134,7 @@ public class LogUserIn {
             }
         }
     }
+
     //searches for a message
     public static void caseSearch(){
         System.out.println("Enter search terms separated by spaces:");
@@ -139,6 +143,7 @@ public class LogUserIn {
             if (hasTerms(m, terms))
                 System.out.println(m.getUser() + "  on " + sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n");
     }
+
     //deletes account
     public static void caseDeleteAccount(){
         System.out.println("Are you sure you want to delete your account? (Yes/No): ");
@@ -162,6 +167,7 @@ public class LogUserIn {
         }
         System.exit(0);     //until we add a log out function
     }
+
     //deletes messages only
     public static void caseDeleteMessage(){
         for (Message m : Main.messageList)
@@ -179,6 +185,7 @@ public class LogUserIn {
             updateMessagesFile(Main.messageList);
         }catch (java.io.IOException e){System.out.println("There is an error with deleting messages.");}
     }
+
     //follow a user
     public static void casefollowUser(){
         //follow a user
@@ -193,6 +200,7 @@ public class LogUserIn {
         }catch (java.io.IOException e){
             System.out.println("We can't update user file.");}
     }
+
     //unfollow
     public static void caseUnfollow(){
         System.out.println("People you are following:");
@@ -214,6 +222,50 @@ public class LogUserIn {
             if (msg.getMessage().contains(terms[i]))
                 return true;
         return false;
+    }
+    //view user profile
+    public static void caseViewProfile(){
+        System.out.print("Enter username to view user's profile:");
+        String userprofile = in.nextLine();
+        int ind = -1;
+        // THE CURRENT ERROR SOURCE: The next line only reads the first username and ends the loop
+        // after that one check. Unsure at the moment how to fix it as it stems from the .size()
+        // method of the for loop clearly... but unsure how to resolve the last issue.
+        for (int i = 0; i < Main.userList.size(); i++){
+            System.out.println(Main.userList.get(i)); // only one user location string "User@42a57993"
+            // is printed, no matter the user name entered
+            if ((Main.userList.get(i).getUsername()).equals(userprofile))
+                ind = i;
+            break;
+        }
+
+        if (ind != -1) {
+            System.out.println("Username: "+ Main.userList.get(ind).getUsername() +".");
+            System.out.println("User registered on: "+ Main.userList.get(ind).getRegisterDate() +".");
+            System.out.println("User follows "+ Main.userList.get(ind).getFollowing() +" other users.");
+            System.out.println("User has "+ Main.userList.get(ind).getFollowers() +" followers.");
+
+            String[] namesFollowing = Main.userList.get(ind).getFollowingList();
+            String[] namesFollowers = Main.userList.get(ind).getFollowingList();
+            for (int i = 0; i < namesFollowing.length; i++) {
+                if ((namesFollowing[i]).equals("<"))
+                    System.out.print("User is following no other users.");
+                else
+                    System.out.print(namesFollowing[i]);
+            }
+            System.out.println();
+            for (int i = 0; i < namesFollowers.length; i++) {
+                if ((namesFollowers[i]).equals("<"))
+                    System.out.print("User has no followers.");
+                else
+                    System.out.print(namesFollowers[i]);
+            }
+            System.out.println();
+        }
+        // If user does not exist
+        if (ind == -1) {
+            System.out.println("No user exists with the username "+ userprofile +".");
+        }
     }
 
     protected static void updateMessagesFile(ArrayList<Message> messageList) throws IOException
