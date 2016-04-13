@@ -40,6 +40,7 @@ public class User{
         userFollowing = uFollwing;
         addToFollowers(followers);
         addToFollowings(followings);
+        
     }
     
     public User(String usname, String pswd, String email, long date, String description,
@@ -56,14 +57,14 @@ public class User{
     }
     //fill the followers array using the split() method
     void addToFollowers(String followers){
-        if (followers.substring(0,1).equals("N/A") && followers.length() >= 4)
-            followers.replaceAll("N/A;", "");
+//        if (followers.length() >= 4 && followers.substring(0,4).equals("N/A;"))
+//            followers.replaceAll("N/A;", "");
         this.followers = followers.split(";");
     }
     //fill the following array using the split() method
     void addToFollowings(String followings){
-        if (followings.substring(0,1).equals("N/A") && followings.length() >= 4)
-            followings.replaceAll("N/A;", "");
+//        if (followings.substring(0,1).equals("N/A") && followings.length() >= 4)
+//            followings.replaceAll("N/A;", "");
         this.followings = followings.split(";");
     }
 
@@ -109,7 +110,7 @@ public class User{
     
     public void addFollower(String username)
     {
-        if (followers[0].equals("N/A"))
+        if (followers[0].equals(";"))
             followers[0] = username;
         else
         {
@@ -149,7 +150,7 @@ public class User{
     
     public void addFollowing(String username)
     {
-        if (followings[0].equals("N/A"))
+        if (followings[0].equals(";"))
             followings[0] = username;
         else
         {

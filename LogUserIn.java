@@ -70,8 +70,8 @@ public class LogUserIn {
         String createDescription = in.nextLine();
         int createFollowersCount = 0;
         int createFollowingCount = 0;
-        String createFollowersNames = "";
-        String createFollowingNames = "";
+        String createFollowersNames = ";";
+        String createFollowingNames = ";";
         //System.out.println("");
 
         User createUser = new User(createUsername,createPassword, createEmail, createDescription,createFollowersCount, createFollowingCount, createFollowersNames, createFollowingNames);
@@ -308,13 +308,13 @@ public class LogUserIn {
             for (int i = 0; i < user.followers.length; i++)
             {
                 followers += user.followers[i];
-                if (i != user.followers.length - 1)
+                if (i != user.followers.length - 1 && !followers.equals(""))
                     followers += ";";
             }
             for (int i = 0; i < user.followings.length; i++)
             {
                 following += user.followings[i];
-                if (i != user.followings.length - 1)
+                if (i != user.followings.length - 1 && !following.equals(""))
                     following += ";";
             }
             fw.write(followers + "\n");
