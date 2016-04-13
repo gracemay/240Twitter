@@ -51,7 +51,7 @@ I am awesome! Peace Out!
 2
 2
 capamer;dummy
-gmay;redLedger;dummy
+gmay;redLedger;dummy;jackie
 dummy
 dum
 d@gmail.com
@@ -60,7 +60,7 @@ Pratice test!
 2
 2
 Jec123; gmay
-Jec123;redLedger
+Jec123;redLedger;jackie
 jackie
 password
 jcoates@gmail.com
@@ -68,5 +68,5 @@ jcoates@gmail.com
 THis is great!
 2
 0
-Jec123;wscheid
+Jec123;dummy
 >
