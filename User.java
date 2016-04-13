@@ -1,4 +1,4 @@
-package TwitterAssignment;
+//package TwitterAssignment;
 /**
  * @Author: Grace May
  * @Date: 3/25/2016
@@ -56,14 +56,14 @@ public class User{
     }
     //fill the followers array using the split() method
     void addToFollowers(String followers){
-        if (followers.substring(0,1).equals("N/A") && followers.length() >= 4)
-            followers.replaceAll("N/A;", "");
+       // if (followers.substring(0,2).equals("N/A;") && followers.length() >= 4)
+          //  followers.replaceAll(";", "");
         this.followers = followers.split(";");
     }
     //fill the following array using the split() method
     void addToFollowings(String followings){
-        if (followings.substring(0,1).equals("N/A") && followings.length() >= 4)
-            followings.replaceAll("N/A;", "");
+     //   if (followings.substring(0,3).equals("N/A;") && followings.length() >= 4)
+           // followings.replaceAll(";", "");
         this.followings = followings.split(";");
     }
 
