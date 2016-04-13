@@ -210,11 +210,11 @@ public class User{
     }
 
     public int getFollowing(){
-        return userFollowing;
+        return followings.length;
     }
 
     public int getFollowers(){
-        return userFollowers;
+        return followers.length;
     }
     
     public String[] getFollowingList(){

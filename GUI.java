@@ -10,12 +10,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextArea;
@@ -33,6 +35,7 @@ public class GUI extends javax.swing.JFrame
     public GUI()
     {
         initComponents();
+        refresh.doClick();
     }
 
     /**
@@ -45,68 +48,27 @@ public class GUI extends javax.swing.JFrame
     private void initComponents()
     {
 
-        login = new javax.swing.JDialog();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         post = new javax.swing.JTextArea();
         characters = new javax.swing.JLabel();
-        postButton = new javax.swing.JButton();
+        publicPost = new javax.swing.JButton();
+        refresh = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         msgs = new javax.swing.JTextArea();
-        refresh = new javax.swing.JButton();
-
-        jLabel1.setText("Username/Email");
-
-        jLabel2.setText("Password");
-
-        jTextField1.setText("username/email");
-
-        jPasswordField1.setText("password");
-
-        javax.swing.GroupLayout loginLayout = new javax.swing.GroupLayout(login.getContentPane());
-        login.getContentPane().setLayout(loginLayout);
-        loginLayout.setHorizontalGroup(
-                loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(loginLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jLabel2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                        .addComponent(jPasswordField1))
-                                .addContainerGap())
-        );
-        loginLayout.setVerticalGroup(
-                loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(loginLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel2)
-                                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(94, Short.MAX_VALUE))
-        );
+        privatePost = new javax.swing.JButton();
+        terms = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        go = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        search = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        user = new javax.swing.JTextField();
+        follow = new javax.swing.JButton();
+        unfollow = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Twitter");
-
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(18);
-        jTextArea1.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jTextArea1.setWrapStyleWord(true);
-        jScrollPane1.setViewportView(jTextArea1);
+        setResizable(false);
 
         post.setColumns(20);
         post.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
@@ -134,23 +96,14 @@ public class GUI extends javax.swing.JFrame
 
         characters.setText("0/140");
 
-        postButton.setText("Post");
-        postButton.addActionListener(new java.awt.event.ActionListener()
+        publicPost.setText("Post Public");
+        publicPost.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                postButtonActionPerformed(evt);
+                publicPostActionPerformed(evt);
             }
         });
-
-        msgs.setEditable(false);
-        msgs.setColumns(20);
-        msgs.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
-        msgs.setLineWrap(true);
-        msgs.setRows(5);
-        msgs.setWrapStyleWord(true);
-        msgs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane3.setViewportView(msgs);
 
         refresh.setText("Refresh");
         refresh.addActionListener(new java.awt.event.ActionListener()
@@ -161,43 +114,122 @@ public class GUI extends javax.swing.JFrame
             }
         });
 
+        msgs.setColumns(20);
+        msgs.setLineWrap(true);
+        msgs.setRows(5);
+        msgs.setWrapStyleWord(true);
+        msgs.setAutoscrolls(false);
+        jScrollPane3.setViewportView(msgs);
+
+        privatePost.setText("Post Private");
+        privatePost.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                privatePostActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Search Users/Messages");
+
+        go.setText("Go");
+
+        search.setColumns(20);
+        search.setLineWrap(true);
+        search.setRows(5);
+        search.setWrapStyleWord(true);
+        search.setAutoscrolls(false);
+        jScrollPane4.setViewportView(search);
+
+        jLabel1.setText("Follow/Unfollow a user");
+
+        follow.setText("Follow");
+
+        unfollow.setText("Unfollow");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(postButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(characters, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(refresh)))
-                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(224, Short.MAX_VALUE))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(publicPost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(characters, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(privatePost, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(refresh))))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7)
+                            .addComponent(terms, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(go))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(follow)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(unfollow))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGap(14, 14, 14)
+                                    .addComponent(jLabel1)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jScrollPane1)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(characters)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(postButton)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(refresh))
-                                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)))
-                                .addContainerGap())
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(terms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(go)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(characters)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(publicPost)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(privatePost)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(refresh)
+                                .addGap(6, 6, 6)
+                                .addComponent(jScrollPane3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(follow)
+                                    .addComponent(unfollow))
+                                .addGap(76, 76, 76))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         pack();
@@ -209,13 +241,13 @@ public class GUI extends javax.swing.JFrame
         if (post.getText().length() > 140)
         {
             characters.setForeground(Color.RED);
-            postButton.setVisible(false);characters.setForeground(Color.RED);
-            postButton.setVisible(false);
+            publicPost.setVisible(false);characters.setForeground(Color.RED);
+            publicPost.setVisible(false);
         }
         else
         {
             characters.setForeground(Color.BLACK);
-            postButton.setVisible(true);
+            publicPost.setVisible(true);
         }
     }//GEN-LAST:event_postKeyTyped
 
@@ -225,66 +257,77 @@ public class GUI extends javax.swing.JFrame
         if (post.getText().length() > 140)
         {
             characters.setForeground(Color.RED);
-            postButton.setVisible(false);
+            publicPost.setVisible(false);
         }
         else
         {
             characters.setForeground(Color.BLACK);
-            postButton.setVisible(true);
+            publicPost.setVisible(true);
         }
     }//GEN-LAST:event_postKeyPressed
 
-    private void postButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_postButtonActionPerformed
-    {//GEN-HEADEREND:event_postButtonActionPerformed
+    private void publicPostActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_publicPostActionPerformed
+    {//GEN-HEADEREND:event_publicPostActionPerformed
 
 
 
         //INSERT SERVER IP ADDRESS HERE
-        String hostName = "10.214.18.152";
-        int portNumber = 4444;
-        try{
-                Socket twitterSocket = new Socket(hostName, portNumber);
-                ServerSocket server = new ServerSocket(portNumber + 1);
-                Socket incoming = server.accept();
-                BufferedReader fromServer = new BufferedReader(new InputStreamReader(incoming.getInputStream()));
-                PrintWriter out = new PrintWriter(twitterSocket.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(new InputStreamReader(twitterSocket.getInputStream()));
-        
+//        String hostName = "10.214.18.152";
+//        int portNumber = 4444;
+//        try{
+//                Socket twitterSocket = new Socket(hostName, portNumber);
+//                ServerSocket server = new ServerSocket(portNumber + 1);
+//                Socket incoming = server.accept();
+//                BufferedReader fromServer = new BufferedReader(new InputStreamReader(incoming.getInputStream()));
+//                PrintWriter out = new PrintWriter(twitterSocket.getOutputStream(), true);
+//                BufferedReader in = new BufferedReader(new InputStreamReader(twitterSocket.getInputStream()));
+//        
+//
+//            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+//            String tempFromServer, reply = "", fromUser;
+//            char[] cbuf = new char[2048];
+//
+//            fromUser = "@Evan " + post.getText();
+//            if (fromUser != null)
+//                out.println(fromUser);
+//            //out.close();
+//            fromServer.read(cbuf);
+//
+//            String[] msgText = new String(cbuf).split("\n");
+//            for (int i = 0; i < msgText.length; i++)
+//                if (i % 3 == 1)
+//                    msgText[i] = Main.sdfMessages.format(Long.parseLong(msgText[i]));
+//
+//            msgs.setText(new String(cbuf));
+//
+//
+//            post.setText("");
+//        } catch (UnknownHostException e) {
+//            System.err.println("Don't know about host " + hostName);
+//        } catch (IOException e) {
+//            System.err.println("Couldn't get I/O for the connection to " + hostName);
+//        }
 
-            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-            String tempFromServer, reply = "", fromUser;
-            char[] cbuf = new char[2048];
 
-            fromUser = "@Evan " + post.getText();
-            if (fromUser != null)
-                out.println(fromUser);
-            //out.close();
-            fromServer.read(cbuf);
-
-            String[] msgText = new String(cbuf).split("\n");
-            for (int i = 0; i < msgText.length; i++)
-                if (i % 3 == 1)
-                    msgText[i] = Main.sdfMessages.format(Long.parseLong(msgText[i]));
-
-            msgs.setText(new String(cbuf));
-
-
-            post.setText("");
-        } catch (UnknownHostException e) {
-            System.err.println("Don't know about host " + hostName);
-        } catch (IOException e) {
-            System.err.println("Couldn't get I/O for the connection to " + hostName);
+        String user = Main.currentUser.getUsername();
+        Message newMessage = new Message(user, (int) (System.nanoTime() % Integer.MAX_VALUE), post.getText(), System.currentTimeMillis(), false);
+        Main.messageList.add(newMessage);
+        try
+        {
+            LogUserIn.updateMessagesFile(Main.messageList);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
-//        String user = "RandomUser";
+        post.setText("");
+        refresh.doClick();
 //        if (!msgs.getText().equals(""))
-//            msgs.setText(user + "\n" + post.getText() + "\n--------------------\n" + msgs.getText());
+//            msgs.setText(user + "\n" + post.getText() + "\n----------------------------------\n" + msgs.getText());
 //        else
 //            msgs.setText(user + "\n" + post.getText());
 //        post.setText("");
 
-    }//GEN-LAST:event_postButtonActionPerformed
+    }//GEN-LAST:event_publicPostActionPerformed
 
     private void postKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_postKeyReleased
     {//GEN-HEADEREND:event_postKeyReleased
@@ -292,63 +335,87 @@ public class GUI extends javax.swing.JFrame
         if (post.getText().length() > 140)
         {
             characters.setForeground(Color.RED);
-            postButton.setVisible(false);
+            publicPost.setVisible(false);
         }
         else
         {
             characters.setForeground(Color.BLACK);
-            postButton.setVisible(true);
+            publicPost.setVisible(true);
         }
     }//GEN-LAST:event_postKeyReleased
 
     private void refreshActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_refreshActionPerformed
     {//GEN-HEADEREND:event_refreshActionPerformed
-
-
-        String hostName = "";
-        int portNumber = 4444;
-        try {
-                Socket twitterSocket = new Socket(hostName, portNumber);
-                ServerSocket server = new ServerSocket(portNumber + 1);
-                Socket incoming = server.accept();
-                BufferedReader fromServer = new BufferedReader(new InputStreamReader(incoming.getInputStream()));
-                PrintWriter out = new PrintWriter(twitterSocket.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(new InputStreamReader(twitterSocket.getInputStream()));
+        String listOfMessages = "";
+        for (Message m : Main.messageList)
+        {
+            if (!m.getPrivacy() || Main.currentUser.hasFollower(m.getUser()) || Main.currentUser.getUsername().equals(m.getUser()))
+                listOfMessages += m.getUser() + "  on  " + Main.sdfMessages.format(m.getDate()) + "\n" + m.getMessage() + "\n\n";
+        }
+        msgs.setText(listOfMessages);
         
 
-            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-            String tempFromServer, reply = "", fromUser;
-            char[] cbuf = new char[2048];
-
-            fromUser = "NOTMSG";
-            if (fromUser != null)
-                out.println(fromUser);
-            //out.close();
-            fromServer.read(cbuf);
-
-            String[] msgText = new String(cbuf).split("\n");
-            for (int i = 0; i < msgText.length; i++)
-                if (i % 3 == 1)
-                    msgText[i] = Main.sdfMessages.format(Long.parseLong(msgText[i]));
-
-            msgs.setText(new String(cbuf));
-
-
-            //post.setText("");
-        } catch (UnknownHostException e) {
-            System.err.println("Don't know about host " + hostName);
-        } catch (IOException e) {
-            System.err.println("Couldn't get I/O for the connection to " + hostName);
-        }
+//        String hostName = "";
+//        int portNumber = 4444;
+//        try {
+//                Socket twitterSocket = new Socket(hostName, portNumber);
+//                ServerSocket server = new ServerSocket(portNumber + 1);
+//                Socket incoming = server.accept();
+//                BufferedReader fromServer = new BufferedReader(new InputStreamReader(incoming.getInputStream()));
+//                PrintWriter out = new PrintWriter(twitterSocket.getOutputStream(), true);
+//                BufferedReader in = new BufferedReader(new InputStreamReader(twitterSocket.getInputStream()));
+//        
+//
+//            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+//            String tempFromServer, reply = "", fromUser;
+//            char[] cbuf = new char[2048];
+//
+//            fromUser = "NOTMSG";
+//            if (fromUser != null)
+//                out.println(fromUser);
+//            //out.close();
+//            fromServer.read(cbuf);
+//
+//            String[] msgText = new String(cbuf).split("\n");
+//            for (int i = 0; i < msgText.length; i++)
+//                if (i % 3 == 1)
+//                    msgText[i] = Main.sdfMessages.format(Long.parseLong(msgText[i]));
+//
+//            msgs.setText(new String(cbuf));
+//
+//
+//            //post.setText("");
+//        } catch (UnknownHostException e) {
+//            System.err.println("Don't know about host " + hostName);
+//        } catch (IOException e) {
+//            System.err.println("Couldn't get I/O for the connection to " + hostName);
+//        }
 
 
     }//GEN-LAST:event_refreshActionPerformed
+
+    private void privatePostActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_privatePostActionPerformed
+    {//GEN-HEADEREND:event_privatePostActionPerformed
+        String user = Main.currentUser.getUsername();
+        Message newMessage = new Message(user, (int) (System.nanoTime() % Integer.MAX_VALUE), post.getText(), System.currentTimeMillis(), true);
+        Main.messageList.add(newMessage);
+        try
+        {
+            LogUserIn.updateMessagesFile(Main.messageList);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        post.setText("");
+        refresh.doClick();
+    }//GEN-LAST:event_privatePostActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void start()
     {
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -390,18 +457,21 @@ public class GUI extends javax.swing.JFrame
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel characters;
+    private javax.swing.JButton follow;
+    private javax.swing.JButton go;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JDialog login;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea msgs;
     private javax.swing.JTextArea post;
-    private javax.swing.JButton postButton;
+    private javax.swing.JButton privatePost;
+    private javax.swing.JButton publicPost;
     private javax.swing.JButton refresh;
+    private javax.swing.JTextArea search;
+    private javax.swing.JTextField terms;
+    private javax.swing.JButton unfollow;
+    private javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
 }

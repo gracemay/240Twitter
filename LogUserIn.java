@@ -203,8 +203,10 @@ public class LogUserIn {
         boolean removed = Main.currentUser.removeFollowing(username);
         if (removed)
             for (User u : Main.userList)
+            {
                 if (u.getUsername().equals(username))
                     u.removeFollower(username);
+            }
         else
             System.out.println("You are either not following that user, or that user does not exist.");
         try{
@@ -280,7 +282,7 @@ public class LogUserIn {
         fw.close();
     }
 
-    private static void updateUserFile() throws IOException
+    protected static void updateUserFile() throws IOException
     {
         FileWriter fw = new FileWriter(new File("UsersFile.txt"));
         for (User user : Main.userList)
