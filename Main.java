@@ -71,7 +71,8 @@ public class Main {
                     "\n1). Create An Account" +
                     "\n2). Login" +
                     "\n3). View Public Messages" +
-                    "\n4). Quit" +
+                    "\n4). Search User Profiles" +
+                    "\n5). Quit" +
                     "\nPlease write out the number you wish to do.");
 
             switch (Integer.parseInt(in.nextLine())) {
@@ -102,6 +103,9 @@ public class Main {
                     break;
                 case 3: //Print messages
                     LogUserIn.casePrint(true);
+                    break;
+                case 4:
+                    LogUserIn.caseViewProfile();
                     break;
                 default:
                     cont = true;
@@ -247,3 +251,4 @@ public class Main {
     //   writer.close();
     //}
 }
+               
