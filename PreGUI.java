@@ -113,7 +113,7 @@ public class PreGUI extends javax.swing.JFrame
                             .addGroup(newUserLayout.createSequentialGroup()
                                 .addGap(109, 109, 109)
                                 .addComponent(jButton2)))
-                        .addGap(0, 15, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newUserLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(error, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -251,7 +251,8 @@ public class PreGUI extends javax.swing.JFrame
         original.setVisible(false);
         newUser.setVisible(true);
         error.setText("");
-        
+        newEmail.setText("");
+        newDescription.setText("");
     }//GEN-LAST:event_createAccountActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed

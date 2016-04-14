@@ -5,8 +5,7 @@
  */
 //package TwitterAssignment;
 
-import static TwitterAssignment.LogUserIn.hasTerms;
-import static TwitterAssignment.LogUserIn.updateUserFile;
+import TwitterAssignment.LogUserIn;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -644,7 +643,7 @@ public class GUI extends javax.swing.JFrame
         String[] searchTerms = terms.getText().split(" ");
         String toPrint = "";
         for (Message m : Main.messageList)
-            if (hasTerms(m, searchTerms) && (!m.getPrivacy() || Main.currentUser.hasFollower(m.getUser()) || Main.currentUser.getUsername().equals(m.getUser())))
+            if (LogUserIn.hasTerms(m, searchTerms) && (!m.getPrivacy() || Main.currentUser.hasFollower(m.getUser()) || Main.currentUser.getUsername().equals(m.getUser())))
                 toPrint += m.getUser() + "  on " + Main.sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n\n";
         for (User u : Main.userList)
         {
@@ -684,12 +683,13 @@ public class GUI extends javax.swing.JFrame
             log1.setText("User does not exist");
         }
         try{
-            updateUserFile();
+            LogUserIn.updateUserFile();
         }catch (java.io.IOException e){
             log1.setForeground(Color.RED);
             log1.setText("Error: couldn't write to file");
         }
         refresh.doClick();
+        user.setText("");
     }//GEN-LAST:event_followActionPerformed
 
     private void unfollowActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_unfollowActionPerformed
@@ -709,12 +709,13 @@ public class GUI extends javax.swing.JFrame
             log1.setText("User doesn't exists or you arent' following them");
         }
         try {
-            updateUserFile();
+            LogUserIn.updateUserFile();
         }catch (java.io.IOException e) {
             log1.setForeground(Color.RED);
             log1.setText("Error: Couldn't write to file");
         }
         refresh.doClick();
+        user.setText("");
     }//GEN-LAST:event_unfollowActionPerformed
 
     private void keepActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_keepActionPerformed
@@ -727,7 +728,7 @@ public class GUI extends javax.swing.JFrame
         
         Main.userList.remove(Main.currentUser);
         try{
-            updateUserFile();
+            LogUserIn.updateUserFile();
         } catch (java.io.IOException e) {
             System.out.println("There is an error with added messages.");
         }
