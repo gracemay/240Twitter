@@ -7,6 +7,7 @@
 
 import static TwitterAssignment.LogUserIn.hasTerms;
 import static TwitterAssignment.LogUserIn.updateUserFile;
+
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
