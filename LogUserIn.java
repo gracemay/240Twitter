@@ -227,37 +227,36 @@ public class LogUserIn {
         System.out.print("Enter username to view user's profile:");
         String userprofile = in.nextLine();
         int ind = -1;
-        // THE CURRENT ERROR SOURCE: The next line only reads the first username and ends the loop
-        // after that one check. Unsure at the moment how to fix it as it stems from the .size()
-        // method of the for loop clearly... but unsure how to resolve the last issue.
         for (int i = 0; i < Main.userList.size(); i++){
-            System.out.println(Main.userList.get(i)); // only one user location string "User@42a57993"
-            // is printed, no matter the user name entered
-            if ((Main.userList.get(i).getUsername()).equals(userprofile))
+            if ((Main.userList.get(i).getUsername()).equals(userprofile)) {
                 ind = i;
-            break;
+                break;
+            }
         }
 
         if (ind != -1) {
             System.out.println("Username: "+ Main.userList.get(ind).getUsername() +".");
+            System.out.println("Account Description: "+ Main.userList.get(ind).getDescription() +".");
             System.out.println("User registered on: "+ Main.userList.get(ind).getRegisterDate() +".");
             System.out.println("User follows "+ Main.userList.get(ind).getFollowing() +" other users.");
             System.out.println("User has "+ Main.userList.get(ind).getFollowers() +" followers.");
 
             String[] namesFollowing = Main.userList.get(ind).getFollowingList();
-            String[] namesFollowers = Main.userList.get(ind).getFollowingList();
+            String[] namesFollowers = Main.userList.get(ind).getFollowerList();
+            System.out.println("User is following:");
             for (int i = 0; i < namesFollowing.length; i++) {
                 if ((namesFollowing[i]).equals("<"))
                     System.out.print("User is following no other users.");
                 else
-                    System.out.print(namesFollowing[i]);
+                    System.out.print(namesFollowing[i] + " ");
             }
             System.out.println();
+            System.out.println("Followers of this user:");
             for (int i = 0; i < namesFollowers.length; i++) {
                 if ((namesFollowers[i]).equals("<"))
                     System.out.print("User has no followers.");
                 else
-                    System.out.print(namesFollowers[i]);
+                    System.out.print(namesFollowers[i] + " ");
             }
             System.out.println();
         }
