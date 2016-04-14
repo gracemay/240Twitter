@@ -1,4 +1,4 @@
-//package TwitterAssignment;
+package TwitterAssignment;
 
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
@@ -52,12 +52,12 @@ public class Main {
         messageList = new ArrayList<Message>();
         userList = readUserInput("UsersFile.txt");
         messageList = readMessageInput("MessageFile.txt");
-//        PreGUI.start();
-        Scanner in = new Scanner(System.in);
-
-        boolean done = startProgram(in);
-        if(done)
-            WhileLoggedIn(in);
+        PreGUI.start();
+//        Scanner in = new Scanner(System.in);
+//
+//        boolean done = startProgram(in);
+//        if(done)
+//            WhileLoggedIn(in);
     }
 
     //this method logs the user in
