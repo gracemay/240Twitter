@@ -215,10 +215,10 @@ public class LogUserIn {
             System.out.println("We can't update user file.");}
     }
 
-    private static boolean hasTerms(Message msg, String[] terms)
+    public static boolean hasTerms(Message msg, String[] terms)
     {
         for (int i = 0; i < terms.length; i++)
-            if (msg.getMessage().contains(terms[i]))
+            if (msg.getMessage().toLowerCase().contains(terms[i].toLowerCase()) || msg.getUser().toLowerCase().contains(terms[i].toLowerCase()))
                 return true;
         return false;
     }
@@ -293,22 +293,22 @@ public class LogUserIn {
             fw.write(user.getEmail() + "\n");
             fw.write(user.getRegisterDate() + "\n");
             fw.write(user.description + "\n");
-            fw.write(user.getFollowers() + "\n");
             fw.write(user.getFollowing() + "\n");
-            for (int i = 0; i < user.followers.length; i++)
-            {
-                followers += user.followers[i];
-                if (i != user.followers.length - 1 && !followers.equals(""))
-                    followers += ";";
-            }
+            fw.write(user.getFollowers() + "\n");
             for (int i = 0; i < user.followings.length; i++)
             {
-                following += user.followings[i];
-                if (i != user.followings.length - 1 && !following.equals(""))
+                followers += user.followings[i];
+                if (i != user.followings.length - 1 && !followers.equals(""))
+                    followers += ";";
+            }
+            for (int i = 0; i < user.followers.length; i++)
+            {
+                following += user.followers[i];
+                if (i != user.followers.length - 1 && !following.equals(""))
                     following += ";";
             }
-            fw.write(followers + "\n");
             fw.write(following + "\n");
+            fw.write(followers + "\n");
         }
         fw.close();
     }

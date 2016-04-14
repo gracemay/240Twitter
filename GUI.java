@@ -5,6 +5,8 @@
  */
 //package TwitterAssignment;
 
+import static TwitterAssignment.LogUserIn.hasTerms;
+import static TwitterAssignment.LogUserIn.updateUserFile;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,6 +20,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextArea;
@@ -65,6 +68,18 @@ public class GUI extends javax.swing.JFrame
         user = new javax.swing.JTextField();
         follow = new javax.swing.JButton();
         unfollow = new javax.swing.JButton();
+        log2 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        terms1 = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        go1 = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        search1 = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        user1 = new javax.swing.JTextField();
+        follow1 = new javax.swing.JButton();
+        log1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Twitter");
@@ -114,6 +129,7 @@ public class GUI extends javax.swing.JFrame
             }
         });
 
+        msgs.setEditable(false);
         msgs.setColumns(20);
         msgs.setLineWrap(true);
         msgs.setRows(5);
@@ -133,7 +149,15 @@ public class GUI extends javax.swing.JFrame
         jLabel7.setText("Search Users/Messages");
 
         go.setText("Go");
+        go.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                goActionPerformed(evt);
+            }
+        });
 
+        search.setEditable(false);
         search.setColumns(20);
         search.setLineWrap(true);
         search.setRows(5);
@@ -144,8 +168,56 @@ public class GUI extends javax.swing.JFrame
         jLabel1.setText("Follow/Unfollow a user");
 
         follow.setText("Follow");
+        follow.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                followActionPerformed(evt);
+            }
+        });
 
         unfollow.setText("Unfollow");
+        unfollow.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                unfollowActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("User");
+
+        jLabel8.setText("List Your Messages");
+
+        go1.setText("Go");
+        go1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                go1ActionPerformed(evt);
+            }
+        });
+
+        search1.setEditable(false);
+        search1.setColumns(20);
+        search1.setLineWrap(true);
+        search1.setRows(5);
+        search1.setWrapStyleWord(true);
+        search1.setAutoscrolls(false);
+        jScrollPane5.setViewportView(search1);
+
+        jLabel3.setText("Number(s)");
+
+        jLabel4.setText("Delete Message(s)");
+
+        follow1.setText("Delete");
+        follow1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                follow1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -154,6 +226,7 @@ public class GUI extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -163,32 +236,64 @@ public class GUI extends javax.swing.JFrame
                                 .addComponent(characters, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(privatePost, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(refresh))))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(refresh)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7)
-                            .addComponent(terms, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(go))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(follow)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(unfollow))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGap(14, 14, 14)
-                                    .addComponent(jLabel1)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(terms, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(go)
+                                .addGap(45, 45, 45))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(log1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(terms1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(80, 80, 80)
+                                        .addComponent(jLabel8)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(go1))
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(log2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(follow)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(unfollow))
+                                    .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(21, 21, 21)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(follow1)
+                                    .addComponent(user1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addComponent(jLabel4)))
+                        .addGap(33, 33, 33))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,7 +303,9 @@ public class GUI extends javax.swing.JFrame
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(terms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -216,20 +323,46 @@ public class GUI extends javax.swing.JFrame
                                 .addGap(6, 6, 6)
                                 .addComponent(jScrollPane3))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(follow)
-                                    .addComponent(unfollow))
-                                .addGap(76, 76, 76))))
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel2))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(follow)
+                                            .addComponent(unfollow))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(user1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel3))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(follow1)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(log2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(log1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(36, 36, 36))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(terms1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(go1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5)
+                .addGap(187, 187, 187))
         );
 
         pack();
@@ -336,11 +469,13 @@ public class GUI extends javax.swing.JFrame
         {
             characters.setForeground(Color.RED);
             publicPost.setVisible(false);
+            privatePost.setVisible(false);
         }
         else
         {
             characters.setForeground(Color.BLACK);
             publicPost.setVisible(true);
+            privatePost.setVisible(true);
         }
     }//GEN-LAST:event_postKeyReleased
 
@@ -349,7 +484,7 @@ public class GUI extends javax.swing.JFrame
         String listOfMessages = "";
         for (Message m : Main.messageList)
         {
-            if (!m.getPrivacy() || Main.currentUser.hasFollower(m.getUser()) || Main.currentUser.getUsername().equals(m.getUser()))
+            if (!m.getPrivacy() || Main.currentUser.isFollowing(m.getUser()) || Main.currentUser.getUsername().equals(m.getUser()))
                 listOfMessages += m.getUser() + "  on  " + Main.sdfMessages.format(m.getDate()) + "\n" + m.getMessage() + "\n\n";
         }
         msgs.setText(listOfMessages);
@@ -410,6 +545,82 @@ public class GUI extends javax.swing.JFrame
         refresh.doClick();
     }//GEN-LAST:event_privatePostActionPerformed
 
+    private void goActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_goActionPerformed
+    {//GEN-HEADEREND:event_goActionPerformed
+        String[] searchTerms = terms.getText().split(" ");
+        String toPrint = "";
+        for (Message m : Main.messageList)
+            if (hasTerms(m, searchTerms) && (!m.getPrivacy() || Main.currentUser.hasFollower(m.getUser()) || Main.currentUser.getUsername().equals(m.getUser())))
+                toPrint += m.getUser() + "  on " + Main.sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n\n";
+        for (User u : Main.userList)
+        {
+            
+        }
+        search.setText(toPrint);
+    }//GEN-LAST:event_goActionPerformed
+
+    private void go1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_go1ActionPerformed
+    {//GEN-HEADEREND:event_go1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_go1ActionPerformed
+
+    private void follow1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_follow1ActionPerformed
+    {//GEN-HEADEREND:event_follow1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_follow1ActionPerformed
+
+    private void followActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_followActionPerformed
+    {//GEN-HEADEREND:event_followActionPerformed
+        String username = user.getText().trim();
+        boolean found = false;
+        for (User u : Main.userList) {
+            if (u.getUsername().equals(username)) {
+                if (!Main.currentUser.isFollowing(u.getUsername()))
+                {
+                    Main.currentUser.addFollowing(username);
+                    u.addFollower(Main.currentUser.getUsername());
+                    found = true;
+                    log1.setForeground(Color.GREEN);
+                    log1.setText("Success!");
+                }
+            }
+        }
+        if (!found) {
+            log1.setForeground(Color.RED);
+            log1.setText("User does not exist");
+        }
+        try{
+            updateUserFile();
+        }catch (java.io.IOException e){
+            log1.setForeground(Color.RED);
+            log1.setText("Error: couldn't write to file");
+        }
+    }//GEN-LAST:event_followActionPerformed
+
+    private void unfollowActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_unfollowActionPerformed
+    {//GEN-HEADEREND:event_unfollowActionPerformed
+        String username = user.getText();
+        boolean removed = Main.currentUser.removeFollowing(username);
+        if (removed) {
+            for (User u : Main.userList) {
+                if (u.getUsername().equals(username))
+                    u.removeFollower(Main.currentUser.getUsername());
+            }
+            log1.setForeground(Color.GREEN);
+            log1.setText("Success!");
+        }
+        else {
+            log1.setForeground(Color.RED);
+            log1.setText("User doesn't exists or you arent' following them");
+        }
+        try {
+            updateUserFile();
+        }catch (java.io.IOException e) {
+            log1.setForeground(Color.RED);
+            log1.setText("Error: Couldn't write to file");
+        }
+    }//GEN-LAST:event_unfollowActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -458,20 +669,32 @@ public class GUI extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel characters;
     private javax.swing.JButton follow;
+    private javax.swing.JButton follow1;
     private javax.swing.JButton go;
+    private javax.swing.JButton go1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JLabel log1;
+    private javax.swing.JLabel log2;
     private javax.swing.JTextArea msgs;
     private javax.swing.JTextArea post;
     private javax.swing.JButton privatePost;
     private javax.swing.JButton publicPost;
     private javax.swing.JButton refresh;
     private javax.swing.JTextArea search;
+    private javax.swing.JTextArea search1;
     private javax.swing.JTextField terms;
+    private javax.swing.JTextField terms1;
     private javax.swing.JButton unfollow;
     private javax.swing.JTextField user;
+    private javax.swing.JTextField user1;
     // End of variables declaration//GEN-END:variables
 }

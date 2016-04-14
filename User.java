@@ -123,34 +123,45 @@ public class User{
             for (int i = 0; i < followers.length; i++)
                 followers[i] = temp[i];
         }
-        for (User u : Main.userList)
-            if (u.getPassword().equals(password) && u.getUsername().equals(username))
-                u = this;
+//        for (User u : Main.userList)
+//            if (u.getPassword().equals(password) && u.getUsername().equals(username))
+//                u = this;
         userFollowers++;
     }
     
     public boolean removeFollower(String username)
     {
-        String[] temp = new String[followers.length - 1];
-        int offset = 0;
+//        String[] temp = new String[followers.length - 1];
+//        int offset = 0;
+//        for (int i = 0; i < temp.length; i++)
+//        {
+//            if (followers[i].equals(username))
+//                offset++;
+//            else
+//                temp[i] = followers[i + offset];
+//        }
+//        followers = temp;
+//        userFollowers--;
+//        for (User u : Main.userList)
+//            if (u.getPassword().equals(password) && u.getUsername().equals(username))
+//                u = this;
+//        return (offset != 0);
+//        
+////        ArrayList<String> temp = new ArrayList<String>();
+        String temp = "";
         for (int i = 0; i < followers.length; i++)
-        {
-            if (followers[i].equals(username))
-                offset++;
-            else
-                temp[i] = followers[i - offset];
-        }
-        followers = temp;
+            if (!followers[i].equals(username))
+                temp += followers[i] + ";";
+        int diff = followers.length;
+        followers = temp.split(";");
         userFollowers--;
-        for (User u : Main.userList)
-            if (u.getPassword().equals(password) && u.getUsername().equals(username))
-                u = this;
-        return (offset != 0);
+        return diff > followers.length;
+        
     }
     
     public void addFollowing(String username)
     {
-        if (followings[0].equals(";"))
+        if (followings[0].equals(""))
             followings[0] = username;
         else
         {
@@ -163,29 +174,22 @@ public class User{
             for (int i = 0; i < followings.length; i++)
                 followings[i] = temp[i];
         }
-        for (User u : Main.userList)
-            if (u.getPassword().equals(password) && u.getUsername().equals(username))
-                u = this;
+//        for (User u : Main.userList)
+//            if (u.getPassword().equals(password) && u.getUsername().equals(username))
+//                u = this;
         userFollowing++;
     }
     
     public boolean removeFollowing(String username)
     {
-        String[] temp = new String[followings.length - 1];
-        int offset = 0;
+        String temp = "";
         for (int i = 0; i < followings.length; i++)
-        {
-            if (followings[i].equals(username))
-                offset++;
-            else
-                temp[i] = followings[i - offset];
-        }
-        followings = temp;
-        for (User u : Main.userList)
-            if (u.getPassword().equals(password) && u.getUsername().equals(username))
-                u = this;
+            if (!followings[i].equals(username))
+                temp += followings[i] + ";";
+        int diff = followings.length;
+        followings = temp.split(";");
         userFollowing--;
-        return (offset != 0);
+        return diff > followings.length;
     }
 
     /** These methods below are the getter methods for the User class. **/
