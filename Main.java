@@ -1,3 +1,4 @@
+
 package TwitterAssignment;
 
 import java.io.*;
@@ -35,13 +36,15 @@ public class Main {
 
     //    private static ArrayList<String> pList = new ArrayList<String>();
 //    private static ArrayList<String> usernameList = new ArrayList<String>();
+    protected static PreGUI begin = new PreGUI();
     protected static ArrayList<User> userList;
     protected static ArrayList<Message> messageList;
-    public static SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy");     //added to
+    public static SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");     //added to
     public static SimpleDateFormat sdfMessages = new SimpleDateFormat("MM/dd/yyy hh:mm a");
     public static User currentUser;
     //added username and passwd to be data memebers.
     protected static String username = "", passwd = "";
+    protected static boolean success;
     //the thing where everything happens
     public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException, InterruptedException {
 //        GUI graphical = new GUI();
@@ -50,11 +53,12 @@ public class Main {
         messageList = new ArrayList<Message>();
         userList = readUserInput("UsersFile.txt");
         messageList = readMessageInput("MessageFile.txt");
-        Scanner in = new Scanner(System.in);
-
-        boolean done = startProgram(in);
-        if(done)
-            WhileLoggedIn(in);
+        PreGUI.start();
+//        Scanner in = new Scanner(System.in);
+//
+//        boolean done = startProgram(in);
+//        if(done)
+//            WhileLoggedIn(in);
     }
 
     //this method logs the user in
@@ -68,7 +72,8 @@ public class Main {
                     "\n1). Create An Account" +
                     "\n2). Login" +
                     "\n3). View Public Messages" +
-                    "\n4). Quit" +
+                    "\n4). Search User Profiles" +
+                    "\n5). Quit" +
                     "\nPlease write out the number you wish to do.");
 
             switch (Integer.parseInt(in.nextLine())) {
@@ -99,6 +104,9 @@ public class Main {
                     break;
                 case 3: //Print messages
                     LogUserIn.casePrint(true);
+                    break;
+                case 4:
+                    LogUserIn.caseViewProfile();
                     break;
                 default:
                     cont = true;

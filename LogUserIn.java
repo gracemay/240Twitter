@@ -72,7 +72,6 @@ public class LogUserIn {
         int createFollowingCount = 0;
         String createFollowersNames = "";
         String createFollowingNames = "";
-        
 
         User createUser = new User(createUsername,createPassword, createEmail, createDescription,createFollowersCount, createFollowingCount, createFollowersNames, createFollowingNames);
         Main.userList.add(createUser);
@@ -204,8 +203,10 @@ public class LogUserIn {
         boolean removed = Main.currentUser.removeFollowing(username);
         if (removed)
             for (User u : Main.userList)
+            {
                 if (u.getUsername().equals(username))
                     u.removeFollower(username);
+            }
         else
             System.out.println("You are either not following that user, or that user does not exist.");
         try{
@@ -214,10 +215,10 @@ public class LogUserIn {
             System.out.println("We can't update user file.");}
     }
 
-    private static boolean hasTerms(Message msg, String[] terms)
+    public static boolean hasTerms(Message msg, String[] terms)
     {
         for (int i = 0; i < terms.length; i++)
-            if (msg.getMessage().contains(terms[i]))
+            if (msg.getMessage().toLowerCase().contains(terms[i].toLowerCase()) || msg.getUser().toLowerCase().contains(terms[i].toLowerCase()))
                 return true;
         return false;
     }
@@ -226,37 +227,39 @@ public class LogUserIn {
         System.out.print("Enter username to view user's profile:");
         String userprofile = in.nextLine();
         int ind = -1;
-        // THE CURRENT ERROR SOURCE: The next line only reads the first username and ends the loop
-        // after that one check. Unsure at the moment how to fix it as it stems from the .size()
-        // method of the for loop clearly... but unsure how to resolve the last issue.
         for (int i = 0; i < Main.userList.size(); i++){
-            System.out.println(Main.userList.get(i)); // only one user location string "User@42a57993"
-            // is printed, no matter the user name entered
-            if ((Main.userList.get(i).getUsername()).equals(userprofile))
+//            System.out.println(Main.userList.get(i).getUsername()); // only one user location string "User@42a57993"    //fixed error
+//            // is printed, no matter the user name entered
+//            if ((Main.userList.get(i).getUsername()).equals(userprofile))
+            if ((Main.userList.get(i).getUsername()).equals(userprofile)) {
                 ind = i;
-            break;
+                break;
+            }
         }
 
         if (ind != -1) {
             System.out.println("Username: "+ Main.userList.get(ind).getUsername() +".");
+            System.out.println("Account Description: "+ Main.userList.get(ind).getDescription() +".");
             System.out.println("User registered on: "+ Main.userList.get(ind).getRegisterDate() +".");
             System.out.println("User follows "+ Main.userList.get(ind).getFollowing() +" other users.");
             System.out.println("User has "+ Main.userList.get(ind).getFollowers() +" followers.");
 
             String[] namesFollowing = Main.userList.get(ind).getFollowingList();
-            String[] namesFollowers = Main.userList.get(ind).getFollowingList();
+            String[] namesFollowers = Main.userList.get(ind).getFollowerList();
+            System.out.println("User is following:");
             for (int i = 0; i < namesFollowing.length; i++) {
                 if ((namesFollowing[i]).equals("<"))
                     System.out.print("User is following no other users.");
                 else
-                    System.out.print(namesFollowing[i]);
+                    System.out.print(namesFollowing[i] + " ");
             }
             System.out.println();
+            System.out.println("Followers of this user:");
             for (int i = 0; i < namesFollowers.length; i++) {
                 if ((namesFollowers[i]).equals("<"))
                     System.out.print("User has no followers.");
                 else
-                    System.out.print(namesFollowers[i]);
+                    System.out.print(namesFollowers[i] + " ");
             }
             System.out.println();
         }
@@ -281,7 +284,7 @@ public class LogUserIn {
         fw.close();
     }
 
-    private static void updateUserFile() throws IOException
+    protected static void updateUserFile() throws IOException
     {
         FileWriter fw = new FileWriter(new File("UsersFile.txt"));
         for (User user : Main.userList)
@@ -292,22 +295,22 @@ public class LogUserIn {
             fw.write(user.getEmail() + "\n");
             fw.write(user.getRegisterDate() + "\n");
             fw.write(user.description + "\n");
-            fw.write(user.getFollowers() + "\n");
             fw.write(user.getFollowing() + "\n");
-            for (int i = 0; i < user.followers.length; i++)
-            {
-                followers += user.followers[i];
-                if (i != user.followers.length - 1)
-                    followers += ";";
-            }
+            fw.write(user.getFollowers() + "\n");
             for (int i = 0; i < user.followings.length; i++)
             {
-                following += user.followings[i];
-                if (i != user.followings.length - 1)
+                followers += user.followings[i];
+                if (i != user.followings.length - 1 && !followers.equals(""))
+                    followers += ";";
+            }
+            for (int i = 0; i < user.followers.length; i++)
+            {
+                following += user.followers[i];
+                if (i != user.followers.length - 1 && !following.equals(""))
                     following += ";";
             }
-            fw.write(followers + "\n");
             fw.write(following + "\n");
+            fw.write(followers + "\n");
         }
         fw.close();
     }

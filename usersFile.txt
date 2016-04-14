@@ -29,11 +29,7 @@ gmay
 caprules
 gracemay221@gmail.com
 412016
-<<<<<<< HEAD
 Grace loves Captain America because he is a history person.
-=======
-Grace loves Captain America because he’s a history person.
->>>>>>> 54a41685d9835f22d735925339cc17e7f07ed744
 3
 1
 capamer;Jec123;dummy
@@ -54,46 +50,6 @@ j.e.coates@gmail.com
 I am awesome! Peace Out!
 2
 2
-<<<<<<< HEAD
-evan1;jaq2
-gra3;will4
-Bob
-bob
-bob@bobby.com
-1460560042178
-Bob loves bread and Cap America! :)
-0
-0
-
-
-Frank
-frank
-frank@frank.com
-1460560547220
-Frank loves franks and Captain America. :)
-2
-0
-;gmay;Johnny
-
-Johnny
-johnny
-johnny@mwl.com
-1460560661646
-Johnny despises Iron Man.
-1
-0
-;gmay
-
-Denise
-denise
-denise@wela.com
-1460561476540
-Denise loves Cap America.
-1
-0
-;gmay
-
-=======
 capamer;dummy
 gmay;redLedger;dummy;jackie
 dummy
@@ -114,4 +70,4 @@ THis is great!
 0
 Jec123;dummy
 >
->>>>>>> 54a41685d9835f22d735925339cc17e7f07ed744
+>
