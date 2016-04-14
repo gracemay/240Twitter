@@ -59,7 +59,7 @@ public class PreGUI extends javax.swing.JFrame
         newUser.setPreferredSize(new java.awt.Dimension(339, 225));
         newUser.setResizable(false);
         newUser.setSize(new java.awt.Dimension(350, 225));
-        newUser.setType(java.awt.Window.Type.UTILITY);
+        newUser.setType(java.awt.Window.Type.NORMAL);
         newUser.addWindowListener(new java.awt.event.WindowAdapter()
         {
             public void windowClosed(java.awt.event.WindowEvent evt)

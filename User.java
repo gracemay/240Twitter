@@ -40,6 +40,8 @@ public class User{
         userFollowing = uFollwing;
         addToFollowers(followers);
         addToFollowings(followings);
+//        this.removeFollower("");
+//        this.removeFollowing("");
         
     }
     
@@ -54,6 +56,8 @@ public class User{
         userFollowing = uFollwing;
         addToFollowers(followers);
         addToFollowings(followings);
+//        this.removeFollower("");
+//        this.removeFollowing("");
     }
     //fill the followers array using the split() method
     void addToFollowers(String followers){
@@ -214,11 +218,11 @@ public class User{
     }
 
     public int getFollowing(){
-        return followings.length;
+        return userFollowing;
     }
 
     public int getFollowers(){
-        return followers.length;
+        return userFollowers;
     }
     
     public String[] getFollowingList(){

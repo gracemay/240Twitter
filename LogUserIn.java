@@ -228,6 +228,9 @@ public class LogUserIn {
         String userprofile = in.nextLine();
         int ind = -1;
         for (int i = 0; i < Main.userList.size(); i++){
+//            System.out.println(Main.userList.get(i).getUsername()); // only one user location string "User@42a57993"    //fixed error
+//            // is printed, no matter the user name entered
+//            if ((Main.userList.get(i).getUsername()).equals(userprofile))
             if ((Main.userList.get(i).getUsername()).equals(userprofile)) {
                 ind = i;
                 break;
