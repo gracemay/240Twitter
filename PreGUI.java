@@ -56,6 +56,7 @@ public class PreGUI extends javax.swing.JFrame
         error1 = new javax.swing.JLabel();
 
         newUser.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        newUser.setTitle("Create Account");
         newUser.setPreferredSize(new java.awt.Dimension(339, 225));
         newUser.setResizable(false);
         newUser.setSize(new java.awt.Dimension(350, 225));
