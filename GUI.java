@@ -611,13 +611,18 @@ public class GUI extends javax.swing.JFrame
     private void refreshActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_refreshActionPerformed
     {//GEN-HEADEREND:event_refreshActionPerformed
         String listOfMessages = "";
+        String mesgs = "";
         for (Message m : Main.messageList)
         {
             String privacy = (m.getPrivacy()) ? "(Private Message)" : "(Public Message)";
             if (!m.getPrivacy() || Main.currentUser.isFollowing(m.getUser()) || Main.currentUser.getUsername().equals(m.getUser()))
                 listOfMessages += m.getUser() + "  on  " + Main.sdfMessages.format(m.getDate()) + "  " + privacy + "\n" + m.getMessage() + "\n\n";
+            if(m.getMessage().charAt(0) == '@'){
+                mesgs += m.getUser() + "  on  " + Main.sdfMessages.format(m.getDate()) + "  " + privacy + "\n" + m.getMessage() + "\n\n";
+            }
         }
         msgs.setText(listOfMessages);
+        tagged.setText(mesgs);
         
         
         
