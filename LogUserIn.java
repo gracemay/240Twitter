@@ -72,7 +72,6 @@ public class LogUserIn {
         int createFollowingCount = 0;
         String createFollowersNames = "";
         String createFollowingNames = "";
-        
 
         User createUser = new User(createUsername,createPassword, createEmail, createDescription,createFollowersCount, createFollowingCount, createFollowersNames, createFollowingNames);
         Main.userList.add(createUser);
@@ -204,8 +203,10 @@ public class LogUserIn {
         boolean removed = Main.currentUser.removeFollowing(username);
         if (removed)
             for (User u : Main.userList)
+            {
                 if (u.getUsername().equals(username))
                     u.removeFollower(username);
+            }
         else
             System.out.println("You are either not following that user, or that user does not exist.");
         try{
@@ -214,10 +215,10 @@ public class LogUserIn {
             System.out.println("We can't update user file.");}
     }
 
-    private static boolean hasTerms(Message msg, String[] terms)
+    public static boolean hasTerms(Message msg, String[] terms)
     {
         for (int i = 0; i < terms.length; i++)
-            if (msg.getMessage().contains(terms[i]))
+            if (msg.getMessage().toLowerCase().contains(terms[i].toLowerCase()) || msg.getUser().toLowerCase().contains(terms[i].toLowerCase()))
                 return true;
         return false;
     }
@@ -281,7 +282,7 @@ public class LogUserIn {
         fw.close();
     }
 
-    private static void updateUserFile() throws IOException
+    protected static void updateUserFile() throws IOException
     {
         FileWriter fw = new FileWriter(new File("UsersFile.txt"));
         for (User user : Main.userList)
@@ -292,22 +293,22 @@ public class LogUserIn {
             fw.write(user.getEmail() + "\n");
             fw.write(user.getRegisterDate() + "\n");
             fw.write(user.description + "\n");
-            fw.write(user.getFollowers() + "\n");
             fw.write(user.getFollowing() + "\n");
-            for (int i = 0; i < user.followers.length; i++)
-            {
-                followers += user.followers[i];
-                if (i != user.followers.length - 1)
-                    followers += ";";
-            }
+            fw.write(user.getFollowers() + "\n");
             for (int i = 0; i < user.followings.length; i++)
             {
-                following += user.followings[i];
-                if (i != user.followings.length - 1)
+                followers += user.followings[i];
+                if (i != user.followings.length - 1 && !followers.equals(""))
+                    followers += ";";
+            }
+            for (int i = 0; i < user.followers.length; i++)
+            {
+                following += user.followers[i];
+                if (i != user.followers.length - 1 && !following.equals(""))
                     following += ";";
             }
-            fw.write(followers + "\n");
             fw.write(following + "\n");
+            fw.write(followers + "\n");
         }
         fw.close();
     }
