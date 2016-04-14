@@ -5,13 +5,8 @@
  */
 //package TwitterAssignment;
 
-<<<<<<< HEAD
-import static TwitterAssignment.LogUserIn.hasTerms;
-import static TwitterAssignment.LogUserIn.updateUserFile;
 
-=======
-import TwitterAssignment.LogUserIn;
->>>>>>> 1dbc9fe15fa24d2c52375dd02f14b0efdf7ee50c
+//import TwitterAssignment.LogUserIn;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
