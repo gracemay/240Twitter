@@ -1,4 +1,4 @@
-//package TwitterAssignment;
+package TwitterAssignment;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -59,7 +59,7 @@ public class LogUserIn {
         return null;
     }
 
-    public static  void caseCreateAccount(){
+    public static  void caseCreateAccount() throws InterruptedException{
         System.out.println("To create an account on Twitter. Please enter a username:");
         String createUsername = in.nextLine();
         System.out.println("Please enter a password:");
@@ -134,7 +134,7 @@ public class LogUserIn {
     }
 
     //deletes account
-    public static void caseDeleteAccount(){
+    public static void caseDeleteAccount() throws InterruptedException{
         System.out.println("Are you sure you want to delete your account? (Yes/No): ");
         if (in.nextLine().equalsIgnoreCase("Yes") && !Main.currentUser.equals(null))
         {
@@ -158,7 +158,7 @@ public class LogUserIn {
     }
 
     //deletes messages only
-    public static void caseDeleteMessage(){
+    public static void caseDeleteMessage() throws InterruptedException{
         for (Message m : Main.messageList)
             if (m.getUser().equals(Main.currentUser.getUsername()))
                 System.out.println(Main.messageList.indexOf(m) + ": " + sdfMessages.format(m.getDate()) + "\n" + m.getMessage() + "\n--------------------");
@@ -176,7 +176,7 @@ public class LogUserIn {
     }
 
     //follow a user
-    public static void casefollowUser(){
+    public static void casefollowUser() throws InterruptedException{
         //follow a user
         System.out.print("Please enter the username of the user you wish to follow:");
         String username = in.nextLine();
@@ -194,7 +194,7 @@ public class LogUserIn {
     }
 
     //unfollow
-    public static void caseUnfollow(){
+    public static void caseUnfollow() throws InterruptedException{
         System.out.println("People you are following:");
         for (int i = 0; i < Main.currentUser.followings.length; i++)
             System.out.println(i + ".) " + Main.currentUser.followings[i]);
@@ -269,8 +269,9 @@ public class LogUserIn {
         }
     }
 
-    protected static void updateMessagesFile(ArrayList<Message> messageList) throws IOException
+    protected static void updateMessagesFile(ArrayList<Message> messageList) throws IOException, InterruptedException
     {
+        Main.lock.lock();
         FileWriter fw = new FileWriter(new File("MessageFile.txt"));
         for (Message msg : messageList)
         {
@@ -282,10 +283,12 @@ public class LogUserIn {
             fw.write(Boolean.toString(msg.getPrivacy()) + "\n");
         }
         fw.close();
+        Main.lock.unlock();
     }
 
-    protected static void updateUserFile() throws IOException
+    protected static void updateUserFile() throws IOException, InterruptedException
     {
+        Main.lock.lock();
         FileWriter fw = new FileWriter(new File("UsersFile.txt"));
         for (User user : Main.userList)
         {
@@ -313,6 +316,7 @@ public class LogUserIn {
             fw.write(followers + "\n");
         }
         fw.close();
+        Main.lock.unlock();
     }
 
     // Getter method
