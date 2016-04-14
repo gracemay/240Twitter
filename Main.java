@@ -1,4 +1,4 @@
-//package TwitterAssignment;
+package TwitterAssignment;
 
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
@@ -44,6 +44,7 @@ public class Main {
     //added username and passwd to be data memebers.
     protected static String username = "", passwd = "";
     protected static boolean success;
+    public static Lock lock = new Lock();
     //the thing where everything happens
     public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException, InterruptedException {
 //        GUI graphical = new GUI();
@@ -61,7 +62,7 @@ public class Main {
     }
 
     //this method logs the user in
-    public static boolean startProgram(Scanner in) throws IOException {
+    public static boolean startProgram(Scanner in) throws IOException, InterruptedException {
         boolean success = false;
         boolean cont = false;
         int attempts = 0;
@@ -117,7 +118,7 @@ public class Main {
     }
 
     //this method will run until the user is loged out.
-    public static void WhileLoggedIn(Scanner in) throws IOException{
+    public static void WhileLoggedIn(Scanner in) throws IOException, InterruptedException{
         boolean done = false, success = false;
         Scanner command = new Scanner(System.in);
         while(!success){
