@@ -612,8 +612,9 @@ public class GUI extends javax.swing.JFrame
         String listOfMessages = "";
         for (Message m : Main.messageList)
         {
+            String privacy = (m.getPrivacy()) ? "(Private Message)" : "(Public Message)";
             if (!m.getPrivacy() || Main.currentUser.isFollowing(m.getUser()) || Main.currentUser.getUsername().equals(m.getUser()))
-                listOfMessages += m.getUser() + "  on  " + Main.sdfMessages.format(m.getDate()) + "\n" + m.getMessage() + "\n\n";
+                listOfMessages += m.getUser() + "  on  " + Main.sdfMessages.format(m.getDate()) + "  " + privacy + "\n" + m.getMessage() + "\n\n";
         }
         msgs.setText(listOfMessages);
         
@@ -662,6 +663,7 @@ public class GUI extends javax.swing.JFrame
     private void privatePostActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_privatePostActionPerformed
     {//GEN-HEADEREND:event_privatePostActionPerformed
         String user = Main.currentUser.getUsername();
+        //skipped due to voodoo
         Message newMessage = new Message(user, (int) (System.nanoTime() % Integer.MAX_VALUE), post.getText(), System.currentTimeMillis(), true);
         Main.messageList.add(newMessage);
         try
