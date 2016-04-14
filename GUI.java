@@ -21,6 +21,7 @@ import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.locks.Lock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextArea;
@@ -84,7 +85,7 @@ public class GUI extends javax.swing.JFrame
         search1 = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        user1 = new javax.swing.JTextField();
+        messageIDs = new javax.swing.JTextField();
         follow1 = new javax.swing.JButton();
         log1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -331,15 +332,11 @@ public class GUI extends javax.swing.JFrame
                                             .addComponent(jLabel7)
                                             .addComponent(terms, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(go)
-                                        .addGap(45, 45, 45))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(0, 0, Short.MAX_VALUE))
-                                            .addComponent(log1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                        .addComponent(go))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(log1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,10 +346,8 @@ public class GUI extends javax.swing.JFrame
                                                 .addComponent(jLabel8)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(go1))
-                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(92, 92, 92)
-                                        .addComponent(log2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                                    .addComponent(log2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addContainerGap())
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(19, 19, 19)
@@ -375,8 +370,10 @@ public class GUI extends javax.swing.JFrame
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(follow1)
-                                            .addComponent(user1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(messageIDs, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(follow1)
+                                                .addGap(63, 63, 63))))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(72, 72, 72)
                                         .addComponent(jLabel4)))
@@ -432,7 +429,7 @@ public class GUI extends javax.swing.JFrame
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(user1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(messageIDs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel3))
                                         .addGap(18, 18, 18)
                                         .addComponent(follow1)))
@@ -647,19 +644,63 @@ public class GUI extends javax.swing.JFrame
                 toPrint += m.getUser() + "  on " + Main.sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n\n";
         for (User u : Main.userList)
         {
-            
+            boolean listed = false;
+            for (int i = 0; i < searchTerms.length; i++)
+            {
+                if (u.getUsername().contains(searchTerms[i]) && !listed)
+                {
+                    toPrint += u.getUsername() + "\nRegistered on: " + Main.sdf.format(u.getRegisterDate()) + "\nUser has " + u.getFollowers() + " followers:\n";
+                    for (int j = 0; j < u.getFollowerList().length; j++)
+                        if (!u.getFollowerList()[j].isEmpty())
+                            toPrint += u.getFollowerList()[j] + "\n";
+                    toPrint += "User is following " + u.getFollowing() + " people:\n";
+                    for (int j = 0; j < u.getFollowingList().length; j++)
+                        toPrint += u.getFollowingList()[j] + "\n";
+                    toPrint += "\n\n";
+                    listed = true;
+                }
+            }
         }
         search.setText(toPrint);
     }//GEN-LAST:event_goActionPerformed
 
     private void go1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_go1ActionPerformed
     {//GEN-HEADEREND:event_go1ActionPerformed
-        // TODO add your handling code here:
+        //avoided this line due to Satan
+        String[] searchTerms = terms1.getText().split(" ");
+        String toPrint = "";
+        for (Message m : Main.messageList)
+            if (LogUserIn.hasTerms(m, searchTerms) && Main.currentUser.getUsername().equals(m.getUser()))
+                toPrint += Main.messageList.indexOf(m) + ":   " + Main.sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n\n";
+        for (User u : Main.userList)
+        {
+            
+        }
+        search1.setText(toPrint);
     }//GEN-LAST:event_go1ActionPerformed
 
     private void follow1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_follow1ActionPerformed
     {//GEN-HEADEREND:event_follow1ActionPerformed
-        // TODO add your handling code here:
+        
+        
+        String[] deletions = messageIDs.getText().split(" ");
+        ArrayList<Message> temp = new ArrayList<Message>();
+        for (int i = 0; i < deletions.length; i++)
+        {
+            int index = Integer.parseInt(deletions[i]);
+            if (index < Main.messageList.size() && Main.messageList.get(index).getUser().equals(Main.currentUser.getUsername()))
+                temp.add(Main.messageList.get(index));
+        }
+        for (Message m : temp)
+            Main.messageList.remove(m);
+        try{
+            LogUserIn.updateMessagesFile(Main.messageList);
+        } catch (java.io.IOException e) {
+            log2.setForeground(Color.RED);
+            log2.setText("Could not delete message(s)");
+        }
+        
+        
     }//GEN-LAST:event_follow1ActionPerformed
 
     private void followActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_followActionPerformed
@@ -706,7 +747,7 @@ public class GUI extends javax.swing.JFrame
         }
         else {
             log1.setForeground(Color.RED);
-            log1.setText("User doesn't exists or you arent' following them");
+            log1.setText("You are not following that user!");
         }
         try {
             LogUserIn.updateUserFile();
@@ -820,6 +861,7 @@ public class GUI extends javax.swing.JFrame
     private javax.swing.JButton keep;
     private javax.swing.JLabel log1;
     private javax.swing.JLabel log2;
+    private javax.swing.JTextField messageIDs;
     private javax.swing.JTextArea msgs;
     private javax.swing.JLabel noundo;
     private javax.swing.JTextArea post;
@@ -832,6 +874,5 @@ public class GUI extends javax.swing.JFrame
     private javax.swing.JTextField terms1;
     private javax.swing.JButton unfollow;
     private javax.swing.JTextField user;
-    private javax.swing.JTextField user1;
     // End of variables declaration//GEN-END:variables
 }
