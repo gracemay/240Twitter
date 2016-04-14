@@ -20,6 +20,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -89,6 +90,9 @@ public class GUI extends javax.swing.JFrame
         log1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
+        confirm.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        confirm.setSize(new java.awt.Dimension(450, 150));
+
         jLabel5.setText("Are you sure you want to delete your account?");
 
         noundo.setText("This cannot be undone");
@@ -111,7 +115,7 @@ public class GUI extends javax.swing.JFrame
             }
         });
 
-        jLabel6.setText("Your messages will not be deleted");
+        jLabel6.setText("Your public messages will not be deleted");
 
         javax.swing.GroupLayout confirmLayout = new javax.swing.GroupLayout(confirm.getContentPane());
         confirm.getContentPane().setLayout(confirmLayout);
@@ -123,14 +127,13 @@ public class GUI extends javax.swing.JFrame
                     .addGroup(confirmLayout.createSequentialGroup()
                         .addGroup(confirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(confirmLayout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addGroup(confirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addGroup(confirmLayout.createSequentialGroup()
-                                        .addGap(34, 34, 34)
-                                        .addComponent(noundo))))
-                            .addComponent(jLabel5))
-                        .addGap(100, 100, 100))
+                                .addGap(69, 69, 69)
+                                .addComponent(noundo))
+                            .addComponent(jLabel5)
+                            .addGroup(confirmLayout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel6)))
+                        .addGap(105, 105, 105))
                     .addGroup(confirmLayout.createSequentialGroup()
                         .addComponent(delete)
                         .addGap(18, 18, 18)
@@ -292,6 +295,13 @@ public class GUI extends javax.swing.JFrame
         });
 
         jButton1.setText("Delete Account");
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -714,8 +724,31 @@ public class GUI extends javax.swing.JFrame
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deleteActionPerformed
     {//GEN-HEADEREND:event_deleteActionPerformed
-        // TODO add your handling code here:
+        
+        Main.userList.remove(Main.currentUser);
+        try{
+            updateUserFile();
+        } catch (java.io.IOException e) {
+            System.out.println("There is an error with added messages.");
+        }
+
+        ArrayList<Message> temp = new ArrayList<Message>();
+        for (Message m : Main.messageList)
+            if (m.getUser().equals(Main.currentUser.getUsername()) && m.getPrivacy())
+                temp.add(m);
+        for (Message m : temp)
+            Main.messageList.remove(m);
+        try{
+            LogUserIn.updateMessagesFile(Main.messageList);
+        } catch (java.io.IOException e){System.out.println("There is an error with deleting all messages.");}
+            
+        System.exit(0);
     }//GEN-LAST:event_deleteActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
+    {//GEN-HEADEREND:event_jButton1ActionPerformed
+        confirm.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
