@@ -1,4 +1,3 @@
-
 package TwitterAssignment;
 
 import java.io.*;
@@ -78,8 +77,10 @@ public class Main {
 
             switch (Integer.parseInt(in.nextLine())) {
                 case 1: //Create an account
-                   LogUserIn.caseCreateAccount();
-                    cont = true;
+                    try{
+                        LogUserIn.caseCreateAccount();
+                        cont = true;
+                    }catch (InterruptedException e){}
                  //   break;
                 case 2: //Login
                     System.out.println("Please enter log-in information (leave blank to quit)");
@@ -148,19 +149,27 @@ public class Main {
                     break;
                 case 4:
                     //delete account
-                    LogUserIn.caseDeleteAccount();
+                    try{
+                        LogUserIn.caseDeleteAccount();
+                    }catch(InterruptedException e){}
                     break;
                 case 5:
                     //delete messages
-                    LogUserIn.caseDeleteMessage();
+                    try{
+                        LogUserIn.caseDeleteMessage();
+                    }catch (InterruptedException e){}
                     break;
                 case 6:
                     //add a follower
-                   LogUserIn.casefollowUser();
+                    try {
+                        LogUserIn.casefollowUser();
+                    }catch (InterruptedException e){}
                     break;
                 case 7:
                     //Unfollow a user
-                    LogUserIn.caseUnfollow();
+                    try {
+                        LogUserIn.caseUnfollow();
+                    }catch (InterruptedException e){}
                     break;
                 case 8:
                    //view user profile
@@ -252,3 +261,4 @@ public class Main {
     //   writer.close();
     //}
 }
+

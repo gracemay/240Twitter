@@ -1,5 +1,6 @@
 package TwitterAssignment;
 
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class LogUserIn {
 //    public ArrayList<String> pList;
 //    public String u;
 //    public String p;
-//    
+//
 //    public LogUserIn(String user, String pswd) {
 ////        this.uList = uL;
 ////        this.pList = pL;
@@ -29,8 +30,8 @@ public class LogUserIn {
 //        this.p = pswd;
 //    }
 
-    // Checks all username AList indexes for username match, 
-    // then checks password AList index for pswd match 
+    // Checks all username AList indexes for username match,
+    // then checks password AList index for pswd match
     public static boolean checkLoginSuccess(ArrayList<User> userList, String u, String p){
         for (int i = 0; i < userList.size(); i++)
             if (userList.get(i).getUsername().equals(u) && userList.get(i).getPassword().equals(p))
@@ -59,7 +60,7 @@ public class LogUserIn {
         return null;
     }
 
-    public static  void caseCreateAccount(){
+    public static void caseCreateAccount() throws InterruptedException{
         System.out.println("To create an account on Twitter. Please enter a username:");
         String createUsername = in.nextLine();
         System.out.println("Please enter a password:");
@@ -75,7 +76,7 @@ public class LogUserIn {
 
         User createUser = new User(createUsername,createPassword, createEmail, createDescription,createFollowersCount, createFollowingCount, createFollowersNames, createFollowingNames);
         Main.userList.add(createUser);
-        
+
         try{
             updateUserFile();
         }catch (java.io.IOException e){
@@ -134,7 +135,7 @@ public class LogUserIn {
     }
 
     //deletes account
-    public static void caseDeleteAccount(){
+    public static void caseDeleteAccount() throws InterruptedException{
         System.out.println("Are you sure you want to delete your account? (Yes/No): ");
         if (in.nextLine().equalsIgnoreCase("Yes") && !Main.currentUser.equals(null))
         {
@@ -158,7 +159,7 @@ public class LogUserIn {
     }
 
     //deletes messages only
-    public static void caseDeleteMessage(){
+    public static void caseDeleteMessage() throws InterruptedException{
         for (Message m : Main.messageList)
             if (m.getUser().equals(Main.currentUser.getUsername()))
                 System.out.println(Main.messageList.indexOf(m) + ": " + sdfMessages.format(m.getDate()) + "\n" + m.getMessage() + "\n--------------------");
@@ -176,7 +177,7 @@ public class LogUserIn {
     }
 
     //follow a user
-    public static void casefollowUser(){
+    public static void casefollowUser() throws InterruptedException{
         //follow a user
         System.out.print("Please enter the username of the user you wish to follow:");
         String username = in.nextLine();
@@ -194,7 +195,7 @@ public class LogUserIn {
     }
 
     //unfollow
-    public static void caseUnfollow(){
+    public static void caseUnfollow() throws InterruptedException{
         System.out.println("People you are following:");
         for (int i = 0; i < Main.currentUser.followings.length; i++)
             System.out.println(i + ".) " + Main.currentUser.followings[i]);
@@ -269,7 +270,7 @@ public class LogUserIn {
         }
     }
 
-    protected static void updateMessagesFile(ArrayList<Message> messageList) throws IOException
+    protected static void updateMessagesFile(ArrayList<Message> messageList) throws IOException, InterruptedException
     {
         FileWriter fw = new FileWriter(new File("MessageFile.txt"));
         for (Message msg : messageList)
@@ -284,7 +285,7 @@ public class LogUserIn {
         fw.close();
     }
 
-    protected static void updateUserFile() throws IOException
+    protected static void updateUserFile() throws IOException, InterruptedException
     {
         FileWriter fw = new FileWriter(new File("UsersFile.txt"));
         for (User user : Main.userList)

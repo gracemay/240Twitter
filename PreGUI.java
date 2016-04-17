@@ -9,7 +9,6 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 
 /**
  *
@@ -56,6 +55,7 @@ public class PreGUI extends javax.swing.JFrame
         error1 = new javax.swing.JLabel();
 
         newUser.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        newUser.setTitle("Create Account");
         newUser.setPreferredSize(new java.awt.Dimension(339, 225));
         newUser.setResizable(false);
         newUser.setSize(new java.awt.Dimension(350, 225));
@@ -222,7 +222,7 @@ public class PreGUI extends javax.swing.JFrame
     private void loginActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_loginActionPerformed
     {//GEN-HEADEREND:event_loginActionPerformed
         String uname = username.getText();
-        String pwd = password.getText();
+        String pwd = String.valueOf(password.getPassword());
         
         
         boolean success = LogUserIn.checkLoginSuccess(Main.userList, uname, pwd);
@@ -246,7 +246,7 @@ public class PreGUI extends javax.swing.JFrame
     private void createAccountActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_createAccountActionPerformed
     {//GEN-HEADEREND:event_createAccountActionPerformed
         newUsername.setText(username.getText());
-        newPassword.setText(password.getText());
+        newPassword.setText(String.valueOf(password.getPassword()));
         
         original.setVisible(false);
         newUser.setVisible(true);
@@ -258,7 +258,7 @@ public class PreGUI extends javax.swing.JFrame
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
         String uname = newUsername.getText();
-        String pwd = newPassword.getText();
+        String pwd = String.valueOf(newPassword.getPassword());
         String email = newEmail.getText();
         String description = newDescription.getText();
         
@@ -284,6 +284,9 @@ public class PreGUI extends javax.swing.JFrame
                 } catch (IOException ex)
                 {
                     Logger.getLogger(PreGUI.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InterruptedException ex)
+                {
+                    Logger.getLogger(PreGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 original.setVisible(true);
                 username.setText("");
@@ -304,9 +307,6 @@ public class PreGUI extends javax.swing.JFrame
         error1.setText("");
     }//GEN-LAST:event_newUserWindowClosed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void start()
     {
         /* Set the Nimbus look and feel */
