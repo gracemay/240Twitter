@@ -9,7 +9,7 @@ package TwitterAssignment;
  *
  * @Author: William Scheid
  * Date Edited: 4/10/2016
- * Getter method returns for following/follower list simplified
+ * Getter methods and variable returns for following/follower list methods rewritten.
  */
 public class User{
 //extends LogUserIn{
