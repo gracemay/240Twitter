@@ -8,15 +8,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-/**
+/** LogUserIn class contains all the methods used to carry out prompted options provided
+ * for what the user does while attempting to log into the system and what the user
+ * does while successfully logged into the system.
  * @Author William
  * @Date 3/25/16
- * LogUserIn class contains does all the grunt work for what the user does while in the system.
  */
 public class LogUserIn {
     private static SimpleDateFormat sdfMessages = new SimpleDateFormat("MM/dd/yyy hh:mm a");
     private static Scanner in = new Scanner(System.in);
-
+/** Optional constructor used to establish LogUserIn u and p String variables based on user and pswd String parameters.
+ * @param user String variable for login username used.
+ * @param pswd String variable for login password used.
+ * @author William Scheid
+ */
 //    public ArrayList<String> uList;
 //    public ArrayList<String> pList;
 //    public String u;
@@ -29,6 +34,18 @@ public class LogUserIn {
 //        this.p = pswd;
 //    }
 
+/** The checkLoginSuccess method takes in an ArrayList of user objects, a String username and a String user password
+ * as parameters and returns a boolean truth value indicated whether login was successful at any index of the user ArrayList.
+ * 
+ * @param userList ArrayList of User objects.
+ * @param u String value for attempted login password.
+ * @param p String value for attempted login password.
+ * @author William Scheid
+ * @date 3/25/16
+ * 
+ * @author
+ * @date
+ */
     // Checks all username AList indexes for username match,
     // then checks password AList index for pswd match
     public static boolean checkLoginSuccess(ArrayList<User> userList, String u, String p){
@@ -222,7 +239,12 @@ public class LogUserIn {
                 return true;
         return false;
     }
-    //view user profile
+    
+/** The caseViewProfile method allows the a program user to search for and view an existing account's user profile.
+ * 
+ * @author William Scheid
+ * @date 4/10/16
+ */
     public static void caseViewProfile(){
         System.out.print("Enter username to view user's profile:");
         String userprofile = in.nextLine();
