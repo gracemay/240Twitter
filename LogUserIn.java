@@ -46,8 +46,14 @@ public class LogUserIn {
  * @author
  * @date
  */
-    // Checks all username AList indexes for username match,
-    // then checks password AList index for pswd match
+    /** Checks all username AList indexes for username match,
+    * then checks password AList index for pswd match.
+    * @param userList String of user objects.
+    * @param u String for login username.
+    * @param p String for login password.
+    * @author
+    * @author William Scheid
+    */
     public static boolean checkLoginSuccess(ArrayList<User> userList, String u, String p){
         for (int i = 0; i < userList.size(); i++)
             if (userList.get(i).getUsername().equals(u) && userList.get(i).getPassword().equals(p))
@@ -75,7 +81,9 @@ public class LogUserIn {
                 return user;
         return null;
     }
-
+    /** The caseCreateAccount method creates a new User object and adds it to the userList ArrayList based on user input.
+     * @author Grace May
+     */
     public static void caseCreateAccount() throws InterruptedException{
         System.out.println("To create an account on Twitter. Please enter a username:");
         String createUsername = in.nextLine();
@@ -240,19 +248,15 @@ public class LogUserIn {
         return false;
     }
     
-/** The caseViewProfile method allows the a program user to search for and view an existing account's user profile.
- * 
- * @author William Scheid
- * @date 4/10/16
- */
+   /** The caseViewProfile method allows the a program user to search for and view an existing account's user profile.
+    * @author William Scheid
+    * @date 4/10/16
+    */
     public static void caseViewProfile(){
         System.out.print("Enter username to view user's profile:");
         String userprofile = in.nextLine();
         int ind = -1;
         for (int i = 0; i < Main.userList.size(); i++){
-//            System.out.println(Main.userList.get(i).getUsername()); // only one user location string "User@42a57993"    //fixed error
-//            // is printed, no matter the user name entered
-//            if ((Main.userList.get(i).getUsername()).equals(userprofile))
             if ((Main.userList.get(i).getUsername()).equals(userprofile)) {
                 ind = i;
                 break;
@@ -305,7 +309,10 @@ public class LogUserIn {
         }
         fw.close();
     }
-
+    /** The updateUserFile method updates the user datafile with additional user object made during program runtime
+     * which were not read in by the file at the program's start.
+     * @author Evan Shipman
+     */
     protected static void updateUserFile() throws IOException, InterruptedException
     {
         FileWriter fw = new FileWriter(new File("UsersFile.txt"));
@@ -338,6 +345,7 @@ public class LogUserIn {
     }
 
     // Getter method
+    // @author William Scheid
 //    public String getUsername(boolean pswdCheck) {
 //        if (pswdCheck){
 //            return u;
