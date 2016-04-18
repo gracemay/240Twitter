@@ -197,6 +197,7 @@ public class Main {
  * as many user objects from existing lines of data from the file as is possible which are then returned together as an
  * ArrayList.
  * @param inputName String variable for the message file name.
+ * @throws NoSuchAlgorithmException, UnsupportedEncodingException, IOException
  * @author William Scheid
  */
     public static ArrayList readMessageInput(String inputName) throws NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
@@ -230,6 +231,7 @@ public class Main {
  * many new users as is possible from the data existing in the file, adding them to an ArrayList which is returned
  * from the method.
  * @param inputName String variable which provides the user file name.
+ * @throws NoSuchAlgorithmException, UnsupportedEncodingException, IOException
  * @author William Scheid
  */
     public static ArrayList readUserInput(String inputName) throws NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
