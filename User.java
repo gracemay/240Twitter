@@ -81,7 +81,9 @@ public class User{
         this.followings = followings.split(";");
     }
 
-    /** These methods below are the setter methods for the User class. **/
+    /** These methods below are the setter methods for the User class.
+      * @author Grace May
+     **/
     void setUsername(String uname){
         username = uname;
     }
@@ -227,7 +229,9 @@ public class User{
         return diff > followings.length;
     }
 
-    /** These methods below are the getter methods for the User class. **/
+    /** These methods below are the getter methods for the User class. 
+      * author Grace May
+    **/
     public String getUsername(){
         return username;
     }
@@ -292,22 +296,4 @@ public class User{
         return false;
     }
 
-} //end of User clas
-
-//class PraticeUser{
-//    public static void main(String[] args){
-//        //User use = new User("Jacqueline", "123456", "jcoates@gmai.com", "11/12/2016", "this is a test",
-//        User use = new User("Jacqueline", "123456", "jcoates@gmai.com", "this is a test",
-//        3, 3, "jec12;pj34;sam;", "grace12;pet;will.i.am");
-//
-//        System.out.println(use.getUsername());
-//        System.out.println(use.getEmail());
-//        System.out.println(use.getFollowers());
-//        System.out.println(use.getFollowing());
-//        System.out.println(use.getRegisterDate());
-//        System.out.println(use.getPassword());
-//        use.getFollowerList();
-//        use.getFollowingList();
-//
-//    }
-//}
+} //end of User class

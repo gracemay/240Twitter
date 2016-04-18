@@ -23,7 +23,7 @@ import javax.swing.JTextArea;
 
 /**
  * The main GUI, this handles everything a logged-in user can do
- * @author evan
+ * @author Evan Shipman
  */
 public class GUI extends javax.swing.JFrame
 {
