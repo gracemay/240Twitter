@@ -75,7 +75,9 @@ public class User{
         this.followings = followings.split(";");
     }
 
-    /** These methods below are the setter methods for the User class. **/
+    /** These methods below are the setter methods for the User class.
+      * @author Grace May
+     **/
     void setUsername(String uname){
         username = uname;
     }
@@ -201,7 +203,9 @@ public class User{
         return diff > followings.length;
     }
 
-    /** These methods below are the getter methods for the User class. **/
+    /** These methods below are the getter methods for the User class. 
+      * author Grace May
+    **/
     public String getUsername(){
         return username;
     }
@@ -266,4 +270,4 @@ public class User{
         return false;
     }
 
-}
+} //end of User class
