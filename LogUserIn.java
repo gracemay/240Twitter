@@ -17,40 +17,25 @@ import java.util.Scanner;
 public class LogUserIn {
     private static SimpleDateFormat sdfMessages = new SimpleDateFormat("MM/dd/yyy hh:mm a");
     private static Scanner in = new Scanner(System.in);
-/** Optional constructor used to establish LogUserIn u and p String variables based on user and pswd String parameters.
- * @param user String variable for login username used.
- * @param pswd String variable for login password used.
- * @author William Scheid
- */
-//    public ArrayList<String> uList;
-//    public ArrayList<String> pList;
-//    public String u;
-//    public String p;
-//
-//    public LogUserIn(String user, String pswd) {
-////        this.uList = uL;
-////        this.pList = pL;
-//        this.u = user;
-//        this.p = pswd;
-//    }
+   /** Optional constructor used to establish LogUserIn u and p String variables based on user and pswd String parameters.
+    * @param user String variable for login username used.
+    * @param pswd String variable for login password used.
+    * @author William Scheid
+    */
+   //    public LogUserIn(String user, String pswd) {
+   ////        this.uList = uL;
+   ////        this.pList = pL;
+   //        this.u = user;
+   //        this.p = pswd;
+   //    }
 
-/** The checkLoginSuccess method takes in an ArrayList of user objects, a String username and a String user password
- * as parameters and returns a boolean truth value indicated whether login was successful at any index of the user ArrayList.
- * 
- * @param userList ArrayList of User objects.
- * @param u String value for attempted login password.
- * @param p String value for attempted login password.
- * @author William Scheid
- * @date 3/25/16
- * 
- * @author
- * @date
- */
-    /** Checks all username AList indexes for username match,
+
+    /** The checkLoginSuccess method checks all username AList indexes for username match,
     * then checks password AList index for pswd match.
     * @param userList String of user objects.
     * @param u String for login username.
     * @param p String for login password.
+    * 
     * @author
     * @author William Scheid
     */
