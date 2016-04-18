@@ -294,7 +294,10 @@ public class LogUserIn {
             System.out.println("No user exists with the username "+ userprofile +".");
         }
     }
-
+    /** The updateMessagesFile method updates the user datafile with additional message objects made during program
+     * runtime which were not initially read in by the file at the program's start.
+     * @author Evan Shipman
+     */
     protected static void updateMessagesFile(ArrayList<Message> messageList) throws IOException, InterruptedException
     {
         FileWriter fw = new FileWriter(new File("MessageFile.txt"));
@@ -309,7 +312,7 @@ public class LogUserIn {
         }
         fw.close();
     }
-    /** The updateUserFile method updates the user datafile with additional user object made during program runtime
+    /** The updateUserFile method updates the user datafile with additional user objects made during program runtime
      * which were not read in by the file at the program's start.
      * @author Evan Shipman
      */
