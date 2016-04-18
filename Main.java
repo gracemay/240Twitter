@@ -20,13 +20,8 @@ import java.util.Scanner;
  *      because it's much easier to convert from a long rather than back to a long. The User.getRegisterDate() now
  *      returns a long so it must be converted with the formatter if it will be displayed to the user. Added the
  *      case 4 in main (Delete user account)
- *      ** If a user is placed in the UsersFile twice by mistake, deleting the account only removes one of them **
- *      ** Sometimes I've noticed the Scanner doesn't work right after lots of inputs                           **
- *      UPDATE: I think I finished the Scanner errors by changing them to nextLine()
- * Date: (4/10/16) Added delete messages functionality (case 5)
- * Date: (4/11/16) Added case 8 follow/unfollow
- *      UPDATE: Added methods in the User class to follow/unfollow (currently do not work). Any help on those would
- *              be appreciated
+ * Date: (4/10/16) Added delete messages case
+ * Date: (4/11/16) Added follow/unfollow case
  */
 public class Main {
 
@@ -41,6 +36,7 @@ public class Main {
     //added username and passwd to be data memebers.
     protected static String username = "", passwd = "";
     protected static boolean success;
+    
     /** The main method reads the user and message datafiles through method calls, and calls the PreGui start method to begin
      * the program.
      * @author William Scheid
@@ -194,6 +190,7 @@ public class Main {
             }
         }
     }
+    
 /** The readMessageInput method reads in the String message datafile name as the parameter, and uses a file scanner to create
  * as many user objects from existing lines of data from the file as is possible which are then returned together as an
  * ArrayList.
@@ -220,6 +217,7 @@ public class Main {
         }
         return mList;
     }
+    
 /** The readUserInput method reads in the String user datafile name parameter and uses a file scanner to create as
  * many new users as is possible from the data existing in the file, adding them to an ArrayList which is returned
  * from the method.
