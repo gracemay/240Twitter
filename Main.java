@@ -11,9 +11,6 @@ import java.util.Scanner;
  * some misc. formatting stuff also put some Main functionality and a method for searching messages.
  * @author William Scheid
  * Date: (4/1/16) Added the updated input method and calls from the main method, with updated parameter read-ins.
- * Date: (4/6/16) Solved issue, learned to pull LOL
- * Date: (4/6/16) Grace is trying to test her GitHub syncing lots of stuff.
- * BLAHHHH!!!!
  * Evan Shipman:
  * Date: (4/8/16) Changed addMessage and addUser to updateMessageFile and updateUserFile. A new message or user is
  *      added outside of those methods that way we also have a way to remove messages and users without unnecessary
@@ -23,13 +20,8 @@ import java.util.Scanner;
  *      because it's much easier to convert from a long rather than back to a long. The User.getRegisterDate() now
  *      returns a long so it must be converted with the formatter if it will be displayed to the user. Added the
  *      case 4 in main (Delete user account)
- *      ** If a user is placed in the UsersFile twice by mistake, deleting the account only removes one of them **
- *      ** Sometimes I've noticed the Scanner doesn't work right after lots of inputs                           **
- *      UPDATE: I think I finished the Scanner errors by changing them to nextLine()
- * Date: (4/10/16) Added delete messages functionality (case 5)
- * Date: (4/11/16) Added case 8 follow/unfollow
- *      UPDATE: Added methods in the User class to follow/unfollow (currently do not work). Any help on those would
- *              be appreciated
+ * Date: (4/10/16) Added delete messages case
+ * Date: (4/11/16) Added follow/unfollow case
  */
 public class Main {
 
@@ -44,7 +36,12 @@ public class Main {
     //added username and passwd to be data memebers.
     protected static String username = "", passwd = "";
     protected static boolean success;
-    //the thing where everything happens
+    
+    /** The main method reads the user and message datafiles through method calls, and calls the PreGui start method to begin
+     * the program.
+     * @author William Scheid
+     * @author Evan Shipman
+     */
     public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException, InterruptedException {
 //        GUI graphical = new GUI();
 //        graphical.start();
@@ -60,11 +57,13 @@ public class Main {
 //            WhileLoggedIn(in);
     }
 
-    /**
-     * For use with the text-based user interface, this method handles login, viewing public information, and new account creation.
-     * @param in The scanner object that handles input
-     * @return true if the user logs in successfully
-     * @throws IOException 
+
+    /** The startProgram method provides initial non-logged in user options while establishing procedure for user
+     * account creation for unregistered program users.
+     * @author Grace May, who established create account case.
+     * @author Jacqueline
+     * @author William
+     * @author Evan
      */
     public static boolean startProgram(Scanner in) throws IOException {
         boolean success = false;
@@ -123,7 +122,13 @@ public class Main {
         return success;
     }
 
-    //this method will run until the user is loged out.
+    /** The whileLoggedIn method will run until the user has logged out, and reads in a user String input parameter 
+     * to call various LogUserIn class options based on user program options being selected.
+     * @author Jacqueline
+     * @author Grace
+     * @author Evan
+     * @author William
+     */
     public static void WhileLoggedIn(Scanner in) throws IOException{
         boolean done = false, success = false;
         Scanner command = new Scanner(System.in);
@@ -186,7 +191,13 @@ public class Main {
             }
         }
     }
-
+    
+/** The readMessageInput method reads in the String message datafile name as the parameter, and uses a file scanner to create
+ * as many user objects from existing lines of data from the file as is possible which are then returned together as an
+ * ArrayList.
+ * @param inputName String variable for the message file name.
+ * @author William Scheid
+ */
     public static ArrayList readMessageInput(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
         ArrayList<Message> mList = new ArrayList<Message>();
         File inFile2 = new File(inputName);
@@ -207,7 +218,13 @@ public class Main {
         }
         return mList;
     }
-
+    
+/** The readUserInput method reads in the String user datafile name parameter and uses a file scanner to create as
+ * many new users as is possible from the data existing in the file, adding them to an ArrayList which is returned
+ * from the method.
+ * @param inputName String variable which provides the user file name.
+ * @author William Scheid
+ */
     public static ArrayList readUserInput(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
         ArrayList<User> uList = new ArrayList<User>();
         File inFile = new File(inputName);
@@ -238,7 +255,10 @@ public class Main {
         }
         return uList;
     }
-
+/** Optional writeUserFileOutput method functionally rewrites the user datafile with the updated user ArrayList 
+ * to establish file persistence.
+ * @author William Scheid
+ */
     //public static void writeUserFileOutput() throws FileNotFoundException{    
     //   PrintWriter writer = new PrintWriter("UsersFile.txt");
     //   for (int i = 0; i < userList.size(); i++) {
@@ -253,7 +273,10 @@ public class Main {
     //   }
     //   writer.close();
     // }
-   
+/** Optional writeMessageFileOutput method functionally rewrites the message datafile with the updated message ArrayList
+ * to establish file persistence.
+ * @author William Scheid
+ */
     //public static void writeMessageFileOutput() throws FileNotFoundException {    
     //   PrintWriter writer = new PrintWriter("MessageFile.txt");
     //   for (int i = 0; i < messageList.size(); i++) {

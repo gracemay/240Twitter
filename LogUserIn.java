@@ -8,29 +8,37 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-/**
+/** LogUserIn class contains all the methods used to carry out prompted options provided
+ * for what the user does while attempting to log into the system and what the user
+ * does while successfully logged into the system.
  * @Author William
  * @Date 3/25/16
- * LogUserIn class contains does all the grunt work for what the user does while in the system.
  */
 public class LogUserIn {
     private static SimpleDateFormat sdfMessages = new SimpleDateFormat("MM/dd/yyy hh:mm a");
     private static Scanner in = new Scanner(System.in);
+   /** Optional constructor used to establish LogUserIn u and p String variables based on user and pswd String parameters.
+    * @param user String variable for login username used.
+    * @param pswd String variable for login password used.
+    * @author William Scheid
+    */
+   //    public LogUserIn(String user, String pswd) {
+   ////        this.uList = uL;
+   ////        this.pList = pL;
+   //        this.u = user;
+   //        this.p = pswd;
+   //    }
 
-//    public ArrayList<String> uList;
-//    public ArrayList<String> pList;
-//    public String u;
-//    public String p;
-//
-//    public LogUserIn(String user, String pswd) {
-////        this.uList = uL;
-////        this.pList = pL;
-//        this.u = user;
-//        this.p = pswd;
-//    }
 
-    // Checks all username AList indexes for username match,
-    // then checks password AList index for pswd match
+    /** The checkLoginSuccess method checks all username AList indexes for username match,
+    * then checks password AList index for pswd match.
+    * @param userList String of user objects.
+    * @param u String for login username.
+    * @param p String for login password.
+    * 
+    * @author
+    * @author William Scheid
+    */
     public static boolean checkLoginSuccess(ArrayList<User> userList, String u, String p){
         for (int i = 0; i < userList.size(); i++)
             if (userList.get(i).getUsername().equals(u) && userList.get(i).getPassword().equals(p))
@@ -58,7 +66,9 @@ public class LogUserIn {
                 return user;
         return null;
     }
-
+    /** The caseCreateAccount method creates a new User object and adds it to the userList ArrayList based on user input.
+     * @author Grace May
+     */
     public static void caseCreateAccount() throws InterruptedException{
         System.out.println("To create an account on Twitter. Please enter a username:");
         String createUsername = in.nextLine();
@@ -222,15 +232,16 @@ public class LogUserIn {
                 return true;
         return false;
     }
-    //view user profile
+    
+   /** The caseViewProfile method allows the a program user to search for and view an existing account's user profile.
+    * @author William Scheid
+    * @date 4/10/16
+    */
     public static void caseViewProfile(){
         System.out.print("Enter username to view user's profile:");
         String userprofile = in.nextLine();
         int ind = -1;
         for (int i = 0; i < Main.userList.size(); i++){
-//            System.out.println(Main.userList.get(i).getUsername()); // only one user location string "User@42a57993"    //fixed error
-//            // is printed, no matter the user name entered
-//            if ((Main.userList.get(i).getUsername()).equals(userprofile))
             if ((Main.userList.get(i).getUsername()).equals(userprofile)) {
                 ind = i;
                 break;
@@ -268,7 +279,10 @@ public class LogUserIn {
             System.out.println("No user exists with the username "+ userprofile +".");
         }
     }
-
+    /** The updateMessagesFile method updates the user datafile with additional message objects made during program
+     * runtime which were not initially read in by the file at the program's start.
+     * @author Evan Shipman
+     */
     protected static void updateMessagesFile(ArrayList<Message> messageList) throws IOException, InterruptedException
     {
         FileWriter fw = new FileWriter(new File("MessageFile.txt"));
@@ -283,7 +297,10 @@ public class LogUserIn {
         }
         fw.close();
     }
-
+    /** The updateUserFile method updates the user datafile with additional user objects made during program runtime
+     * which were not read in by the file at the program's start.
+     * @author Evan Shipman
+     */
     protected static void updateUserFile() throws IOException, InterruptedException
     {
         FileWriter fw = new FileWriter(new File("UsersFile.txt"));
@@ -316,6 +333,7 @@ public class LogUserIn {
     }
 
     // Getter method
+    // @author William Scheid
 //    public String getUsername(boolean pswdCheck) {
 //        if (pswdCheck){
 //            return u;
