@@ -198,10 +198,16 @@ public class Main {
  * @param inputName String variable for the message file name.
  * @author William Scheid
  */
-    public static ArrayList readMessageInput(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
+    public static ArrayList readMessageInput(String inputName) throws NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
         ArrayList<Message> mList = new ArrayList<Message>();
         File inFile2 = new File(inputName);
-        Scanner inTxt2 = new Scanner(inFile2);
+        Scanner inTxt2;
+        try {
+            inTxt2 = new Scanner(inFile2);
+        } catch (FileNotFoundException e) {
+            inFile2.createNewFile();
+            inTxt2 = new Scanner(inFile2);
+        }
         String user;
         int messageID;
         String message;
@@ -225,10 +231,16 @@ public class Main {
  * @param inputName String variable which provides the user file name.
  * @author William Scheid
  */
-    public static ArrayList readUserInput(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
+    public static ArrayList readUserInput(String inputName) throws NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
         ArrayList<User> uList = new ArrayList<User>();
         File inFile = new File(inputName);
-        Scanner inTxt = new Scanner(inFile);
+        Scanner inTxt;
+        try {
+            inTxt = new Scanner(inFile);
+        } catch (FileNotFoundException e) {
+            inFile.createNewFile();
+            inTxt = new Scanner(inFile);
+        }
         String username;
         String password;
         String email;

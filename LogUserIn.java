@@ -176,7 +176,10 @@ public class LogUserIn {
         System.exit(0);     //until we add a log out function
     }
 
-    //deletes messages only
+    /**
+     * 
+     * @throws InterruptedException 
+     */
     public static void caseDeleteMessage() throws InterruptedException{
         for (Message m : Main.messageList)
             if (m.getUser().equals(Main.currentUser.getUsername()))
@@ -194,7 +197,11 @@ public class LogUserIn {
         }catch (java.io.IOException e){System.out.println("There is an error with deleting messages.");}
     }
 
-    //follow a user
+    /**
+     * Follows (subscribes) to another user
+     * @throws InterruptedException 
+     * @author Evan Shipman
+     */
     public static void casefollowUser() throws InterruptedException{
         //follow a user
         System.out.print("Please enter the username of the user you wish to follow:");
@@ -212,7 +219,11 @@ public class LogUserIn {
             System.out.println("We can't update user file.");}
     }
 
-    //unfollow a user
+    /**
+     * Removes another user from the  current user's list of people he/she is following
+     * @author Evan Shipman
+     * @throws InterruptedException 
+     */
     public static void caseUnfollow() throws InterruptedException{
         System.out.println("People you are following:");
         for (int i = 0; i < Main.currentUser.followings.length; i++)
