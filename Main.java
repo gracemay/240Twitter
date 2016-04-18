@@ -11,9 +11,6 @@ import java.util.Scanner;
  * some misc. formatting stuff also put some Main functionality and a method for searching messages.
  * @author William Scheid
  * Date: (4/1/16) Added the updated input method and calls from the main method, with updated parameter read-ins.
- * Date: (4/6/16) Solved issue, learned to pull LOL
- * Date: (4/6/16) Grace is trying to test her GitHub syncing lots of stuff.
- * BLAHHHH!!!!
  * Evan Shipman:
  * Date: (4/8/16) Changed addMessage and addUser to updateMessageFile and updateUserFile. A new message or user is
  *      added outside of those methods that way we also have a way to remove messages and users without unnecessary
@@ -44,7 +41,11 @@ public class Main {
     //added username and passwd to be data memebers.
     protected static String username = "", passwd = "";
     protected static boolean success;
-    //the thing where everything happens
+    /** The main method reads the user and message datafiles through method calls, and calls the PreGui start method to begin
+     * the program.
+     * @author William Scheid
+     * @author Evan Shipman
+     */
     public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException, InterruptedException {
 //        GUI graphical = new GUI();
 //        graphical.start();
@@ -60,7 +61,13 @@ public class Main {
 //            WhileLoggedIn(in);
     }
 
-    //this method logs the user in
+    /** The startProgram method provides initial non-logged in user options while establishing procedure for user
+     * account creation for unregistered program users.
+     * @author Grace May, who established create account case.
+     * @author Jacqueline
+     * @author William
+     * @author Evan
+     */
     public static boolean startProgram(Scanner in) throws IOException {
         boolean success = false;
         boolean cont = false;
@@ -118,7 +125,13 @@ public class Main {
         return success;
     }
 
-    //this method will run until the user is loged out.
+    /** The whileLoggedIn method will run until the user has logged out, and reads in a user String input parameter 
+     * to call various LogUserIn class options based on user program options being selected.
+     * @author Jacqueline
+     * @author Grace
+     * @author Evan
+     * @author William
+     */
     public static void WhileLoggedIn(Scanner in) throws IOException{
         boolean done = false, success = false;
         Scanner command = new Scanner(System.in);
@@ -184,7 +197,7 @@ public class Main {
 /** The readMessageInput method reads in the String message datafile name as the parameter, and uses a file scanner to create
  * as many user objects from existing lines of data from the file as is possible which are then returned together as an
  * ArrayList.
- * 
+ * @param inputName String variable for the message file name.
  * @author William Scheid
  */
     public static ArrayList readMessageInput(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -210,7 +223,7 @@ public class Main {
 /** The readUserInput method reads in the String user datafile name parameter and uses a file scanner to create as
  * many new users as is possible from the data existing in the file, adding them to an ArrayList which is returned
  * from the method.
- * 
+ * @param inputName String variable which provides the user file name.
  * @author William Scheid
  */
     public static ArrayList readUserInput(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -243,7 +256,10 @@ public class Main {
         }
         return uList;
     }
-
+/** Optional writeUserFileOutput method functionally rewrites the user datafile with the updated user ArrayList 
+ * to establish file persistence.
+ * @author William Scheid
+ */
     //public static void writeUserFileOutput() throws FileNotFoundException{    
     //   PrintWriter writer = new PrintWriter("UsersFile.txt");
     //   for (int i = 0; i < userList.size(); i++) {
@@ -258,7 +274,10 @@ public class Main {
     //   }
     //   writer.close();
     // }
-   
+/** Optional writeMessageFileOutput method functionally rewrites the message datafile with the updated message ArrayList
+ * to establish file persistence.
+ * @author William Scheid
+ */
     //public static void writeMessageFileOutput() throws FileNotFoundException {    
     //   PrintWriter writer = new PrintWriter("MessageFile.txt");
     //   for (int i = 0; i < messageList.size(); i++) {
