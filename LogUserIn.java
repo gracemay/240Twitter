@@ -143,7 +143,9 @@ public class LogUserIn {
         }
     }
 
-    //searches for a message
+    /**
+     * 
+     */
     public static void caseSearch(){
         System.out.println("Enter search terms separated by spaces:");
         String[] terms = in.nextLine().split(" ");
@@ -152,7 +154,10 @@ public class LogUserIn {
                 System.out.println(m.getUser() + "  on " + sdfMessages.format(new Date(m.getDate())) + "\n" + m.getMessage() + "\n");
     }
 
-    //deletes account
+    /**
+     * Deletes the user's account and removes all of their private messages
+     * @throws InterruptedException 
+     */
     public static void caseDeleteAccount() throws InterruptedException{
         System.out.println("Are you sure you want to delete your account? (Yes/No): ");
         if (in.nextLine().equalsIgnoreCase("Yes") && !Main.currentUser.equals(null))
@@ -177,7 +182,7 @@ public class LogUserIn {
     }
 
     /**
-     * 
+     * Deletes a message or messages from the list of messages that the current user is the author of
      * @throws InterruptedException 
      */
     public static void caseDeleteMessage() throws InterruptedException{

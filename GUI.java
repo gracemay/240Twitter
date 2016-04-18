@@ -723,7 +723,7 @@ public class GUI extends javax.swing.JFrame
             {
                 if (u.getUsername().contains(searchTerms[i]) && !listed)
                 {
-                    toPrint += "-------------------USER-------------------\n" + u.getUsername() + "\nRegistered on: " + Main.sdf.format(u.getRegisterDate()) + "\nUser has " + u.getFollowers() + " followers:\n";
+                    toPrint += "-------------------USER-------------------\nUsername: " + u.getUsername() + "\nDescription: " + u.getDescription() + "\nRegistered on: " + Main.sdf.format(u.getRegisterDate()) + "\nUser has " + u.getFollowers() + " followers:\n";
                     for (int j = 0; j < u.getFollowerList().length; j++)
                         if (!u.getFollowerList()[j].isEmpty())
                             toPrint += u.getFollowerList()[j] + "\n";
