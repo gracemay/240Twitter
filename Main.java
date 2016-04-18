@@ -5,23 +5,13 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
-/**
+/** The main class establishes program data persistence and runs through the program using various additional
+ * methods from other secondary classes (either in the GUI constructed or in the program IDE run window).
  * @author Evan Shipman
- * Date: (4/3/16) Added pList and usernameList for LogUserIn, added methods to update the user and message files,
- * some misc. formatting stuff also put some Main functionality and a method for searching messages.
+ * @author Grace May
+ * @author Jacqueline Coates
  * @author William Scheid
- * Date: (4/1/16) Added the updated input method and calls from the main method, with updated parameter read-ins.
- * @author Evan Shipman:
- * Date: (4/8/16) Changed addMessage and addUser to updateMessageFile and updateUserFile. A new message or user is
- *      added outside of those methods that way we also have a way to remove messages and users without unnecessary
- *      coding. Removed or renamed main methods from other classes so they can still be called. Cleaned up the
- *      checkLoginSuccess method and added a getUser method in the LogUserIn class to help with deleting accounts.
- *      Added a second constructor in User to accept a date as a long, and also changed the data type to a long
- *      because it's much easier to convert from a long rather than back to a long. The User.getRegisterDate() now
- *      returns a long so it must be converted with the formatter if it will be displayed to the user. Added the
- *      case 4 in main (Delete user account)
- * Date: (4/10/16) Added delete messages case
- * Date: (4/11/16) Added follow/unfollow case
+ * 
  */
 public class Main {
 
