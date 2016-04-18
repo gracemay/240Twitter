@@ -98,6 +98,7 @@ public class GUI extends javax.swing.JFrame
         jScrollPane1 = new javax.swing.JScrollPane();
         tagged = new javax.swing.JTextArea();
         jLabel9 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         confirm.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         confirm.setTitle("Delete Account?");
@@ -320,6 +321,15 @@ public class GUI extends javax.swing.JFrame
 
         jLabel9.setText("Your tagged messages");
 
+        jButton2.setText("Logout");
+        jButton2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -404,7 +414,10 @@ public class GUI extends javax.swing.JFrame
                                 .addGap(72, 72, 72)
                                 .addComponent(jLabel4))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jButton1)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jButton2)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jButton1))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel3)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -480,7 +493,9 @@ public class GUI extends javax.swing.JFrame
                             .addComponent(log1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2))
                             .addComponent(log5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(36, 36, 36))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -699,14 +714,14 @@ public class GUI extends javax.swing.JFrame
             {
                 if (u.getUsername().contains(searchTerms[i]) && !listed)
                 {
-                    toPrint += u.getUsername() + "\nRegistered on: " + Main.sdf.format(u.getRegisterDate()) + "\nUser has " + u.getFollowers() + " followers:\n";
+                    toPrint += "-------------------USER-------------------\n" + u.getUsername() + "\nRegistered on: " + Main.sdf.format(u.getRegisterDate()) + "\nUser has " + u.getFollowers() + " followers:\n";
                     for (int j = 0; j < u.getFollowerList().length; j++)
                         if (!u.getFollowerList()[j].isEmpty())
                             toPrint += u.getFollowerList()[j] + "\n";
                     toPrint += "User is following " + u.getFollowing() + " people:\n";
                     for (int j = 0; j < u.getFollowingList().length; j++)
                         toPrint += u.getFollowingList()[j] + "\n";
-                    toPrint += "\n\n";
+                    toPrint += "\n";
                     listed = true;
                 }
             }
@@ -771,6 +786,7 @@ public class GUI extends javax.swing.JFrame
                     found = true;
                     log1.setForeground(Color.GREEN);
                     log1.setText("Success!");
+                    break;
                 }
             }
         }
@@ -829,6 +845,13 @@ public class GUI extends javax.swing.JFrame
     {//GEN-HEADEREND:event_deleteActionPerformed
         
         Main.userList.remove(Main.currentUser);
+        for (User u : Main.userList)
+        {
+            if (u.hasFollower(Main.currentUser.getUsername()))
+                u.removeFollower(Main.currentUser.getUsername());
+            if (u.isFollowing(Main.currentUser.getUsername()))
+                u.removeFollowing(Main.currentUser.getUsername());
+        }
         try{
             LogUserIn.updateUserFile();
         } catch (java.io.IOException e) {
@@ -858,6 +881,12 @@ public class GUI extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         confirm.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+        PreGUI.start();
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -913,6 +942,7 @@ public class GUI extends javax.swing.JFrame
     private javax.swing.JButton go;
     private javax.swing.JButton go1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

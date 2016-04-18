@@ -60,7 +60,12 @@ public class Main {
 //            WhileLoggedIn(in);
     }
 
-    //this method logs the user in
+    /**
+     * For use with the text-based user interface, this method handles login, viewing public information, and new account creation.
+     * @param in The scanner object that handles input
+     * @return true if the user logs in successfully
+     * @throws IOException 
+     */
     public static boolean startProgram(Scanner in) throws IOException {
         boolean success = false;
         boolean cont = false;

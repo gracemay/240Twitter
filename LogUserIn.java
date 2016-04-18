@@ -299,15 +299,15 @@ public class LogUserIn {
             fw.write(user.getFollowers() + "\n");
             for (int i = 0; i < user.followings.length; i++)
             {
-                followers += user.followings[i];
-                if (i != user.followings.length - 1 && !followers.equals(""))
-                    followers += ";";
+                following += user.followings[i];
+                if (i != user.followings.length - 1 && !following.equals(""))
+                    following += ";";
             }
             for (int i = 0; i < user.followers.length; i++)
             {
-                following += user.followers[i];
-                if (i != user.followers.length - 1 && !following.equals(""))
-                    following += ";";
+                followers += user.followers[i];
+                if (i != user.followers.length - 1 && !followers.equals(""))
+                    followers += ";";
             }
             fw.write(following + "\n");
             fw.write(followers + "\n");
