@@ -57,8 +57,6 @@ public class User{
         userFollowing = uFollwing;
         addToFollowers(followers);
         addToFollowings(followings);
-//        this.removeFollower("");
-//        this.removeFollowing("");
     }
     
     /**
@@ -66,8 +64,6 @@ public class User{
      * @param followers The string of followers separated by semicolons
      */
     void addToFollowers(String followers){
-//        if (followers.length() >= 4 && followers.substring(0,4).equals("N/A;"))
-//            followers.replaceAll("N/A;", "");
         this.followers = followers.split(";");
     }
     
@@ -76,8 +72,6 @@ public class User{
      * @param followings The string of users this user is following, separated by semicolons
      */
     void addToFollowings(String followings){
-//        if (followings.substring(0,1).equals("N/A") && followings.length() >= 4)
-//            followings.replaceAll("N/A;", "");
         this.followings = followings.split(";");
     }
 
@@ -155,23 +149,6 @@ public class User{
      */
     public boolean removeFollower(String username)
     {
-//        String[] temp = new String[followers.length - 1];
-//        int offset = 0;
-//        for (int i = 0; i < temp.length; i++)
-//        {
-//            if (followers[i].equals(username))
-//                offset++;
-//            else
-//                temp[i] = followers[i + offset];
-//        }
-//        followers = temp;
-//        userFollowers--;
-//        for (User u : Main.userList)
-//            if (u.getPassword().equals(password) && u.getUsername().equals(username))
-//                u = this;
-//        return (offset != 0);
-//        
-////        ArrayList<String> temp = new ArrayList<String>();
         String temp = "";
         for (int i = 0; i < followers.length; i++)
             if (!followers[i].equals(username))
@@ -203,9 +180,6 @@ public class User{
             for (int i = 0; i < followings.length; i++)
                 followings[i] = temp[i];
         }
-//        for (User u : Main.userList)
-//            if (u.getPassword().equals(password) && u.getUsername().equals(username))
-//                u = this;
         userFollowing++;
     }
     
@@ -292,22 +266,4 @@ public class User{
         return false;
     }
 
-} //end of User clas
-
-//class PraticeUser{
-//    public static void main(String[] args){
-//        //User use = new User("Jacqueline", "123456", "jcoates@gmai.com", "11/12/2016", "this is a test",
-//        User use = new User("Jacqueline", "123456", "jcoates@gmai.com", "this is a test",
-//        3, 3, "jec12;pj34;sam;", "grace12;pet;will.i.am");
-//
-//        System.out.println(use.getUsername());
-//        System.out.println(use.getEmail());
-//        System.out.println(use.getFollowers());
-//        System.out.println(use.getFollowing());
-//        System.out.println(use.getRegisterDate());
-//        System.out.println(use.getPassword());
-//        use.getFollowerList();
-//        use.getFollowingList();
-//
-//    }
-//}
+}

@@ -2,24 +2,11 @@
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.locks.Lock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JTextArea;
 
 /**
  * The main GUI, this handles everything a logged-in user can do
@@ -558,42 +545,6 @@ public class GUI extends javax.swing.JFrame
     private void publicPostActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_publicPostActionPerformed
     {//GEN-HEADEREND:event_publicPostActionPerformed
 
-        //INSERT SERVER IP ADDRESS HERE
-//        String hostName = "10.214.18.152";
-//        int portNumber = 4444;
-//        try{
-//                Socket twitterSocket = new Socket(hostName, portNumber);
-//                ServerSocket server = new ServerSocket(portNumber + 1);
-//                Socket incoming = server.accept();
-//                BufferedReader fromServer = new BufferedReader(new InputStreamReader(incoming.getInputStream()));
-//                PrintWriter out = new PrintWriter(twitterSocket.getOutputStream(), true);
-//                BufferedReader in = new BufferedReader(new InputStreamReader(twitterSocket.getInputStream()));
-//        
-//
-//            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-//            String tempFromServer, reply = "", fromUser;
-//            char[] cbuf = new char[2048];
-//
-//            fromUser = "@Evan " + post.getText();
-//            if (fromUser != null)
-//                out.println(fromUser);
-//            //out.close();
-//            fromServer.read(cbuf);
-//
-//            String[] msgText = new String(cbuf).split("\n");
-//            for (int i = 0; i < msgText.length; i++)
-//                if (i % 3 == 1)
-//                    msgText[i] = Main.sdfMessages.format(Long.parseLong(msgText[i]));
-//
-//            msgs.setText(new String(cbuf));
-//
-//            post.setText("");
-//        } catch (UnknownHostException e) {
-//            System.err.println("Don't know about host " + hostName);
-//        } catch (IOException e) {
-//            System.err.println("Couldn't get I/O for the connection to " + hostName);
-//        }
-
         String user = Main.currentUser.getUsername();
         Message newMessage = new Message(user, (int) (System.nanoTime() % Integer.MAX_VALUE), post.getText(), System.currentTimeMillis(), false);
         Main.messageList.add(newMessage);
@@ -609,11 +560,6 @@ public class GUI extends javax.swing.JFrame
         }
         post.setText("");
         refresh.doClick();
-//        if (!msgs.getText().equals(""))
-//            msgs.setText(user + "\n" + post.getText() + "\n----------------------------------\n" + msgs.getText());
-//        else
-//            msgs.setText(user + "\n" + post.getText());
-//        post.setText("");
 
     }//GEN-LAST:event_publicPostActionPerformed
 
@@ -649,46 +595,9 @@ public class GUI extends javax.swing.JFrame
         }
         msgs.setText(listOfMessages);
         tagged.setText(mesgs);
-//        String hostName = "";
-//        int portNumber = 4444;
-//        try {
-//                Socket twitterSocket = new Socket(hostName, portNumber);
-//                ServerSocket server = new ServerSocket(portNumber + 1);
-//                Socket incoming = server.accept();
-//                BufferedReader fromServer = new BufferedReader(new InputStreamReader(incoming.getInputStream()));
-//                PrintWriter out = new PrintWriter(twitterSocket.getOutputStream(), true);
-//                BufferedReader in = new BufferedReader(new InputStreamReader(twitterSocket.getInputStream()));
-//        
-//
-//            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-//            String tempFromServer, reply = "", fromUser;
-//            char[] cbuf = new char[2048];
-//
-//            fromUser = "NOTMSG";
-//            if (fromUser != null)
-//                out.println(fromUser);
-//            //out.close();
-//            fromServer.read(cbuf);
-//
-//            String[] msgText = new String(cbuf).split("\n");
-//            for (int i = 0; i < msgText.length; i++)
-//                if (i % 3 == 1)
-//                    msgText[i] = Main.sdfMessages.format(Long.parseLong(msgText[i]));
-//
-//            msgs.setText(new String(cbuf));
-//
-//
-//            //post.setText("");
-//        } catch (UnknownHostException e) {
-//            System.err.println("Don't know about host " + hostName);
-//        } catch (IOException e) {
-//            System.err.println("Couldn't get I/O for the connection to " + hostName);
-//        }
 
 
     }//GEN-LAST:event_refreshActionPerformed
-
-    //line skipped because it is a bad line
     
     private void privatePostActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_privatePostActionPerformed
     {//GEN-HEADEREND:event_privatePostActionPerformed
@@ -735,7 +644,6 @@ public class GUI extends javax.swing.JFrame
                 }
             }
         }
-        //won't code on this line
         search.setText(toPrint);
     }//GEN-LAST:event_goActionPerformed
 
@@ -755,7 +663,7 @@ public class GUI extends javax.swing.JFrame
 
     private void deleteMessagesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deleteMessagesActionPerformed
     {//GEN-HEADEREND:event_deleteMessagesActionPerformed
-        
+        //do not code on this line
         
         String[] deletions = messageIDs.getText().split(" ");
         ArrayList<Message> temp = new ArrayList<Message>();
@@ -921,7 +829,7 @@ public class GUI extends javax.swing.JFrame
     public static void start()
     {
         
-        /* Set the Nimbus look and feel */
+        /* Set the Metal look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 

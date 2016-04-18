@@ -11,7 +11,7 @@ import java.util.Scanner;
  * some misc. formatting stuff also put some Main functionality and a method for searching messages.
  * @author William Scheid
  * Date: (4/1/16) Added the updated input method and calls from the main method, with updated parameter read-ins.
- * Evan Shipman:
+ * @author Evan Shipman:
  * Date: (4/8/16) Changed addMessage and addUser to updateMessageFile and updateUserFile. A new message or user is
  *      added outside of those methods that way we also have a way to remove messages and users without unnecessary
  *      coding. Removed or renamed main methods from other classes so they can still be called. Cleaned up the
