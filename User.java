@@ -10,6 +10,8 @@ package TwitterAssignment;
  * @Author: William Scheid
  * Date Edited: 4/10/2016
  * Getter methods and variable returns for following/follower list methods rewritten.
+ * 
+ * @Author: Evan Shipman
  */
 public class User{
 //extends LogUserIn{
@@ -21,7 +23,6 @@ public class User{
     protected String description;
     protected int userFollowers;
     protected int userFollowing;
-    //changed to simple array for the addTo Followes and Following method
     public String[] followers;
     public String[] followings;
 
@@ -59,13 +60,21 @@ public class User{
 //        this.removeFollower("");
 //        this.removeFollowing("");
     }
-    //fill the followers array using the split() method
+    
+    /**
+     * Converts the follower string from the file to an array of followers
+     * @param followers The string of followers separated by semicolons
+     */
     void addToFollowers(String followers){
 //        if (followers.length() >= 4 && followers.substring(0,4).equals("N/A;"))
 //            followers.replaceAll("N/A;", "");
         this.followers = followers.split(";");
     }
-    //fill the following array using the split() method
+    
+    /**
+     * Converts a string of who this user is following to an array
+     * @param followings The string of users this user is following, separated by semicolons
+     */
     void addToFollowings(String followings){
 //        if (followings.substring(0,1).equals("N/A") && followings.length() >= 4)
 //            followings.replaceAll("N/A;", "");
@@ -112,6 +121,11 @@ public class User{
 
     }
     
+    /**
+     * Adds a new follower to the array of followers
+     * @param username The username of the new follower to add
+     * @author Evan Shipman
+     */
     public void addFollower(String username)
     {
         if (followers[0].equals(";"))
@@ -133,6 +147,12 @@ public class User{
         userFollowers++;
     }
     
+    /**
+     * Removes a user from the array of the user's followers
+     * @param username the username of the person who is no longer following this user
+     * @return true if the removal was successful
+     * @author Evan Shipman
+     */
     public boolean removeFollower(String username)
     {
 //        String[] temp = new String[followers.length - 1];
@@ -163,6 +183,11 @@ public class User{
         
     }
     
+    /**
+     * Adds a user to the array of who this user is following
+     * @param username the username of the new user to follow
+     * @author Evan Shipman
+     */
     public void addFollowing(String username)
     {
         if (followings[0].equals(""))
@@ -184,6 +209,12 @@ public class User{
         userFollowing++;
     }
     
+    /**
+     * Removes a user from the array of users this user is following
+     * @param username the user to remove
+     * @return true if the removal was successful
+     * @author Evan Shipman
+     */
     public boolean removeFollowing(String username)
     {
         String temp = "";
@@ -233,6 +264,12 @@ public class User{
         return followers;
     }
 
+    /**
+     * Checks if this user has a follower with the given username
+     * @param follower the username of the possible follower
+     * @return true if the given user is following this user
+     * @author Evan Shipman
+     */
     public boolean hasFollower(String follower)
     {
         for (int i = 0; i < followers.length; i++)
@@ -240,8 +277,13 @@ public class User{
                 return true;
         return false;
     }
-    //returns true if the follower is in the following list
-    //param: the follower string
+    
+    /**
+     * Checks to see if this user is following the given user
+     * @param follower the username of the other user
+     * @return true if this user is following the given user
+     * @author Evan Shipman
+     */
     public boolean isFollowing(String follower)
     {
         for (int i = 0; i < followings.length; i++)

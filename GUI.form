@@ -230,15 +230,15 @@
                           </Group>
                           <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="logout" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="deleteAccount" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="follow1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="deleteMessages" min="-2" max="-2" attributes="0"/>
                                       <Component id="messageIDs" min="-2" pref="162" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -323,7 +323,7 @@
                                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="follow1" min="-2" max="-2" attributes="0"/>
+                              <Component id="deleteMessages" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
@@ -335,8 +335,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButton1" alignment="3" max="32767" attributes="0"/>
-                              <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="deleteAccount" alignment="3" max="32767" attributes="0"/>
+                              <Component id="logout" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="log5" max="32767" attributes="0"/>
                       </Group>
@@ -432,6 +432,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="terms">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="termsKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
@@ -496,6 +499,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="terms1">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="terms1KeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
@@ -540,23 +546,26 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="messageIDs">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="messageIDsKeyPressed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="follow1">
+    <Component class="javax.swing.JButton" name="deleteMessages">
       <Properties>
         <Property name="text" type="java.lang.String" value="Delete"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="follow1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteMessagesActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="log1">
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="deleteAccount">
       <Properties>
         <Property name="text" type="java.lang.String" value="Delete Account"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteAccountActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="log4">
@@ -584,12 +593,12 @@
         <Property name="text" type="java.lang.String" value="Your tagged messages"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="logout">
       <Properties>
         <Property name="text" type="java.lang.String" value="Logout"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logoutActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

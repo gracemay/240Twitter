@@ -1,15 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package TwitterAssignment;
 
-//import TwitterAssignment.LogUserIn;
-//import static TwitterAssignment.LogUserIn.hasTerms;
-//import static TwitterAssignment.LogUserIn.updateUserFile;
-
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -30,7 +22,7 @@ import java.util.logging.Logger;
 import javax.swing.JTextArea;
 
 /**
- *
+ * The main GUI, this handles everything a logged-in user can do
  * @author evan
  */
 public class GUI extends javax.swing.JFrame
@@ -90,15 +82,15 @@ public class GUI extends javax.swing.JFrame
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         messageIDs = new javax.swing.JTextField();
-        follow1 = new javax.swing.JButton();
+        deleteMessages = new javax.swing.JButton();
         log1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        deleteAccount = new javax.swing.JButton();
         log4 = new javax.swing.JLabel();
         log5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tagged = new javax.swing.JTextArea();
         jLabel9 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        logout = new javax.swing.JButton();
 
         confirm.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         confirm.setTitle("Delete Account?");
@@ -232,6 +224,14 @@ public class GUI extends javax.swing.JFrame
             }
         });
 
+        terms.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                termsKeyPressed(evt);
+            }
+        });
+
         jLabel7.setText("Search Users/Messages");
 
         go.setText("Go");
@@ -273,6 +273,14 @@ public class GUI extends javax.swing.JFrame
 
         jLabel2.setText("User");
 
+        terms1.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                terms1KeyPressed(evt);
+            }
+        });
+
         jLabel8.setText("List Your Messages");
 
         go1.setText("Go");
@@ -296,21 +304,29 @@ public class GUI extends javax.swing.JFrame
 
         jLabel4.setText("Delete Message(s)");
 
-        follow1.setText("Delete");
-        follow1.addActionListener(new java.awt.event.ActionListener()
+        messageIDs.addKeyListener(new java.awt.event.KeyAdapter()
         {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
+            public void keyPressed(java.awt.event.KeyEvent evt)
             {
-                follow1ActionPerformed(evt);
+                messageIDsKeyPressed(evt);
             }
         });
 
-        jButton1.setText("Delete Account");
-        jButton1.addActionListener(new java.awt.event.ActionListener()
+        deleteMessages.setText("Delete");
+        deleteMessages.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                jButton1ActionPerformed(evt);
+                deleteMessagesActionPerformed(evt);
+            }
+        });
+
+        deleteAccount.setText("Delete Account");
+        deleteAccount.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                deleteAccountActionPerformed(evt);
             }
         });
 
@@ -321,12 +337,12 @@ public class GUI extends javax.swing.JFrame
 
         jLabel9.setText("Your tagged messages");
 
-        jButton2.setText("Logout");
-        jButton2.addActionListener(new java.awt.event.ActionListener()
+        logout.setText("Logout");
+        logout.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                jButton2ActionPerformed(evt);
+                logoutActionPerformed(evt);
             }
         });
 
@@ -415,14 +431,14 @@ public class GUI extends javax.swing.JFrame
                                 .addComponent(jLabel4))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jButton2)
+                                    .addComponent(logout)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jButton1))
+                                    .addComponent(deleteAccount))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel3)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(follow1)
+                                        .addComponent(deleteMessages)
                                         .addComponent(messageIDs, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(33, 33, 33))))
         );
@@ -485,7 +501,7 @@ public class GUI extends javax.swing.JFrame
                                     .addComponent(messageIDs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(follow1)))
+                                .addComponent(deleteMessages)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(log2, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
@@ -494,8 +510,8 @@ public class GUI extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2))
+                                .addComponent(deleteAccount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(logout))
                             .addComponent(log5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(36, 36, 36))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -542,8 +558,6 @@ public class GUI extends javax.swing.JFrame
     private void publicPostActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_publicPostActionPerformed
     {//GEN-HEADEREND:event_publicPostActionPerformed
 
-
-
         //INSERT SERVER IP ADDRESS HERE
 //        String hostName = "10.214.18.152";
 //        int portNumber = 4444;
@@ -573,14 +587,12 @@ public class GUI extends javax.swing.JFrame
 //
 //            msgs.setText(new String(cbuf));
 //
-//
 //            post.setText("");
 //        } catch (UnknownHostException e) {
 //            System.err.println("Don't know about host " + hostName);
 //        } catch (IOException e) {
 //            System.err.println("Couldn't get I/O for the connection to " + hostName);
 //        }
-
 
         String user = Main.currentUser.getUsername();
         Message newMessage = new Message(user, (int) (System.nanoTime() % Integer.MAX_VALUE), post.getText(), System.currentTimeMillis(), false);
@@ -637,10 +649,6 @@ public class GUI extends javax.swing.JFrame
         }
         msgs.setText(listOfMessages);
         tagged.setText(mesgs);
-        
-        
-        
-
 //        String hostName = "";
 //        int portNumber = 4444;
 //        try {
@@ -680,10 +688,11 @@ public class GUI extends javax.swing.JFrame
 
     }//GEN-LAST:event_refreshActionPerformed
 
+    //line skipped because it is a bad line
+    
     private void privatePostActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_privatePostActionPerformed
     {//GEN-HEADEREND:event_privatePostActionPerformed
         String user = Main.currentUser.getUsername();
-        //skipped due to voodoo
         Message newMessage = new Message(user, (int) (System.nanoTime() % Integer.MAX_VALUE), post.getText(), System.currentTimeMillis(), true);
         Main.messageList.add(newMessage);
         try
@@ -744,8 +753,8 @@ public class GUI extends javax.swing.JFrame
         search1.setText(toPrint);
     }//GEN-LAST:event_go1ActionPerformed
 
-    private void follow1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_follow1ActionPerformed
-    {//GEN-HEADEREND:event_follow1ActionPerformed
+    private void deleteMessagesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deleteMessagesActionPerformed
+    {//GEN-HEADEREND:event_deleteMessagesActionPerformed
         
         
         String[] deletions = messageIDs.getText().split(" ");
@@ -771,7 +780,7 @@ public class GUI extends javax.swing.JFrame
         messageIDs.setText("");
         refresh.doClick();
         go1.doClick();
-    }//GEN-LAST:event_follow1ActionPerformed
+    }//GEN-LAST:event_deleteMessagesActionPerformed
 
     private void followActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_followActionPerformed
     {//GEN-HEADEREND:event_followActionPerformed
@@ -877,16 +886,34 @@ public class GUI extends javax.swing.JFrame
         System.exit(0);
     }//GEN-LAST:event_deleteActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
+    private void deleteAccountActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deleteAccountActionPerformed
+    {//GEN-HEADEREND:event_deleteAccountActionPerformed
         confirm.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_deleteAccountActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
-    {//GEN-HEADEREND:event_jButton2ActionPerformed
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_logoutActionPerformed
+    {//GEN-HEADEREND:event_logoutActionPerformed
         PreGUI.start();
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_logoutActionPerformed
+
+    private void termsKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_termsKeyPressed
+    {//GEN-HEADEREND:event_termsKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+            go.doClick();
+    }//GEN-LAST:event_termsKeyPressed
+
+    private void terms1KeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_terms1KeyPressed
+    {//GEN-HEADEREND:event_terms1KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+            go1.doClick();
+    }//GEN-LAST:event_terms1KeyPressed
+
+    private void messageIDsKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_messageIDsKeyPressed
+    {//GEN-HEADEREND:event_messageIDsKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+            deleteMessages.doClick();
+    }//GEN-LAST:event_messageIDsKeyPressed
 
     /**
      * @param args the command line arguments
@@ -937,12 +964,11 @@ public class GUI extends javax.swing.JFrame
     private javax.swing.JLabel characters;
     private javax.swing.JDialog confirm;
     private javax.swing.JButton delete;
+    private javax.swing.JButton deleteAccount;
+    private javax.swing.JButton deleteMessages;
     private javax.swing.JButton follow;
-    private javax.swing.JButton follow1;
     private javax.swing.JButton go;
     private javax.swing.JButton go1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -963,6 +989,7 @@ public class GUI extends javax.swing.JFrame
     private javax.swing.JLabel log3;
     private javax.swing.JLabel log4;
     private javax.swing.JLabel log5;
+    private javax.swing.JButton logout;
     private javax.swing.JTextField messageIDs;
     private javax.swing.JTextArea msgs;
     private javax.swing.JLabel noundo;

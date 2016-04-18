@@ -13,6 +13,8 @@ import java.util.Scanner;
  * does while successfully logged into the system.
  * @Author William
  * @Date 3/25/16
+ * 
+ * @author Evan Shipman
  */
 public class LogUserIn {
     private static SimpleDateFormat sdfMessages = new SimpleDateFormat("MM/dd/yyy hh:mm a");
@@ -59,6 +61,13 @@ public class LogUserIn {
         return false;
     }
 
+    /**
+     * Returns the user object with the given username and password
+     * @param userList the list of users in the main class to search through
+     * @param u the username of the user
+     * @param p the password of the user
+     * @return the correct user object with the supplied username and password
+     */
     public static User getUser(ArrayList<User> userList, String u, String p)
     {
         for (User user : userList)
@@ -93,7 +102,7 @@ public class LogUserIn {
         }
     }
 
-    //adds a message. called from main.java case one
+    //posts either a public or private message. called from main.java case one
     public static void caseAddMessage(){
         boolean work = false;
         do {
@@ -203,7 +212,7 @@ public class LogUserIn {
             System.out.println("We can't update user file.");}
     }
 
-    //unfollow
+    //unfollow a user
     public static void caseUnfollow() throws InterruptedException{
         System.out.println("People you are following:");
         for (int i = 0; i < Main.currentUser.followings.length; i++)
@@ -225,6 +234,13 @@ public class LogUserIn {
             System.out.println("We can't update user file.");}
     }
 
+    /**
+     * Checks if the message contains any of the search terms
+     * @param msg the message to search
+     * @param terms the terms from which to search
+     * @return true if the message contains any of the search terms
+     * @author Evan Shipman
+     */
     public static boolean hasTerms(Message msg, String[] terms)
     {
         for (int i = 0; i < terms.length; i++)
