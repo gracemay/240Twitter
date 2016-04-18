@@ -181,7 +181,12 @@ public class Main {
             }
         }
     }
-
+/** The readMessageInput method reads in the String message datafile name as the parameter, and uses a file scanner to create
+ * as many user objects from existing lines of data from the file as is possible which are then returned together as an
+ * ArrayList.
+ * 
+ * @author William Scheid
+ */
     public static ArrayList readMessageInput(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
         ArrayList<Message> mList = new ArrayList<Message>();
         File inFile2 = new File(inputName);
@@ -202,7 +207,12 @@ public class Main {
         }
         return mList;
     }
-
+/** The readUserInput method reads in the String user datafile name parameter and uses a file scanner to create as
+ * many new users as is possible from the data existing in the file, adding them to an ArrayList which is returned
+ * from the method.
+ * 
+ * @author William Scheid
+ */
     public static ArrayList readUserInput(String inputName) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
         ArrayList<User> uList = new ArrayList<User>();
         File inFile = new File(inputName);
