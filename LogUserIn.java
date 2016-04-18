@@ -21,7 +21,7 @@ public class LogUserIn {
 //    public ArrayList<String> pList;
 //    public String u;
 //    public String p;
-//    
+//
 //    public LogUserIn(String user, String pswd) {
 ////        this.uList = uL;
 ////        this.pList = pL;
@@ -29,8 +29,8 @@ public class LogUserIn {
 //        this.p = pswd;
 //    }
 
-    // Checks all username AList indexes for username match, 
-    // then checks password AList index for pswd match 
+    // Checks all username AList indexes for username match,
+    // then checks password AList index for pswd match
     public static boolean checkLoginSuccess(ArrayList<User> userList, String u, String p){
         for (int i = 0; i < userList.size(); i++)
             if (userList.get(i).getUsername().equals(u) && userList.get(i).getPassword().equals(p))
@@ -59,7 +59,7 @@ public class LogUserIn {
         return null;
     }
 
-    public static  void caseCreateAccount() throws InterruptedException{
+    public static void caseCreateAccount() throws InterruptedException{
         System.out.println("To create an account on Twitter. Please enter a username:");
         String createUsername = in.nextLine();
         System.out.println("Please enter a password:");
@@ -75,7 +75,7 @@ public class LogUserIn {
 
         User createUser = new User(createUsername,createPassword, createEmail, createDescription,createFollowersCount, createFollowingCount, createFollowersNames, createFollowingNames);
         Main.userList.add(createUser);
-        
+
         try{
             updateUserFile();
         }catch (java.io.IOException e){
@@ -271,7 +271,6 @@ public class LogUserIn {
 
     protected static void updateMessagesFile(ArrayList<Message> messageList) throws IOException, InterruptedException
     {
-        Main.lock.lock();
         FileWriter fw = new FileWriter(new File("MessageFile.txt"));
         for (Message msg : messageList)
         {
@@ -283,12 +282,10 @@ public class LogUserIn {
             fw.write(Boolean.toString(msg.getPrivacy()) + "\n");
         }
         fw.close();
-        Main.lock.unlock();
     }
 
     protected static void updateUserFile() throws IOException, InterruptedException
     {
-        Main.lock.lock();
         FileWriter fw = new FileWriter(new File("UsersFile.txt"));
         for (User user : Main.userList)
         {
@@ -316,7 +313,6 @@ public class LogUserIn {
             fw.write(followers + "\n");
         }
         fw.close();
-        Main.lock.unlock();
     }
 
     // Getter method

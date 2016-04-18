@@ -44,7 +44,6 @@ public class Main {
     //added username and passwd to be data memebers.
     protected static String username = "", passwd = "";
     protected static boolean success;
-    public static Lock lock = new Lock();
     //the thing where everything happens
     public static void main(String[] args) throws FileNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException, IOException, InterruptedException {
 //        GUI graphical = new GUI();
@@ -62,7 +61,7 @@ public class Main {
     }
 
     //this method logs the user in
-    public static boolean startProgram(Scanner in) throws IOException, InterruptedException {
+    public static boolean startProgram(Scanner in) throws IOException {
         boolean success = false;
         boolean cont = false;
         int attempts = 0;
@@ -78,8 +77,10 @@ public class Main {
 
             switch (Integer.parseInt(in.nextLine())) {
                 case 1: //Create an account
-                   LogUserIn.caseCreateAccount();
-                    cont = true;
+                    try{
+                        LogUserIn.caseCreateAccount();
+                        cont = true;
+                    }catch (InterruptedException e){}
                  //   break;
                 case 2: //Login
                     System.out.println("Please enter log-in information (leave blank to quit)");
@@ -118,7 +119,7 @@ public class Main {
     }
 
     //this method will run until the user is loged out.
-    public static void WhileLoggedIn(Scanner in) throws IOException, InterruptedException{
+    public static void WhileLoggedIn(Scanner in) throws IOException{
         boolean done = false, success = false;
         Scanner command = new Scanner(System.in);
         while(!success){
@@ -148,19 +149,27 @@ public class Main {
                     break;
                 case 4:
                     //delete account
-                    LogUserIn.caseDeleteAccount();
+                    try{
+                        LogUserIn.caseDeleteAccount();
+                    }catch(InterruptedException e){}
                     break;
                 case 5:
                     //delete messages
-                    LogUserIn.caseDeleteMessage();
+                    try{
+                        LogUserIn.caseDeleteMessage();
+                    }catch (InterruptedException e){}
                     break;
                 case 6:
                     //add a follower
-                   LogUserIn.casefollowUser();
+                    try {
+                        LogUserIn.casefollowUser();
+                    }catch (InterruptedException e){}
                     break;
                 case 7:
                     //Unfollow a user
-                    LogUserIn.caseUnfollow();
+                    try {
+                        LogUserIn.caseUnfollow();
+                    }catch (InterruptedException e){}
                     break;
                 case 8:
                    //view user profile
@@ -252,4 +261,4 @@ public class Main {
     //   writer.close();
     //}
 }
-               
+

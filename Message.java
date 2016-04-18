@@ -1,7 +1,5 @@
 package TwitterAssignment;
 
-
-
 /**
  * @Author Jacqueline
  * @Date 3/21/16
